@@ -220,7 +220,7 @@ class _GridSampleState extends State<GridSample> {
             ),
             body: GridView.count(
                 primary: false,
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(8),
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
                 crossAxisCount: 3,

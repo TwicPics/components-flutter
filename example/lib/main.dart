@@ -1,4 +1,5 @@
 import 'package:example/pages/anchorSample.dart';
+import 'package:example/pages/basicSample.dart';
 import 'package:example/pages/fitSample.dart';
 import 'package:example/pages/focusSample.dart';
 import 'package:example/pages/ratioSample.dart';
@@ -20,6 +21,7 @@ void main() {
         routes: {
             '/': ( context ) => const Home(),
             '/anchor': ( context ) => const AnchorSample(),
+            '/basic': ( context ) => const BasicSample(),
             '/fit': ( context ) => const FitSample(),
             '/focus': ( context ) => const FocusSample(),
             '/grid': ( context ) => const GridSample(),

@@ -1,8 +1,10 @@
 // ignore_for_file: must_be_immutable
+import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'package:flutter/widgets.dart' hide Size;
 import 'package:twicpics_components/src/compute.dart';
@@ -79,7 +81,10 @@ class TwicMedia extends StatefulWidget {
 class _TwicMediaState extends State<TwicMedia> {
     late String mediaUrl;
     PlaceholderData? placeholderData;
-    late bool twicLoading;
+    bool twicLoading = false;
+    bool twicDone = false;
+
+    Uint8List? mediaBytes;
 
     void getLqipData() {
         if ( widget.props.placeholder != TwicPlaceholder.none  ) {
@@ -122,10 +127,22 @@ class _TwicMediaState extends State<TwicMedia> {
     @override
     void didUpdateWidget(TwicMedia oldWidget) {
         super.didUpdateWidget(oldWidget);
+        twicLoading = widget.props.eager;
+        twicDone = false;
         getLqipData();
     }
 
-    Widget placeholder() => _Placeholder( placeholderData: placeholderData, props: widget.props );
+    Widget placeholder() => _Placeholder( placeholderData: placeholderData, props: widget.props, viewSize: widget.viewSize );
+
+    Future<void> readNetworkImage( String imageUrl ) async {
+        final ByteData data = await NetworkAssetBundle( Uri.parse(imageUrl) ).load(imageUrl);
+        mediaBytes = data.buffer.asUint8List();
+        if ( mounted ) {
+            setState( () {
+                twicDone = true;
+            } );
+        }
+    }
 
     @override
     Widget build(BuildContext context) {
@@ -140,68 +157,92 @@ class _TwicMediaState extends State<TwicMedia> {
             preTransform: widget.props.preTransform,
             step: widget.props.step
         );
-        return SizedBox(
-            height: widget.viewSize.height!,
-            width: widget.viewSize.width!,
-            child: ClipRRect(
-                child: VisibilityDetector(
-                    key: Key( mediaUrl ),
-                    onVisibilityChanged: ( visibilityInfo ) {
-                        if ( !twicLoading && mounted ) {
-                            setState( () { twicLoading = visibilityInfo.visibleFraction > 0; } );
-                        }
-                    } ,
-                    child: twicLoading ? 
-                        CachedNetworkImage(
+        if ( !twicDone && widget.props.eager) {
+            readNetworkImage( mediaUrl );
+        }
+        return VisibilityDetector(
+            key: Key( mediaUrl ),
+            onVisibilityChanged: ( visibilityInfo ) {
+                if ( !twicLoading && mounted ) {
+                    twicLoading = visibilityInfo.visibleFraction > 0;
+                    if ( twicLoading ) {
+                        readNetworkImage(mediaUrl);
+                    }
+                }
+            } ,
+            child: AnimatedCrossFade(
+                crossFadeState: twicDone ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                duration: widget.props.transitionDuration,
+                firstCurve: Curves.easeIn,
+                secondCurve: Curves.easeOut,
+                layoutBuilder: (topChild, topChildKey, bottomChild, bottomChildKey) => Stack(
+                    children: [
+                        Positioned(
+                            key:bottomChildKey,
+                            child: bottomChild
+                        ),
+                        Positioned(
+                            key:topChildKey,
+                            child: topChild
+                        )
+                    ],    
+                ),
+                firstChild: SizedBox(
+                    height: widget.viewSize.height!,
+                    width: widget.viewSize.width,
+                    child: mediaBytes != null ?
+                        Image.memory(
+                            mediaBytes!,
                             alignment: widget.props.alignment!,
                             fit: widget.props.fit,
-                            fadeInDuration: widget.props.transitionDuration,
-                            fadeInCurve: Curves.ease,
                             height: widget.viewSize.height!,
-                            imageUrl: mediaUrl,
-                            placeholderFadeInDuration: Duration.zero,
-                            placeholder: (context, url) => placeholder(),
                             width: widget.viewSize.width,
-                        ): 
-                        placeholder(),
-                ),
+                        ):
+                        null
+                    ),
+                secondChild: placeholder(),
             ),
         );
     }
 }
 
 class _Placeholder extends StatelessWidget {
-    
+    Size viewSize;
     PlaceholderData? placeholderData;
     Attributes props;
-    _Placeholder({required this.placeholderData, required this.props});
+    _Placeholder({required this.placeholderData, required this.props, required this.viewSize});
 
     @override
     Widget build(BuildContext context) {
         if ( placeholderData == null) {
             return Container();
         } else {
-            return FittedBox(
-                fit: props.fit,
-                alignment: props.alignment!,
-                child: ClipRRect(
-                    child: Container(
-                        width: placeholderData!.width,
-                        height: placeholderData!.height,
-                        color: placeholderData!.color != null ? Color(placeholderData!.color!) : null,
-                        child: placeholderData!.bytes != null ? 
-                            ImageFiltered(
-                                imageFilter: ImageFilter.blur(
-                                    tileMode: TileMode.decal,
-                                    sigmaX: placeholderData!.deviation!,
-                                    sigmaY: placeholderData!.deviation!,
-                                ),
-                                child: Image.memory(
-                                    placeholderData!.bytes!,
-                                    fit: BoxFit.fill,
-                                ),
-                            ) :
-                            null,
+            return SizedBox(
+                height: viewSize.height!,
+                width: viewSize.width,
+                child: FittedBox(
+                    fit: props.fit,
+                    alignment: props.alignment!,
+                    child: ClipRRect(
+                        child: Container(
+                            width: placeholderData!.width,
+                            height: placeholderData!.height,
+                            color: placeholderData!.color != null ? Color(placeholderData!.color!) : null,
+                            child: placeholderData!.bytes != null ? 
+                                ImageFiltered(
+                                    imageFilter: ImageFilter.blur(
+                                        sigmaX: placeholderData!.deviation!,
+                                        sigmaY: placeholderData!.deviation!,
+                                    ),
+                                    child: Image.memory(
+                                        placeholderData!.bytes!,
+                                        height: placeholderData!.width,
+                                        width: placeholderData!.height,
+                                        fit: props.fit,
+                                    ),
+                                ) :
+                                null,
+                        ),
                     ),
                 ),
             );

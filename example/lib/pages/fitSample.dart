@@ -29,7 +29,7 @@ class _FitSampleState extends State<FitSample> {
                 elevation: 0,
             ),
             body:  Container(
-                padding: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(30),
                 child: TwicImg(
                     src: 'cat_1x1.jpg',
                     ratio: '4/3',

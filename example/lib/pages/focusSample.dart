@@ -29,7 +29,7 @@ class _FocusSampleState extends State<FocusSample> {
                 elevation: 0,
             ),
             body:  Container(
-                padding: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(30),
                 child: TwicImg(
                     src: 'football.jpg',
                     ratio: '3/4',

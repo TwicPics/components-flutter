@@ -29,12 +29,10 @@ class _TransformSampleState extends State<TransformSample> {
                 elevation: 0,
             ),
             body:  Container(
-                padding: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(30),
                 child: TwicImg(
                     src: 'cat_1x1.jpg',
-                    ratio: '4/3',
                     fit: TwicFit.contain,
-                    alignment: Alignment.bottomRight,
                     preTransform: transforms[ indice ],
                 ),
             ),

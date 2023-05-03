@@ -222,7 +222,7 @@ class _ScrollSampleState extends State<ScrollSample> {
                 child: Column(
                         children: ScrollSample.images.map( ( image ) => 
                             Container(
-                                padding: const EdgeInsets.all(8),
+                                padding: const EdgeInsets.all(30),
                                 child: TwicImg(
                                     src: image['url'],
                                     focus: image['focus'],

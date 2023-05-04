@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 import 'dart:math';
-
 import 'package:http/http.dart' as http;
 import 'package:twicpics_components/src/types.dart';
 import 'package:twicpics_components/src/utils.dart';
@@ -19,9 +18,10 @@ RegExp _rLqipData = RegExp(
 Future<PlaceholderData?> getPlaceholderData(
     {
         required String url, 
-        required Size viewSize
+        required Size viewSize,
     }
 ) async {
+
     final response = await http.get( Uri.parse( url ) );
     if ( response.statusCode != 200 ) {
         return null;

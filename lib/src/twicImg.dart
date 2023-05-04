@@ -1,8 +1,5 @@
 // ignore_for_file: must_be_immutable
-import 'dart:typed_data';
 import 'dart:ui';
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -79,64 +76,50 @@ class TwicMedia extends StatefulWidget {
 }
 
 class _TwicMediaState extends State<TwicMedia> {
-    late String mediaUrl;
-    PlaceholderData? placeholderData;
-    bool twicLoading = false;
+    Uint8List? mediaBytes;
+    String? mediaUrl;
     bool twicDone = false;
 
-    Uint8List? mediaBytes;
-
-    void getLqipData() {
-        if ( widget.props.placeholder != TwicPlaceholder.none  ) {
-            placeholderData = null;
-            getPlaceholderData(
-                url: computeUrl(
-                    anchor: widget.props.anchor,
-                    fit: widget.props.fit,
-                    src: widget.props.src,
-                    viewSize: widget.viewSize,
-                    focus: widget.props.focus,
-                    lqip: true,
-                    placeholder: widget.props.placeholder,
-                    preTransform: widget.props.preTransform, 
-                ),
-                viewSize: widget.viewSize,
-            ).then( ( value ) => {
-                if ( mounted ) {
-                    setState( () {
-                        placeholderData = value;
-                    } )
-                }
-            } );
-        } else {
-            if ( mounted ) {
-                setState( () {
-                    placeholderData = null;
-                } );
+    void _init() {
+        debugPrint( 'TwicMedia _init  $mediaUrl' );
+        final tmp = computeUrl(
+            anchor: widget.props.anchor,
+            dpr: MediaQuery.of( context ).devicePixelRatio,
+            fit: widget.props.fit,
+            src: widget.props.src,
+            viewSize: widget.viewSize,
+            focus: widget.props.focus,
+            lqip: false,
+            preTransform: widget.props.preTransform,
+            step: widget.props.step
+        );
+        if ( tmp != mediaUrl ){
+            twicDone = false;
+            mediaUrl = tmp;
+            if ( widget.props.eager ) {
+                fetch();
             }
         }
     }
 
     @override
-    void initState() {
-        super.initState();
-        twicLoading = widget.props.eager;
-        getLqipData();
+    void didChangeDependencies(){
+        super.didChangeDependencies();
+        debugPrint( 'TwicMedia didChangeDependencies ${widget.props.src}' );
+        _init();
     }
 
     @override
     void didUpdateWidget(TwicMedia oldWidget) {
+        debugPrint( 'TwicMedia didUpdateWidget $mediaUrl' );
         super.didUpdateWidget(oldWidget);
-        twicLoading = widget.props.eager;
-        twicDone = false;
-        getLqipData();
+        _init();
     }
 
-    Widget placeholder() => _Placeholder( placeholderData: placeholderData, props: widget.props, viewSize: widget.viewSize );
-
-    Future<void> readNetworkImage( String imageUrl ) async {
-        final ByteData data = await NetworkAssetBundle( Uri.parse(imageUrl) ).load(imageUrl);
+    Future<void> fetch( ) async {
+        final ByteData data = await NetworkAssetBundle( Uri.parse( mediaUrl! ) ).load( mediaUrl! );
         mediaBytes = data.buffer.asUint8List();
+        debugPrint( 'fetched $mediaUrl' );
         if ( mounted ) {
             setState( () {
                 twicDone = true;
@@ -146,36 +129,23 @@ class _TwicMediaState extends State<TwicMedia> {
 
     @override
     Widget build(BuildContext context) {
-        mediaUrl = computeUrl(
-            anchor: widget.props.anchor,
-            dpr: MediaQuery.of(context).devicePixelRatio,
-            fit: widget.props.fit,
-            src: widget.props.src,
-            viewSize: widget.viewSize,
-            focus: widget.props.focus,
-            lqip: false,
-            preTransform: widget.props.preTransform,
-            step: widget.props.step
-        );
-        if ( !twicDone && widget.props.eager) {
-            readNetworkImage( mediaUrl );
-        }
+        debugPrint( 'twicMedia build $mediaUrl' );
         return VisibilityDetector(
-            key: Key( mediaUrl ),
+            key: Key( mediaUrl! ),
             onVisibilityChanged: ( visibilityInfo ) {
-                if ( !twicLoading && mounted ) {
-                    twicLoading = visibilityInfo.visibleFraction > 0;
-                    if ( twicLoading ) {
-                        readNetworkImage(mediaUrl);
+                if ( mounted ) {
+                    if ( !twicDone && visibilityInfo.visibleFraction> 0 ) {
+                        fetch();
                     }
                 }
             } ,
             child: AnimatedCrossFade(
                 crossFadeState: twicDone ? CrossFadeState.showFirst : CrossFadeState.showSecond,
                 duration: widget.props.transitionDuration,
+                reverseDuration: widget.props.transitionDuration,
                 firstCurve: Curves.easeIn,
                 secondCurve: Curves.easeOut,
-                layoutBuilder: (topChild, topChildKey, bottomChild, bottomChildKey) => Stack(
+                layoutBuilder: ( topChild, topChildKey, bottomChild, bottomChildKey ) => Stack(
                     children: [
                         Positioned(
                             key:bottomChildKey,
@@ -195,22 +165,77 @@ class _TwicMediaState extends State<TwicMedia> {
                             mediaBytes!,
                             alignment: widget.props.alignment!,
                             fit: widget.props.fit,
-                            height: widget.viewSize.height!,
-                            width: widget.viewSize.width,
                         ):
                         null
                     ),
-                secondChild: placeholder(),
+                secondChild: _Placeholder(
+                    props: widget.props,
+                    viewSize: widget.viewSize 
+                ),
             ),
         );
     }
 }
 
-class _Placeholder extends StatelessWidget {
+class _Placeholder extends StatefulWidget {
     Size viewSize;
-    PlaceholderData? placeholderData;
     Attributes props;
-    _Placeholder({required this.placeholderData, required this.props, required this.viewSize});
+    _Placeholder( { required this.props, required this.viewSize } );
+    @override
+    State<_Placeholder> createState() => _PlaceholderState();
+}
+
+class _PlaceholderState extends State<_Placeholder> {
+
+    String? lqipUrl;
+    PlaceholderData? placeholderData;
+
+    Future<void> fetch() async {
+        placeholderData = await getPlaceholderData(
+            url: lqipUrl!,
+            viewSize: widget.viewSize
+        );
+        debugPrint( 'placeholder fetched $lqipUrl' );
+        if ( mounted ) {
+            setState( () {
+                placeholderData = placeholderData;
+            } );
+        }
+    }
+
+    void _init() {
+        if ( widget.props.placeholder == TwicPlaceholder.none ) {
+            return;
+        }
+        final tmp = computeUrl(
+            anchor: widget.props.anchor,
+            fit: widget.props.fit,
+            src: widget.props.src,
+            viewSize: widget.viewSize,
+            focus: widget.props.focus,
+            lqip: true,
+            placeholder: widget.props.placeholder,
+            preTransform: widget.props.preTransform, 
+        );
+        if ( lqipUrl != tmp ) {
+            lqipUrl = tmp;
+            fetch();
+        }
+    }
+
+    @override
+    void didChangeDependencies(){
+        super.didChangeDependencies();
+        debugPrint( 'TwicPlaceholder didChangeDependencies ${widget.props.src}' );
+        _init();
+    }
+
+    @override
+    void didUpdateWidget(_Placeholder oldWidget) {
+        debugPrint( 'TwicPlaceholder didUpdateWidget' );
+        super.didUpdateWidget(oldWidget);
+        _init();
+    }
 
     @override
     Widget build(BuildContext context) {
@@ -218,11 +243,11 @@ class _Placeholder extends StatelessWidget {
             return Container();
         } else {
             return SizedBox(
-                height: viewSize.height!,
-                width: viewSize.width,
+                height: widget.viewSize.height!,
+                width: widget.viewSize.width,
                 child: FittedBox(
-                    fit: props.fit,
-                    alignment: props.alignment!,
+                    fit: widget.props.fit,
+                    alignment: widget.props.alignment!,
                     child: ClipRRect(
                         child: Container(
                             width: placeholderData!.width,
@@ -236,9 +261,7 @@ class _Placeholder extends StatelessWidget {
                                     ),
                                     child: Image.memory(
                                         placeholderData!.bytes!,
-                                        height: placeholderData!.width,
-                                        width: placeholderData!.height,
-                                        fit: props.fit,
+                                        fit: widget.props.fit,
                                     ),
                                 ) :
                                 null,

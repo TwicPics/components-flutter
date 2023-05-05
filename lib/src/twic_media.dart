@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:twicpics_components/src/http.dart';
+import 'package:twicpics_components/src/install.dart';
 import 'package:twicpics_components/src/twic_placeholder.dart';
 import 'package:twicpics_components/src/compute.dart';
 import 'package:twicpics_components/src/types.dart' as twic_types;
@@ -59,6 +60,9 @@ class _TwicMediaState extends State<TwicMedia> {
     }
 
     Future<void> fetch( ) async {
+        if ( config.debug ) {
+            debugPrint( 'TwicMedia: $mediaUrl' );
+        }
         final response = await get( mediaUrl! );
         mediaBytes = response.bodyBytes;
         if ( mounted ) {

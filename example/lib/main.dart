@@ -17,6 +17,7 @@ import 'package:twicpics_components/twicpics_components.dart';
 void main() {
     install(
         domain: "https://demo.twic.pics/",
+        debug: true,
     );
     runApp( MaterialApp(
         initialRoute: '/home',

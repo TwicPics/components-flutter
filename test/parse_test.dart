@@ -42,13 +42,13 @@ void main() {
 
     group('Parse fit', () {
         test( 'should fallback to cover', () {
-            expect( parseFit( null ), BoxFit.cover );
+            expect( parseMode( null ), BoxFit.cover );
         } );
         test( 'should parse mode contain', () {
-            expect( parseFit( TwicFit.contain ), BoxFit.contain );
+            expect( parseMode( TwicMode.contain ), BoxFit.contain );
         } );
         test( 'should parse mode cover', () {
-            expect( parseFit( TwicFit.cover ), BoxFit.cover );
+            expect( parseMode( TwicMode.cover ), BoxFit.cover );
         } );
     } );
 

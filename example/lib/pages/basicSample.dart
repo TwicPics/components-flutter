@@ -31,18 +31,18 @@ class _BasicSampleState extends State<BasicSample> {
                                 child: TwicImg(
                                     src: "media:cat_1x1.jpg",
                                     ratio: 1,
-                                    fit: TwicFit.cover,
+                                    mode: TwicMode.cover,
                                 ),
                             ),
                             TwicImg(
                                 src:"media:cat_1x1.jpg",
                                 ratio: 0.5,
-                                fit: TwicFit.contain,
+                                mode: TwicMode.contain,
                             ),
                             TwicImg(
                                 src:"media:cat.jpg",
                                 ratio: 1.85,
-                                fit: TwicFit.cover,
+                                mode: TwicMode.cover,
                             ),
                             Row(
                                 children: [
@@ -50,13 +50,13 @@ class _BasicSampleState extends State<BasicSample> {
                                 child: TwicImg(
                                     src:"media:cat_1x1.jpg",
                                     ratio: 2,
-                                    fit: TwicFit.cover),
+                                    mode: TwicMode.cover),
                                 ),
                                 Expanded(
                                     child: TwicImg(
                                     src:"media:cat.jpg",
                                     ratio: 2,
-                                    fit: TwicFit.contain,
+                                    mode: TwicMode.contain,
                                     ),
                                 ),
                                 ],
@@ -64,34 +64,34 @@ class _BasicSampleState extends State<BasicSample> {
                             TwicImg(
                                 src: "media:football.jpg",
                                 ratio: 2,
-                                fit: TwicFit.cover,
+                                mode: TwicMode.cover,
                             ),
                             TwicImg(
                                 src: "media:football.jpg",
                                 ratio: 2,
-                                fit: TwicFit.contain,
+                                mode: TwicMode.contain,
                             ),
                             TwicImg(
                                 src: "media:components/flip/orange-2.jpg",
                                 ratio: 1.33,
-                                fit: TwicFit.cover,
+                                mode: TwicMode.cover,
                             ),
                             TwicImg(
                                 src: "media:components/flip/cherry-1.jpg",
                                 ratio: 1.65,
-                                fit: TwicFit.cover,
+                                mode: TwicMode.cover,
                             ), TwicImg(
                                 src: "media:components/flip/cherry-2.jpg",
                                 ratio: 1.98,
-                                fit: TwicFit.cover,
+                                mode: TwicMode.cover,
                             ), TwicImg(
                                 src: "media:components/flip/fig-2.jpg",
                                 ratio: 1.99,
-                                fit: TwicFit.cover,
+                                mode: TwicMode.cover,
                             ), TwicImg(
                                 src: "media:components/flip/orange-1.jpg",
                                 ratio: 1.85,
-                                fit: TwicFit.cover,
+                                mode: TwicMode.cover,
                             ),
                         ],
                     ),

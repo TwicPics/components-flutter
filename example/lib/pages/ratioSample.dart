@@ -33,7 +33,7 @@ class _RatioSampleState extends State<RatioSample> {
                 child: TwicImg(
                     src: 'football.jpg',
                     ratio: ratios[ indice ],
-                    fit: TwicFit.cover,
+                    mode: TwicMode.cover,
                 ),
             ),
             floatingActionButton: FloatingActionButton.extended(

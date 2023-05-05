@@ -44,13 +44,13 @@ class _HomeState extends State<Home> {
                         ),
                         const SizedBox(height: 10),
                         ElevatedButton(
-                            onPressed: () { Navigator.pushNamed( context , '/fit' ); },
-                            child: const Text('Fit'),
+                            onPressed: () { Navigator.pushNamed( context , '/grid' ); },
+                            child: const Text('GridView'),
                         ),
                         const SizedBox(height: 10),
                         ElevatedButton(
-                            onPressed: () { Navigator.pushNamed( context , '/grid' ); },
-                            child: const Text('GridView'),
+                            onPressed: () { Navigator.pushNamed( context , '/mode' ); },
+                            child: const Text('Mode'),
                         ),
                         const SizedBox(height: 10),
                         ElevatedButton(

@@ -11,12 +11,6 @@ final trimTransformOrUndefined = trimRegExpFactory('.+?', border: '[\\s\\/]');
 
 bool parseEager( bool? eager ) => eager ?? false;
 
-final Map<TwicFit, BoxFit> mappingFit = {
-    TwicFit.contain: BoxFit.contain,
-    TwicFit.cover: BoxFit.cover,
-};
-BoxFit parseFit ( TwicFit? fit ) => fit!= null ? mappingFit[ fit ]! : BoxFit.cover;
-
 final parseFocus = trimOrUndefined;
 
 Size? parseIntrinsic( String? value ) {
@@ -32,6 +26,12 @@ Size? parseIntrinsic( String? value ) {
         height: getNumber( parsed.group( 3 )! )!,
     );
 }
+
+final Map<TwicMode, BoxFit> modeToFit = {
+    TwicMode.contain: BoxFit.contain,
+    TwicMode.cover: BoxFit.cover,
+};
+BoxFit parseMode ( TwicMode? mode ) => mode!= null ? modeToFit[ mode ]! : BoxFit.cover;
 
 TwicPlaceholder parsePlaceholder ( TwicPlaceholder? placeholder ) => placeholder ?? TwicPlaceholder.preview;
 

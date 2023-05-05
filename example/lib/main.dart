@@ -1,6 +1,6 @@
 import 'package:example/pages/anchorSample.dart';
 import 'package:example/pages/basicSample.dart';
-import 'package:example/pages/fitSample.dart';
+import 'package:example/pages/modeSample.dart';
 import 'package:example/pages/focusSample.dart';
 import 'package:example/pages/ratioSample.dart';
 import 'package:flutter/material.dart';
@@ -22,11 +22,11 @@ void main() {
             '/': ( context ) => const Home(),
             '/anchor': ( context ) => const AnchorSample(),
             '/basic': ( context ) => const BasicSample(),
-            '/fit': ( context ) => const FitSample(),
+            '/card': ( context ) => const CardSample(),
             '/focus': ( context ) => const FocusSample(),
             '/grid': ( context ) => const GridSample(),
             '/home': ( context ) => const Home(),
-            '/card': ( context ) => const CardSample(),
+            '/mode': ( context ) => const ModeSample(),
             '/ratio': ( context ) => const RatioSample(),
             '/scroll': ( context ) => const ScrollSample(),
             '/transform': ( context ) => const TransformSample(),

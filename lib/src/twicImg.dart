@@ -20,7 +20,7 @@ class TwicImg extends StatelessWidget {
             bool? eager,
             String? focus,
             String? intrinsic,
-            TwicFit? fit,
+            TwicMode? mode,
             TwicPlaceholder? placeholder,
             Alignment? alignment,
             String? preTransform,
@@ -33,7 +33,7 @@ class TwicImg extends StatelessWidget {
         props= Attributes(
             anchor: anchor,
             eager: parseEager( eager ),
-            fit: parseFit( fit ),
+            fit: parseMode( mode ),
             placeholder: parsePlaceholder( placeholder ),
             alignment: alignment,
             preTransform: parsePreTransform( preTransform ),

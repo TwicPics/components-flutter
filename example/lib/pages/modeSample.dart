@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:twicpics_components/twicpics_components.dart';
 
-class FitSample extends StatefulWidget {
-    const FitSample({super.key});
+class ModeSample extends StatefulWidget {
+    const ModeSample({super.key});
 
     @override
-    State<FitSample> createState() => _FitSampleState();
+    State<ModeSample> createState() => _ModeSampleState();
 }
 
-class _FitSampleState extends State<FitSample> {
+class _ModeSampleState extends State<ModeSample> {
 
-    final fits = [ TwicFit.contain, TwicFit.cover ];
+    final fits = [ TwicMode.contain, TwicMode.cover ];
     int indice = 0;
     void changeFit () {
         setState(() {
@@ -24,7 +24,7 @@ class _FitSampleState extends State<FitSample> {
             backgroundColor: Colors.grey[ 200 ],
             appBar: AppBar(
                 backgroundColor: const Color.fromRGBO( 161, 52, 246, 1 ),
-                title: const Text( 'Fit Sample' ),
+                title: const Text( 'Mode Sample' ),
                 centerTitle: true,
                 elevation: 0,
             ),
@@ -32,15 +32,15 @@ class _FitSampleState extends State<FitSample> {
                 padding: const EdgeInsets.all(30),
                 child: TwicImg(
                     src: 'cat_1x1.jpg',
+                    mode: fits[ indice ],
                     ratio: '4/3',
-                    fit: fits[ indice ],
                 ),
             ),
             floatingActionButton: FloatingActionButton.extended(
                 onPressed: () {
                     changeFit();
                 },
-                label: const Text( 'Change Fit' ),
+                label: const Text( 'Change Mode' ),
                 backgroundColor: const Color.fromRGBO( 161, 52, 246, 1 ),
             ),
         );

@@ -32,7 +32,7 @@ class _TransformSampleState extends State<TransformSample> {
                 padding: const EdgeInsets.all(30),
                 child: TwicImg(
                     src: 'cat_1x1.jpg',
-                    fit: TwicFit.contain,
+                    mode: TwicMode.contain,
                     preTransform: transforms[ indice ],
                 ),
             ),

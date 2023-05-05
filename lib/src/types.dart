@@ -31,7 +31,7 @@ class Attributes {
     } );
 }
 
-enum TwicFit {
+enum TwicMode {
     contain,
     cover,
 }

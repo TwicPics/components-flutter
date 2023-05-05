@@ -1,11 +1,64 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, constant_identifier_names
+import 'dart:convert';
+import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart' hide Size;
 import 'package:twicpics_components/src/compute.dart';
-import 'package:twicpics_components/src/placeholder.dart';
+import 'package:twicpics_components/src/http.dart';
 import 'package:twicpics_components/src/types.dart' as twic_types;
+import 'package:twicpics_components/src/utils.dart';
 
+const COLOR = 3;
+const DEVIATION = 4;
+const BYTES = 5;
+const HEIGHT = 2;
+const WIDTH = 1;
+
+final RegExp _rLqipData = RegExp(
+    r'(?:(?:width="([0-9]*)").*(?:height="([0-9]*)")).*(?:(?:background:#([0-9a-fA-F]*)")|(?:stdDeviation="([^"]*)).*(?:href="data:image\/png;base64,([^"]*)))'
+);
+
+Future<twic_types.PlaceholderData?> getPlaceholderData(
+    {
+        required String url, 
+        required twic_types.Size viewSize,
+    }
+) async {
+    final response = await get( url );
+    if ( response.statusCode != 200 ) {
+        return null;
+    }
+    final parsed = _rLqipData.firstMatch( response.body );
+    if ( parsed == null ) {
+        return null;
+    }
+    final intrinsicWidth = parsed[ WIDTH ] != null ?
+        ( getNumber( parsed[ WIDTH ] ) ?? 0 ) :
+        0;
+    final intrinsicHeight = parsed[ HEIGHT ] != null ?
+        ( getNumber( parsed[ HEIGHT ] ) ?? 0 ) :
+        0;
+    if ( intrinsicHeight == 0  || intrinsicWidth == 0) {
+        return null;
+    }
+
+    final intrinsicRatio = intrinsicWidth / intrinsicHeight;
+    final viewRatio = viewSize.width / viewSize.height!;
+    final actualWidth = max(
+        1,
+        intrinsicRatio > viewRatio ?
+            viewSize.width :
+            viewSize.height! * intrinsicRatio
+    ).roundToDouble();
+    final actualHeight = ( actualWidth / intrinsicRatio ).roundToDouble();
+    return twic_types.PlaceholderData( 
+        bytes: parsed[ BYTES ] != null ? base64Decode(parsed[ BYTES ]!) : null,
+        color: parsed[ COLOR ] != null ? int.tryParse('0xFF${ parsed[ COLOR ] }') : null,
+        deviation: parsed[ DEVIATION ] != null ? getNumber( parsed[ DEVIATION] ): null,
+        height: actualHeight,
+        width: actualWidth,
+    );
+}
 
 class TwicPlaceholder extends StatefulWidget {
     twic_types.Size viewSize;

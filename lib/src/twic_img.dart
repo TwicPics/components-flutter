@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart' hide Size;
 import 'package:twicpics_components/src/compute.dart';
 import 'package:twicpics_components/src/parse.dart';
 import 'package:twicpics_components/src/types.dart';
-import 'package:twicpics_components/src/twicMedia.dart';
+import 'package:twicpics_components/src/twic_media.dart';
 
 class TwicImg extends StatelessWidget {
     late Attributes props;

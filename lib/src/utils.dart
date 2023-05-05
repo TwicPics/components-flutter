@@ -1,7 +1,5 @@
 String buildErrorMessage ( String message ) => 'twicpics-components $message';
-
 bool isPositiveNumber( dynamic value ) => value is num && value > 0;
-
 double? getNumber( dynamic value ) => value != null ? double.tryParse( value.toString() ) : null;
 
 typedef Filter< T > = T? Function( T? value);
@@ -16,8 +14,6 @@ T? Function( T? value) regExpFinderFactory< T extends String?>( RegExp regExp, [
         return filter != null ? filter(found) : found;
     };
 }
-
-
 
 RegExp trimRegExpFactory( 
     dynamic items,

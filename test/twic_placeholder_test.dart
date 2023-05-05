@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:twicpics_components/src/placeholder.dart';
+import 'package:twicpics_components/src/twic_placeholder.dart';
 import 'package:twicpics_components/src/types.dart';
 import 'package:twicpics_components/src/utils.dart';
 

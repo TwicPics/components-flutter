@@ -1,14 +1,12 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:twicpics_components/src/http.dart';
-import 'package:twicpics_components/src/twicPlaceholder.dart';
-import 'package:visibility_detector/visibility_detector.dart';
-import 'package:flutter/widgets.dart' hide Size;
+import 'package:twicpics_components/src/twic_placeholder.dart';
 import 'package:twicpics_components/src/compute.dart';
 import 'package:twicpics_components/src/types.dart' as twic_types;
-
-
+import 'package:visibility_detector/visibility_detector.dart';
 
 class TwicMedia extends StatefulWidget {
     final twic_types.Size viewSize;

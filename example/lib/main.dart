@@ -1,16 +1,16 @@
-import 'package:example/pages/anchorSample.dart';
-import 'package:example/pages/basicSample.dart';
-import 'package:example/pages/heroSample.dart';
-import 'package:example/pages/modeSample.dart';
-import 'package:example/pages/focusSample.dart';
-import 'package:example/pages/positionSample.dart';
-import 'package:example/pages/ratioSample.dart';
+import 'package:example/pages/anchor_sample.dart';
+import 'package:example/pages/basic_sample.dart';
+import 'package:example/pages/hero_sample.dart';
+import 'package:example/pages/mode_sample.dart';
+import 'package:example/pages/focus_sample.dart';
+import 'package:example/pages/position_sample.dart';
+import 'package:example/pages/ratio_sample.dart';
 import 'package:flutter/material.dart';
-import 'package:example/pages/gridSample.dart';
+import 'package:example/pages/grid_sample.dart';
 import 'package:example/pages/home.dart';
-import 'package:example/pages/cardSample.dart';
-import 'package:example/pages/scrollSample.dart';
-import 'package:example/pages/transformSample.dart';
+import 'package:example/pages/card_sample.dart';
+import 'package:example/pages/scroll_sample.dart';
+import 'package:example/pages/transform_sample.dart';
 import 'package:twicpics_components/twicpics_components.dart';
 
 

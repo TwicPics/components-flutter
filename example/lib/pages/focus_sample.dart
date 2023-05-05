@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:twicpics_components/twicpics_components.dart';
 
-class TransformSample extends StatefulWidget {
-    const TransformSample({super.key});
-
+class FocusSample extends StatefulWidget {
+    const FocusSample({super.key});
     @override
-    State<TransformSample> createState() => _TransformSampleState();
+    State<FocusSample> createState() => _FocusSampleState();
 }
 
-class _TransformSampleState extends State<TransformSample> {
-
-    final transforms = [ '', 'flip=x', 'flip=y', 'focus=60px50p/crop=25px25p' ];
+class _FocusSampleState extends State<FocusSample> {
+    final focuses = [ '50px50p', 'auto', 'right' ];
     int indice = 0;
-    void changeTransform () {
+    void changeFocus () {
         setState(() {
-            indice = ( indice + 1 ) % transforms.length;
+            indice = ( indice + 1 ) % focuses.length;
         });
     }
 
@@ -24,23 +22,23 @@ class _TransformSampleState extends State<TransformSample> {
             backgroundColor: Colors.grey[ 200 ],
             appBar: AppBar(
                 backgroundColor: const Color.fromRGBO( 161, 52, 246, 1 ),
-                title: const Text( 'preTransform Sample' ),
+                title: const Text( 'Focus Sample' ),
                 centerTitle: true,
                 elevation: 0,
             ),
             body:  Container(
                 padding: const EdgeInsets.all(30),
                 child: TwicImg(
-                    src: 'cat_1x1.jpg',
-                    mode: TwicMode.contain,
-                    preTransform: transforms[ indice ],
+                    src: 'football.jpg',
+                    ratio: '3/4',
+                    focus: focuses[ indice ],
                 ),
             ),
             floatingActionButton: FloatingActionButton.extended(
                 onPressed: () {
-                    changeTransform();
+                    changeFocus();
                 },
-                label: const Text( 'Change transform' ),
+                label: const Text( 'Change focus' ),
                 backgroundColor: const Color.fromRGBO( 161, 52, 246, 1 ),
             ),
         );

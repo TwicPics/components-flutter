@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:twicpics_components/twicpics_components.dart';
 
-class ModeSample extends StatefulWidget {
-    const ModeSample({super.key});
-
+class HeroSample extends StatefulWidget {
+    const HeroSample({super.key});
     @override
-    State<ModeSample> createState() => _ModeSampleState();
+    State<HeroSample> createState() => _HeroSampleState();
 }
 
-class _ModeSampleState extends State<ModeSample> {
-
+class _HeroSampleState extends State<HeroSample> {
     final fits = [ TwicMode.contain, TwicMode.cover ];
     int indice = 0;
     void changeFit () {
@@ -24,25 +22,18 @@ class _ModeSampleState extends State<ModeSample> {
             backgroundColor: Colors.grey[ 200 ],
             appBar: AppBar(
                 backgroundColor: const Color.fromRGBO( 161, 52, 246, 1 ),
-                title: const Text( 'Mode Sample' ),
+                title: const Text( 'Hero Sample' ),
                 centerTitle: true,
                 elevation: 0,
             ),
-            body:  Container(
-                padding: const EdgeInsets.all(30),
+            body: Container(
+                width: double.infinity,
+                height: double.infinity,
                 child: TwicImg(
                     src: 'cat_1x1.jpg',
-                    mode: fits[ indice ],
-                    ratio: '4/3',
+                    ratio: 'none',
                 ),
-            ),
-            floatingActionButton: FloatingActionButton.extended(
-                onPressed: () {
-                    changeFit();
-                },
-                label: const Text( 'Change Mode' ),
-                backgroundColor: const Color.fromRGBO( 161, 52, 246, 1 ),
-            ),
+            )
         );
     }
 }

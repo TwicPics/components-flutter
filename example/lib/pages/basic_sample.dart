@@ -3,14 +3,11 @@ import 'package:twicpics_components/twicpics_components.dart';
 
 class BasicSample extends StatefulWidget {
     const BasicSample({super.key});
-
     @override
     State<BasicSample> createState() => _BasicSampleState();
 }
 
 class _BasicSampleState extends State<BasicSample> {
-
-
     @override
     Widget build(BuildContext context) {
         return Scaffold(

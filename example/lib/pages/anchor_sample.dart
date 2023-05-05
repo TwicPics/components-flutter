@@ -3,7 +3,6 @@ import 'package:twicpics_components/twicpics_components.dart';
 
 class AnchorSample extends StatefulWidget {
     const AnchorSample({super.key});
-
     @override
     State<AnchorSample> createState() => _AnchorSampleState();
 }
@@ -17,7 +16,6 @@ class Config {
 }
 
 class _AnchorSampleState extends State<AnchorSample> {
-
     static List< Config > config = [
         Config(anchor: TwicPosition.center, fit: TwicMode.contain, ratio: '4/3', preTransform: 'focus=bottom-right/cover=1:1' ),
         Config(anchor: TwicPosition.left, fit: TwicMode.contain, ratio: '4/3', preTransform: 'focus=bottom-right/cover=1:1' ),

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:twicpics_components/twicpics_components.dart';
 
-
-
 class ScrollSample extends StatefulWidget {
     const ScrollSample({super.key});
 

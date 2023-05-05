@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:twicpics_components/twicpics_components.dart';
 
-
-
 class GridSample extends StatefulWidget {
     const GridSample({super.key});
-
     static List images = [
         {
             "url": 'components/portraits/woman-1.jpg',

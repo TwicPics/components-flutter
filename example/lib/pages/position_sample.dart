@@ -15,7 +15,6 @@ class Config {
 }
 
 class _PositionSampleState extends State<PositionSample> {
-
     static List< Config > config = [
         Config( position: TwicPosition.center, src: 'components/position/forest.jpg'),
         Config( position: TwicPosition.left, src: 'components/position/forest.jpg'),

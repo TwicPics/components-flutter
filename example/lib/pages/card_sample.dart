@@ -3,7 +3,6 @@ import 'package:twicpics_components/twicpics_components.dart';
 
 class CardSample extends StatefulWidget {
     const CardSample({super.key});
-
     @override
     State<CardSample> createState() => _CardSampleState();
 }

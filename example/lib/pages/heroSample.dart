@@ -31,7 +31,6 @@ class _HeroSampleState extends State<HeroSample> {
             body: Container(
                 width: double.infinity,
                 height: double.infinity,
-                padding: const EdgeInsets.all(30),
                 child: TwicImg(
                     src: 'cat_1x1.jpg',
                     ratio: 'none',

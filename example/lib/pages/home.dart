@@ -47,6 +47,10 @@ class _HomeState extends State<Home> {
                             child: const Text('GridView'),
                         ),
                         ElevatedButton(
+                            onPressed: () { Navigator.pushNamed( context , '/hero' ); },
+                            child: const Text('Hero'),
+                        ),
+                        ElevatedButton(
                             onPressed: () { Navigator.pushNamed( context , '/mode' ); },
                             child: const Text('Mode'),
                         ),

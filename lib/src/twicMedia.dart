@@ -62,7 +62,6 @@ class _TwicMediaState extends State<TwicMedia> {
 
     Future<void> fetch( ) async {
         final response = await get( mediaUrl! );
-        debugPrint( 'image fetched ${response.statusCode}' );
         mediaBytes = response.bodyBytes;
         if ( mounted ) {
             setState( () {

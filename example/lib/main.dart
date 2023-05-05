@@ -1,5 +1,6 @@
 import 'package:example/pages/anchorSample.dart';
 import 'package:example/pages/basicSample.dart';
+import 'package:example/pages/heroSample.dart';
 import 'package:example/pages/modeSample.dart';
 import 'package:example/pages/focusSample.dart';
 import 'package:example/pages/positionSample.dart';
@@ -27,6 +28,7 @@ void main() {
             '/focus': ( context ) => const FocusSample(),
             '/grid': ( context ) => const GridSample(),
             '/home': ( context ) => const Home(),
+            '/hero': ( context ) => const HeroSample(),
             '/mode': ( context ) => const ModeSample(),
             '/position': ( context ) => const PositionSample(),
             '/ratio': ( context ) => const RatioSample(),

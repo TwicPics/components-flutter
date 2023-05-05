@@ -34,6 +34,11 @@ class _HomeState extends State<Home> {
                         ),
                         const SizedBox(height: 10),
                         ElevatedButton(
+                            onPressed: () { Navigator.pushNamed( context , '/card' ); },
+                            child: const Text('Card'),
+                        ),
+                        const SizedBox(height: 10),
+                        ElevatedButton(
                             onPressed: () { Navigator.pushNamed( context , '/focus' ); },
                             child: const Text('Focus'),
                         ),
@@ -46,11 +51,6 @@ class _HomeState extends State<Home> {
                         ElevatedButton(
                             onPressed: () { Navigator.pushNamed( context , '/grid' ); },
                             child: const Text('GridView'),
-                        ),
-                        const SizedBox(height: 10),
-                        ElevatedButton(
-                            onPressed: () { Navigator.pushNamed( context , '/list' ); },
-                            child: const Text('List'),
                         ),
                         const SizedBox(height: 10),
                         ElevatedButton(

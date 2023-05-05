@@ -226,7 +226,6 @@ class _ScrollSampleState extends State<ScrollSample> {
                                 child: TwicImg(
                                     src: image['url'],
                                     focus: image['focus'],
-                                    preTransform: 'background=remove',
                                     ratio: 2.35
                                 ),
                             )

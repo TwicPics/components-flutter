@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 import 'dart:math';
-import 'package:http/http.dart' as http;
+import 'package:twicpics_components/src/http.dart';
 import 'package:twicpics_components/src/types.dart';
 import 'package:twicpics_components/src/utils.dart';
 
@@ -22,7 +22,7 @@ Future<PlaceholderData?> getPlaceholderData(
     }
 ) async {
 
-    final response = await http.get( Uri.parse( url ) );
+    final response = await get( url );
     if ( response.statusCode != 200 ) {
         return null;
     }

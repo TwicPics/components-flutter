@@ -2,12 +2,14 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:twicpics_components/src/http.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'package:flutter/widgets.dart' hide Size;
 import 'package:twicpics_components/src/compute.dart';
 import 'package:twicpics_components/src/parse.dart';
 import 'package:twicpics_components/src/placeholder.dart';
 import 'package:twicpics_components/src/types.dart';
+
 
 class TwicImg extends StatelessWidget {
     late Attributes props;
@@ -54,9 +56,10 @@ class TwicImg extends StatelessWidget {
                     viewSize: computeViewSize(
                         width: constraints.maxWidth,
                         ratio: props.ratio,
-                        height: constraints.maxHeight
+                        height: constraints.maxHeight,
                     ), 
-                    props: props
+                    props: props,
+                    key: UniqueKey(),
                 );
             }
         );
@@ -104,21 +107,19 @@ class _TwicMediaState extends State<TwicMedia> {
 
     @override
     void didChangeDependencies(){
-        super.didChangeDependencies();
-        debugPrint( 'TwicMedia didChangeDependencies ${widget.props.src}' );
         _init();
+        super.didChangeDependencies(); 
     }
 
     @override
     void didUpdateWidget(TwicMedia oldWidget) {
-        debugPrint( 'TwicMedia didUpdateWidget $mediaUrl' );
-        super.didUpdateWidget(oldWidget);
         _init();
+        super.didUpdateWidget(oldWidget);
     }
 
     Future<void> fetch( ) async {
-        final ByteData data = await NetworkAssetBundle( Uri.parse( mediaUrl! ) ).load( mediaUrl! );
-        mediaBytes = data.buffer.asUint8List();
+        final response = await get( mediaUrl! );
+        mediaBytes = response.bodyBytes;
         debugPrint( 'fetched $mediaUrl' );
         if ( mounted ) {
             setState( () {
@@ -131,7 +132,7 @@ class _TwicMediaState extends State<TwicMedia> {
     Widget build(BuildContext context) {
         debugPrint( 'twicMedia build $mediaUrl' );
         return VisibilityDetector(
-            key: Key( mediaUrl! ),
+            key: widget.key!,
             onVisibilityChanged: ( visibilityInfo ) {
                 if ( mounted ) {
                     if ( !twicDone && visibilityInfo.visibleFraction> 0 ) {
@@ -190,7 +191,7 @@ class _PlaceholderState extends State<_Placeholder> {
     String? lqipUrl;
     PlaceholderData? placeholderData;
 
-    Future<void> fetch() async {
+    Future<void> getPlaceholder() async {
         placeholderData = await getPlaceholderData(
             url: lqipUrl!,
             viewSize: widget.viewSize
@@ -219,22 +220,20 @@ class _PlaceholderState extends State<_Placeholder> {
         );
         if ( lqipUrl != tmp ) {
             lqipUrl = tmp;
-            fetch();
+            getPlaceholder();
         }
     }
 
     @override
     void didChangeDependencies(){
-        super.didChangeDependencies();
-        debugPrint( 'TwicPlaceholder didChangeDependencies ${widget.props.src}' );
         _init();
+        super.didChangeDependencies();
     }
 
     @override
     void didUpdateWidget(_Placeholder oldWidget) {
-        debugPrint( 'TwicPlaceholder didUpdateWidget' );
-        super.didUpdateWidget(oldWidget);
         _init();
+        super.didUpdateWidget(oldWidget);
     }
 
     @override
@@ -272,4 +271,3 @@ class _PlaceholderState extends State<_Placeholder> {
         }
     }
 }
-

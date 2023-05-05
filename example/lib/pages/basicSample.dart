@@ -80,15 +80,17 @@ class _BasicSampleState extends State<BasicSample> {
                                 src: "media:components/flip/cherry-1.jpg",
                                 ratio: 1.65,
                                 mode: TwicMode.cover,
-                            ), TwicImg(
+                            ),
+                            TwicImg(
                                 src: "media:components/flip/cherry-2.jpg",
                                 ratio: 1.98,
                                 mode: TwicMode.cover,
-                            ), TwicImg(
+                            ),
+                            TwicImg(
                                 src: "media:components/flip/fig-2.jpg",
                                 ratio: 1.99,
                                 mode: TwicMode.cover,
-                            ), TwicImg(
+                            ),TwicImg(
                                 src: "media:components/flip/orange-1.jpg",
                                 ratio: 1.85,
                                 mode: TwicMode.cover,

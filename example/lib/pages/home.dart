@@ -19,61 +19,55 @@ class _HomeState extends State<Home> {
                 elevation: 0,
             ),
             body: Center(
-                child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
+                child:GridView.count(
+                    primary: false,
+                    padding: const EdgeInsets.all(8),
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    crossAxisCount: 3,
+                    children:[
                         ElevatedButton(
                             onPressed: () { Navigator.pushNamed( context , '/anchor' ); },
                             child: const Text('Anchor'),
                         ),
-                        const SizedBox(height: 10),
                         ElevatedButton(
                             onPressed: () { Navigator.pushNamed( context , '/basic' ); },
                             child: const Text('Basic'),
                         ),
-                        const SizedBox(height: 10),
                         ElevatedButton(
                             onPressed: () { Navigator.pushNamed( context , '/card' ); },
                             child: const Text('Card'),
                         ),
-                        const SizedBox(height: 10),
                         ElevatedButton(
                             onPressed: () { Navigator.pushNamed( context , '/focus' ); },
                             child: const Text('Focus'),
                         ),
-                        const SizedBox(height: 10),
                         ElevatedButton(
                             onPressed: () { Navigator.pushNamed( context , '/grid' ); },
                             child: const Text('GridView'),
                         ),
-                        const SizedBox(height: 10),
                         ElevatedButton(
                             onPressed: () { Navigator.pushNamed( context , '/mode' ); },
                             child: const Text('Mode'),
                         ),
-                        const SizedBox(height: 10),
                         ElevatedButton(
                             onPressed: () { Navigator.pushNamed( context , '/position' ); },
                             child: const Text('Position'),
                         ),
-                        const SizedBox(height: 10),
                         ElevatedButton(
                             onPressed: () { Navigator.pushNamed( context , '/ratio' ); },
                             child: const Text('Ratio'),
                         ),
-                        const SizedBox(height: 10),
                         ElevatedButton(
                             onPressed: () { Navigator.pushNamed( context , '/scroll' ); },
-                            child: const Text('SingleChildScrollView'),
+                            child: const Text('ScrollView'),
                         ),
-                        const SizedBox(height: 10),
                         ElevatedButton(
                             onPressed: () { Navigator.pushNamed( context , '/transform' ); },
                             child: const Text('Transform'),
                         ),
-                    ],
-                ),
+                    ]
+                ), 
             ),
         );
     }

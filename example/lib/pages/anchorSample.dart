@@ -9,7 +9,7 @@ class AnchorSample extends StatefulWidget {
 }
 
 class Config {
-    Alignment anchor;
+    TwicPosition anchor;
     TwicMode fit;
     String ratio;
     String? preTransform;
@@ -19,18 +19,18 @@ class Config {
 class _AnchorSampleState extends State<AnchorSample> {
 
     static List< Config > config = [
-        Config(anchor: Alignment.center, fit: TwicMode.contain, ratio: '4/3', preTransform: 'focus=bottom-right/cover=1:1' ),
-        Config(anchor: Alignment.centerLeft, fit: TwicMode.contain, ratio: '4/3', preTransform: 'focus=bottom-right/cover=1:1' ),
-        Config(anchor: Alignment.centerRight, fit: TwicMode.contain, ratio: '4/3', preTransform: 'focus=bottom-right/cover=1:1' ),
-        Config(anchor: Alignment.center, fit: TwicMode.contain, ratio: '3/4', preTransform: 'focus=bottom-right/cover=1:1' ),
-        Config(anchor: Alignment.topCenter, fit: TwicMode.contain, ratio: '3/4', preTransform: 'focus=bottom-right/cover=1:1' ),
-        Config(anchor: Alignment.bottomCenter, fit: TwicMode.contain, ratio: '3/4', preTransform: 'focus=bottom-right/cover=1:1' ),
-        Config(anchor: Alignment.center, fit: TwicMode.cover, ratio: '3/4', preTransform: 'focus=bottom-right/cover=1:1' ),
-        Config(anchor: Alignment.centerLeft, fit: TwicMode.cover, ratio: '3/4', preTransform: 'focus=bottom-right/cover=1:1' ),
-        Config(anchor: Alignment.centerRight, fit: TwicMode.cover, ratio: '3/4', preTransform: 'focus=bottom-right/cover=1:1' ),
-        Config(anchor: Alignment.center, fit: TwicMode.cover, ratio: '4/3', preTransform: 'cover=1:1' ),
-        Config(anchor: Alignment.topCenter, fit: TwicMode.cover, ratio: '4/3', preTransform: 'cover=1:1' ),
-        Config(anchor: Alignment.bottomCenter, fit: TwicMode.cover, ratio: '4/3', preTransform: 'cover=1:1' ),
+        Config(anchor: TwicPosition.center, fit: TwicMode.contain, ratio: '4/3', preTransform: 'focus=bottom-right/cover=1:1' ),
+        Config(anchor: TwicPosition.left, fit: TwicMode.contain, ratio: '4/3', preTransform: 'focus=bottom-right/cover=1:1' ),
+        Config(anchor: TwicPosition.right, fit: TwicMode.contain, ratio: '4/3', preTransform: 'focus=bottom-right/cover=1:1' ),
+        Config(anchor: TwicPosition.center, fit: TwicMode.contain, ratio: '3/4', preTransform: 'focus=bottom-right/cover=1:1' ),
+        Config(anchor: TwicPosition.top, fit: TwicMode.contain, ratio: '3/4', preTransform: 'focus=bottom-right/cover=1:1' ),
+        Config(anchor: TwicPosition.bottom, fit: TwicMode.contain, ratio: '3/4', preTransform: 'focus=bottom-right/cover=1:1' ),
+        Config(anchor: TwicPosition.center, fit: TwicMode.cover, ratio: '3/4', preTransform: 'focus=bottom-right/cover=1:1' ),
+        Config(anchor: TwicPosition.left, fit: TwicMode.cover, ratio: '3/4', preTransform: 'focus=bottom-right/cover=1:1' ),
+        Config(anchor: TwicPosition.right, fit: TwicMode.cover, ratio: '3/4', preTransform: 'focus=bottom-right/cover=1:1' ),
+        Config(anchor: TwicPosition.center, fit: TwicMode.cover, ratio: '4/3', preTransform: 'cover=1:1' ),
+        Config(anchor: TwicPosition.top, fit: TwicMode.cover, ratio: '4/3', preTransform: 'cover=1:1' ),
+        Config(anchor: TwicPosition.bottom, fit: TwicMode.cover, ratio: '4/3', preTransform: 'cover=1:1' ),
     ];
 
     int indice = 0;

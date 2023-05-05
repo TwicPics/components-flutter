@@ -9,6 +9,8 @@ final RegExp rMedia = RegExp( r'^((?:image|video|media):)?\/*' );
 final trimOrUndefined = regExpFinderFactory( trimRegExpFactory( '.+?' ) );
 final trimTransformOrUndefined = trimRegExpFactory('.+?', border: '[\\s\\/]');
 
+Alignment? parseAnchor ( TwicPosition? anchor ) => parsePosition( anchor );
+
 bool parseEager( bool? eager ) => eager ?? false;
 
 final parseFocus = trimOrUndefined;
@@ -32,6 +34,20 @@ final Map<TwicMode, BoxFit> modeToFit = {
     TwicMode.cover: BoxFit.cover,
 };
 BoxFit parseMode ( TwicMode? mode ) => mode!= null ? modeToFit[ mode ]! : BoxFit.cover;
+
+final Map<TwicPosition, Alignment> positionToAlignment = {
+    TwicPosition.bottom: Alignment.bottomCenter,
+    TwicPosition.bottomLeft: Alignment.bottomLeft,
+    TwicPosition.bottomRight: Alignment.bottomRight,
+    TwicPosition.center: Alignment.center,
+    TwicPosition.left: Alignment.centerLeft,
+    TwicPosition.right: Alignment.centerRight,
+    TwicPosition.top: Alignment.topCenter,
+    TwicPosition.topLeft: Alignment.topLeft,
+    TwicPosition.topRight: Alignment.topRight,
+};
+
+Alignment? parsePosition ( TwicPosition? position ) => position != null ? positionToAlignment[ position ] : null;
 
 TwicPlaceholder parsePlaceholder ( TwicPlaceholder? placeholder ) => placeholder ?? TwicPlaceholder.preview;
 

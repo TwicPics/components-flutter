@@ -54,6 +54,11 @@ class _HomeState extends State<Home> {
                         ),
                         const SizedBox(height: 10),
                         ElevatedButton(
+                            onPressed: () { Navigator.pushNamed( context , '/position' ); },
+                            child: const Text('Position'),
+                        ),
+                        const SizedBox(height: 10),
+                        ElevatedButton(
                             onPressed: () { Navigator.pushNamed( context , '/ratio' ); },
                             child: const Text('Ratio'),
                         ),

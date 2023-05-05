@@ -36,6 +36,18 @@ enum TwicMode {
     cover,
 }
 
+enum TwicPosition {
+    bottom,
+    bottomLeft,
+    bottomRight,
+    center,
+    left,
+    right,
+    top,
+    topLeft,
+    topRight,
+}
+
 enum TwicPlaceholder {
     preview,
     maincolor,

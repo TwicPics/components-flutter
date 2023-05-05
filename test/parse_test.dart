@@ -6,6 +6,69 @@ import 'package:twicpics_components/src/types.dart';
 
 
 void main() {
+
+    group('Parse anchor', () {
+        test( 'should fallback to the null', () {
+            expect( parseAnchor( null ), null );
+        } );
+        test( 'should parse TwicPosition.bottom to Alignment.bottomCenter', () {
+            expect( parseAnchor( TwicPosition.bottom ), Alignment.bottomCenter );
+        } );
+        test( 'should parse TwicPosition.bottomLeft to Alignment.bottomLeft', () {
+            expect( parseAnchor( TwicPosition.bottomLeft ), Alignment.bottomLeft );
+        } );
+        test( 'should parse TwicPosition.bottomRight to Alignment.bottomRight', () {
+            expect( parseAnchor( TwicPosition.bottomRight ), Alignment.bottomRight );
+        } );
+        test( 'should parse TwicPosition.center to Alignment.botcentertomRight', () {
+            expect( parseAnchor( TwicPosition.center ), Alignment.center );
+        } );
+        test( 'should parse TwicPosition.left to Alignment.centerLeft', () {
+            expect( parseAnchor( TwicPosition.left ), Alignment.centerLeft );
+        } );
+        test( 'should parse TwicPosition.right to Alignment.centerRight', () {
+            expect( parseAnchor( TwicPosition.right ), Alignment.centerRight );
+        } );
+        test( 'should parse TwicPosition.top to Alignment.topCenter', () {
+            expect( parseAnchor( TwicPosition.top ), Alignment.topCenter );
+        } );
+        test( 'should parse TwicPosition.topLeft to Alignment.topLeft', () {
+            expect( parseAnchor( TwicPosition.topLeft ), Alignment.topLeft );
+        } );test( 'should parse TwicPosition.topRight to Alignment.topRight', () {
+            expect( parseAnchor( TwicPosition.topRight ), Alignment.topRight );
+        } );
+    } );
+    group('Parse position', () {
+        test( 'should fallback to the null', () {
+            expect( parsePosition( null ), null );
+        } );
+        test( 'should parse TwicPosition.bottom to Alignment.bottomCenter', () {
+            expect( parsePosition( TwicPosition.bottom ), Alignment.bottomCenter );
+        } );
+        test( 'should parse TwicPosition.bottomLeft to Alignment.bottomLeft', () {
+            expect( parsePosition( TwicPosition.bottomLeft ), Alignment.bottomLeft );
+        } );
+        test( 'should parse TwicPosition.bottomRight to Alignment.bottomRight', () {
+            expect( parsePosition( TwicPosition.bottomRight ), Alignment.bottomRight );
+        } );
+        test( 'should parse TwicPosition.center to Alignment.botcentertomRight', () {
+            expect( parsePosition( TwicPosition.center ), Alignment.center );
+        } );
+        test( 'should parse TwicPosition.left to Alignment.centerLeft', () {
+            expect( parsePosition( TwicPosition.left ), Alignment.centerLeft );
+        } );
+        test( 'should parse TwicPosition.right to Alignment.centerRight', () {
+            expect( parsePosition( TwicPosition.right ), Alignment.centerRight );
+        } );
+        test( 'should parse TwicPosition.top to Alignment.topCenter', () {
+            expect( parsePosition( TwicPosition.top ), Alignment.topCenter );
+        } );
+        test( 'should parse TwicPosition.topLeft to Alignment.topLeft', () {
+            expect( parsePosition( TwicPosition.topLeft ), Alignment.topLeft );
+        } );test( 'should parse TwicPosition.topRight to Alignment.topRight', () {
+            expect( parsePosition( TwicPosition.topRight ), Alignment.topRight );
+        } );
+    } );
     group('Parse eager', () {
         test( 'should fallback to the default value', () {
             expect( parseEager( null ), false );

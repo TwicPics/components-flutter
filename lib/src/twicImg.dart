@@ -16,13 +16,13 @@ class TwicImg extends StatelessWidget {
     TwicImg( 
         { 
             super.key,
-            Alignment? anchor,
+            TwicPosition? anchor,
             bool? eager,
             String? focus,
             String? intrinsic,
             TwicMode? mode,
             TwicPlaceholder? placeholder,
-            Alignment? alignment,
+            TwicPosition? position,
             String? preTransform,
             dynamic ratio,
             required String src,
@@ -31,11 +31,11 @@ class TwicImg extends StatelessWidget {
         } 
     ) {
         props= Attributes(
-            anchor: anchor,
+            alignment: parsePosition( position ),
+            anchor: parseAnchor( anchor ),
             eager: parseEager( eager ),
             fit: parseMode( mode ),
             placeholder: parsePlaceholder( placeholder ),
-            alignment: alignment,
             preTransform: parsePreTransform( preTransform ),
             src: parseSrc( src ),
             focus: parseFocus( focus ),
@@ -52,7 +52,7 @@ class TwicImg extends StatelessWidget {
         debugPrint('TwicIm src = ${props.src}');
         return LayoutBuilder(
             builder: ( BuildContext context, BoxConstraints constraints ) {
-                return TwicMedia(
+                return _TwicMedia(
                     viewSize: computeViewSize(
                         width: constraints.maxWidth,
                         ratio: props.ratio,
@@ -66,19 +66,19 @@ class TwicImg extends StatelessWidget {
     }
 }
 
-class TwicMedia extends StatefulWidget {
+class _TwicMedia extends StatefulWidget {
     final Size viewSize;
     final Attributes props;
-    const TwicMedia( {
+    const _TwicMedia( {
         Key? key,
         required this.viewSize,
         required this.props,
     } ) : super(key: key);
     @override
-    State<TwicMedia> createState() => _TwicMediaState();
+    State<_TwicMedia> createState() => _TwicMediaState();
 }
 
-class _TwicMediaState extends State<TwicMedia> {
+class _TwicMediaState extends State<_TwicMedia> {
     Uint8List? mediaBytes;
     String? mediaUrl;
     bool twicDone = false;
@@ -112,7 +112,7 @@ class _TwicMediaState extends State<TwicMedia> {
     }
 
     @override
-    void didUpdateWidget(TwicMedia oldWidget) {
+    void didUpdateWidget(_TwicMedia oldWidget) {
         _init();
         super.didUpdateWidget(oldWidget);
     }

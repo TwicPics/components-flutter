@@ -2,6 +2,7 @@ import 'package:example/pages/anchorSample.dart';
 import 'package:example/pages/basicSample.dart';
 import 'package:example/pages/modeSample.dart';
 import 'package:example/pages/focusSample.dart';
+import 'package:example/pages/positionSample.dart';
 import 'package:example/pages/ratioSample.dart';
 import 'package:flutter/material.dart';
 import 'package:example/pages/gridSample.dart';
@@ -27,6 +28,7 @@ void main() {
             '/grid': ( context ) => const GridSample(),
             '/home': ( context ) => const Home(),
             '/mode': ( context ) => const ModeSample(),
+            '/position': ( context ) => const PositionSample(),
             '/ratio': ( context ) => const RatioSample(),
             '/scroll': ( context ) => const ScrollSample(),
             '/transform': ( context ) => const TransformSample(),

@@ -60,7 +60,6 @@ class _TwicMediaState extends State<TwicMedia> {
         super.didUpdateWidget(oldWidget);
     }
 
-
     void fetch() {
         debounce(
             ()async {
@@ -95,7 +94,7 @@ class _TwicMediaState extends State<TwicMedia> {
             },
             child: AnimatedCrossFade(
                 crossFadeState: twicDone ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                duration: widget.props.transitionDuration,
+                duration: const Duration(milliseconds: 1),
                 reverseDuration: widget.props.transitionDuration,
                 firstCurve: Curves.easeIn,
                 secondCurve: Curves.easeOut,

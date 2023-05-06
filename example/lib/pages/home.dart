@@ -28,6 +28,7 @@ class _HomeState extends State<Home> {
                         ElevatedButton(
                             onPressed: () { Navigator.pushNamed( context , '/anchor' ); },
                             child: const Text('Anchor'),
+                        
                         ),
                         ElevatedButton(
                             onPressed: () { Navigator.pushNamed( context , '/basic' ); },

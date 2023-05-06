@@ -26,7 +26,7 @@ class _HeroSampleState extends State<HeroSample> {
                 centerTitle: true,
                 elevation: 0,
             ),
-            body: Container(
+            body: SizedBox(
                 width: double.infinity,
                 height: double.infinity,
                 child: TwicImg(

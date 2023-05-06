@@ -8,6 +8,7 @@ import 'package:twicpics_components/src/twic_media.dart';
 
 class TwicImg extends StatelessWidget {
     late Attributes props;
+    final widgetKey = UniqueKey();
     TwicImg( 
         { 
             super.key,
@@ -53,7 +54,7 @@ class TwicImg extends StatelessWidget {
                         height: constraints.maxHeight,
                     ), 
                     props: props,
-                    key: UniqueKey(),
+                    key: widgetKey,
                 );
             }
         );

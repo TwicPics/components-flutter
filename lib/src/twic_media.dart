@@ -7,6 +7,7 @@ import 'package:twicpics_components/src/install.dart';
 import 'package:twicpics_components/src/twic_placeholder.dart';
 import 'package:twicpics_components/src/compute.dart';
 import 'package:twicpics_components/src/types.dart' as twic_types;
+import 'package:twicpics_components/src/utils.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class TwicMedia extends StatefulWidget {
@@ -59,17 +60,26 @@ class _TwicMediaState extends State<TwicMedia> {
         super.didUpdateWidget(oldWidget);
     }
 
-    Future<void> fetch( ) async {
-        if ( config.debug ) {
-            debugPrint( 'TwicMedia: $mediaUrl' );
-        }
-        final response = await get( mediaUrl! );
-        mediaBytes = response.bodyBytes;
-        if ( mounted ) {
-            setState( () {
-                twicDone = true;
-            } );
-        }
+
+    void fetch() {
+        debounce(
+            ()async {
+                if ( config.debug ) {
+                    debugPrint( 'TwicMedia: $mediaUrl' );
+                }
+                final response = await get( mediaUrl! );
+                mediaBytes = response.bodyBytes;
+                if ( mounted ) {
+                    setState( () {
+                        twicDone = true;
+                    } );
+                }
+            },
+            DebounceOptions(
+                leading: false,
+                ms: 100,
+            ) 
+        )();
     }
 
     @override
@@ -82,7 +92,7 @@ class _TwicMediaState extends State<TwicMedia> {
                         fetch();
                     }
                 }
-            } ,
+            },
             child: AnimatedCrossFade(
                 crossFadeState: twicDone ? CrossFadeState.showFirst : CrossFadeState.showSecond,
                 duration: widget.props.transitionDuration,

@@ -77,16 +77,27 @@ class _TwicPlaceholderState extends State<TwicPlaceholder> {
     String? lqipUrl;
     twic_types.PlaceholderData? placeholderData;
 
-    Future<void> fetch() async {
-        placeholderData = await getPlaceholderData(
-            url: lqipUrl!,
-            viewSize: widget.viewSize
-        );
-        if ( mounted ) {
-            setState( () {
-                placeholderData = placeholderData;
-            } );
-        }
+    void fetch() {
+        debounce(
+            ()async {
+                if ( config.debug ) {
+                    debugPrint( 'TwicPlaceholder: $lqipUrl' );
+                }
+                placeholderData = await getPlaceholderData(
+                    url: lqipUrl!,
+                    viewSize: widget.viewSize
+                );
+                if ( mounted ) {
+                    setState( () {
+                        placeholderData = placeholderData;
+                    } );
+                }
+            },
+            DebounceOptions(
+                leading: false,
+                ms: 100,
+            ) 
+        )();
     }
 
     void _init() {

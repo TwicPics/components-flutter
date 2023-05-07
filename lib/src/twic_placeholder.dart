@@ -28,11 +28,10 @@ Future<twic_types.PlaceholderData?> getPlaceholderData(
     if ( config.debug ) {
         debugPrint( 'TwicPlaceholder: $url' );
     }
-    final response = await get( url );
-    if ( response.statusCode != 200 ) {
-        return null;
-    }
-    final parsed = _rLqipData.firstMatch( response.body );
+    final response = await getAsString( url );
+    print(response);
+
+    final parsed = _rLqipData.firstMatch( response );
     if ( parsed == null ) {
         return null;
     }

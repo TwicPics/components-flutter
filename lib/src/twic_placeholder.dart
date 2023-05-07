@@ -29,8 +29,9 @@ Future<twic_types.PlaceholderData?> getPlaceholderData(
         debugPrint( 'TwicPlaceholder: $url' );
     }
     final response = await getAsString( url );
-    print(response);
-
+    if ( response == null ) {
+        return null;
+    }
     final parsed = _rLqipData.firstMatch( response );
     if ( parsed == null ) {
         return null;
@@ -44,7 +45,6 @@ Future<twic_types.PlaceholderData?> getPlaceholderData(
     if ( intrinsicHeight == 0  || intrinsicWidth == 0) {
         return null;
     }
-
     final intrinsicRatio = intrinsicWidth / intrinsicHeight;
     final viewRatio = viewSize.width / viewSize.height!;
     final actualWidth = max(
@@ -72,10 +72,8 @@ class TwicPlaceholder extends StatefulWidget {
 }
 
 class _TwicPlaceholderState extends State<TwicPlaceholder> {
-
     String? lqipUrl;
     twic_types.PlaceholderData? placeholderData;
-
     void fetch() {
         debounce(
             ()async {

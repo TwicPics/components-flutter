@@ -206,8 +206,6 @@ class ScrollSample extends StatefulWidget {
 class _ScrollSampleState extends State<ScrollSample> {
     @override
     Widget build(BuildContext context) {
-        debugPrint(ScrollSample.images[0]['url']);
-        ScrollSample.images.map( ( image ) => debugPrint(image['url'] ) );
         return Scaffold(
             backgroundColor: Colors.grey[200],
             appBar: AppBar(

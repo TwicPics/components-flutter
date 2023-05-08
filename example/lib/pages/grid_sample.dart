@@ -205,8 +205,6 @@ class GridSample extends StatefulWidget {
 class _GridSampleState extends State<GridSample> {
     @override
     Widget build(BuildContext context) {
-        debugPrint(GridSample.images[0]['url']);
-        GridSample.images.map( ( image ) => debugPrint(image['url'] ) );
         return Scaffold(
             backgroundColor: Colors.grey[200],
             appBar: AppBar(

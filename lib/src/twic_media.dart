@@ -71,8 +71,9 @@ class _TwicMediaState extends State<TwicMedia> {
                 }
             },
             DebounceOptions(
-                leading: false,
-                ms: 100,
+                leading: true,
+                trailing: false,
+                ms: 1000,
             ) 
         )();
     }

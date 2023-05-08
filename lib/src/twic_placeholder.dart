@@ -85,7 +85,8 @@ class _TwicPlaceholderState extends State<TwicPlaceholder> {
                 }
             },
             DebounceOptions(
-                leading: false,
+                leading: true,
+                trailing: false,
                 ms: 100,
             ) 
         )();

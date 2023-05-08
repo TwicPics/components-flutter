@@ -5,14 +5,18 @@ import 'package:twicpics_components/src/install.dart';
 import 'package:twicpics_components/src/utils.dart';
 
 class TwicCacheManager extends CacheManager {
-    static final TwicCacheManager _instance = TwicCacheManager._();
+    static TwicCacheManager? _instance;
     factory TwicCacheManager() {
-        return _instance;
+        if ( _instance == null ) {
+            _instance = TwicCacheManager._();
+            _instance!.emptyCache();
+        }
+        return _instance!;
     }
     TwicCacheManager._() : super(
         Config( 
             'twicpics_components', 
-            stalePeriod: const Duration( days: 7), 
+            stalePeriod: const Duration( days: 7 ), 
             maxNrOfCacheObjects: 200
         ) 
     ) {

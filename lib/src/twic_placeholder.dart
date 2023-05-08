@@ -25,9 +25,6 @@ Future<twic_types.PlaceholderData?> getPlaceholderData(
         required twic_types.Size viewSize,
     }
 ) async {
-    if ( config.debug ) {
-        debugPrint( 'TwicPlaceholder: $url' );
-    }
     final response = await getAsString( url );
     if ( response == null ) {
         return null;
@@ -77,9 +74,6 @@ class _TwicPlaceholderState extends State<TwicPlaceholder> {
     void fetch() {
         debounce(
             ()async {
-                if ( config.debug ) {
-                    debugPrint( 'TwicPlaceholder: $lqipUrl' );
-                }
                 placeholderData = await getPlaceholderData(
                     url: lqipUrl!,
                     viewSize: widget.viewSize

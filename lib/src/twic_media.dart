@@ -63,9 +63,6 @@ class _TwicMediaState extends State<TwicMedia> {
     void fetch() {
         debounce(
             ()async {
-                if ( config.debug ) {
-                    debugPrint( 'TwicMedia: $mediaUrl' );
-                }
                 mediaBytes = await getAsBytes( mediaUrl! );
                 if ( mounted ) {
                     setState( () {

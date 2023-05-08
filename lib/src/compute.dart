@@ -10,8 +10,9 @@ double PLACEHOLDER_DIM = 1000;
 
 Size computeActualSize(
     { 
-        bool lqip = false,
         required double dpr,
+        Size? intrinsic,
+        bool lqip = false,
         int? step,
         required Size viewSize
     }
@@ -27,11 +28,24 @@ Size computeActualSize(
         // eslint-disable-next-line no-multi-assign
         actualWidth = actualHeight = PLACEHOLDER_DIM;
         if ( actualRatio > 1 ) {
-            actualHeight = ( actualHeight / actualRatio ).floorToDouble();
+            actualHeight = ( actualWidth / actualRatio ).floorToDouble();
         } else {
             actualWidth = ( actualHeight * actualRatio ).floorToDouble();
         }
     }
+
+    if ( intrinsic != null && ( actualHeight > intrinsic.height! || actualWidth > intrinsic.width ) ) {
+        double actualRatio = actualWidth / actualHeight;
+        if ( actualHeight > intrinsic.height! ) {
+            actualHeight = intrinsic.height!;
+            actualWidth = ( actualHeight * actualRatio ).floorToDouble();
+        } else {
+            actualWidth = intrinsic.width;
+            actualHeight = ( actualWidth / actualRatio ).floorToDouble();
+        }
+    }
+
+    
 
     return Size(
         width: actualWidth.roundToDouble(),
@@ -86,19 +100,21 @@ final Map<TwicPlaceholder, String> mappingPlaceholder = {
 
 String computeUrl( {
     Alignment? anchor,
-    String? focus,
-    required BoxFit fit,
     double dpr = 1,
+    required BoxFit fit,
+    String? focus,
+    Size? intrinsic,
+    bool lqip = false,
     TwicPlaceholder? placeholder,
     String? preTransform,
-    required String src,
     int? step,
+    required String src,
     required Size viewSize,
-    bool lqip = false,
 } ) {
     Size size = computeActualSize(
-        lqip: lqip,
         dpr: dpr,
+        intrinsic: intrinsic,
+        lqip: lqip,
         step: step,
         viewSize: viewSize
     );

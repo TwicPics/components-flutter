@@ -124,6 +124,10 @@ void main() {
             expect( s?.width, 800 );
             expect( s?.height, 600 );
         } );
+        test( 'should return null as value is invalid as dimensions are not integer', () {
+            Size? s = parseIntrinsic(' 800.5 x 600.5 ');
+            expect( s, null );
+        } );
         test( 'should return null as value is invalid', () {
             Size? s = parseIntrinsic(' 800 x ');
             expect( s, null );

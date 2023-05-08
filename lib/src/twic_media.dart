@@ -32,12 +32,13 @@ class _TwicMediaState extends State<TwicMedia> {
             anchor: widget.props.anchor,
             dpr: MediaQuery.of( context ).devicePixelRatio,
             fit: widget.props.fit,
-            src: widget.props.src,
-            viewSize: widget.viewSize,
             focus: widget.props.focus,
+            intrinsic: widget.props.intrinsic,
             lqip: false,
             preTransform: widget.props.preTransform,
-            step: widget.props.step
+            src: widget.props.src,
+            step: widget.props.step,
+            viewSize: widget.viewSize,
         );
         if ( tmp != mediaUrl ){
             twicDone = false;

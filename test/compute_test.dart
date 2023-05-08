@@ -235,6 +235,39 @@ void main() {
                 'https://demo.twic.pics/cat.jpg?twic=v1/contain=1000x1000/output=maincolor' 
             );
         } );
+        test( 'should compute url with cover transformation and intrinsic dimensions greater than the size of the view ', () {
+            expect(
+                computeUrl(
+                    fit: BoxFit.cover,
+                    src: 'media:cat.jpg',
+                    viewSize: Size( width: 400, height: 300 ),
+                    intrinsic: Size(width: 500, height: 500),
+                ),
+                'https://demo.twic.pics/cat.jpg?twic=v1/cover=400x300' 
+            );
+        } );
+        test( 'should compute url with cover transformation and intrinsic dimensions lower than the size of the view', () {
+            expect(
+                computeUrl(
+                    fit: BoxFit.cover,
+                    src: 'media:cat.jpg',
+                    viewSize: Size( width: 800, height: 800 ),
+                    intrinsic: Size(width: 500, height: 500),
+                ),
+                'https://demo.twic.pics/cat.jpg?twic=v1/cover=500x500' 
+            );
+        } );
+        test( 'should compute url with cover transformation, intrinsic dimensions greater than the size of the view and a ratio !=1', () {
+            expect(
+                computeUrl(
+                    fit: BoxFit.cover,
+                    src: 'media:cat.jpg',
+                    viewSize: Size( width: 500, height: 800 ),
+                    intrinsic: Size(width: 312, height: 500),
+                ),
+                'https://demo.twic.pics/cat.jpg?twic=v1/cover=500x500' 
+            );
+        } );
     } );
     group('computeViewSize', () {
         test( 'should compute viewSize with ratio="1"', () {

@@ -99,12 +99,12 @@ class _TwicPlaceholderState extends State<TwicPlaceholder> {
         final tmp = computeUrl(
             anchor: widget.props.anchor,
             fit: widget.props.fit,
-            src: widget.props.src,
-            viewSize: widget.viewSize,
             focus: widget.props.focus,
             lqip: true,
             placeholder: widget.props.placeholder,
-            preTransform: widget.props.preTransform, 
+            preTransform: widget.props.preTransform,
+            src: widget.props.src,
+            viewSize: widget.viewSize,
         );
         if ( lqipUrl != tmp ) {
             lqipUrl = tmp;

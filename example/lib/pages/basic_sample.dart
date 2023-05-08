@@ -23,74 +23,95 @@ class _BasicSampleState extends State<BasicSample> {
                 child: SingleChildScrollView(
                     child: Column(
                         children: [
-                            SizedBox.fromSize(
-                                size: const Size(400, 100.5),
+                            Container(
+                                padding: const EdgeInsets.all(30),
                                 child: TwicImg(
-                                    src: "media:cat_1x1.jpg",
-                                    ratio: 1,
-                                    mode: TwicMode.cover,
+                                    src: 'football.jpg',
                                 ),
                             ),
-                            TwicImg(
-                                src:"media:cat_1x1.jpg",
-                                ratio: 0.5,
-                                mode: TwicMode.contain,
-                            ),
-                            TwicImg(
-                                src:"media:cat.jpg",
-                                ratio: 1.85,
-                                mode: TwicMode.cover,
-                            ),
-                            Row(
-                                children: [
-                                Expanded(
+                            Container(
+                                padding: const EdgeInsets.all(30),
                                 child: TwicImg(
-                                    src:"media:cat_1x1.jpg",
-                                    ratio: 2,
-                                    mode: TwicMode.cover),
+                                    src: 'football.jpg',
+                                    ratio: '16/9',
                                 ),
-                                Expanded(
-                                    child: TwicImg(
-                                    src:"media:cat.jpg",
-                                    ratio: 2,
+                            ),
+                            Container(
+                                padding: const EdgeInsets.all(30),
+                                child: TwicImg(
+                                    src: 'football.jpg',
+                                    ratio: '16/9',
                                     mode: TwicMode.contain,
+                                ),
+                            ),
+                            Container(
+                                padding: const EdgeInsets.all(30),
+                                child: SizedBox.fromSize(
+                                    size: const Size(400, 100.5),
+                                    child: TwicImg(
+                                        src: "football.jpg",
+                                        ratio: 'none',
+                                        mode: TwicMode.cover,
                                     ),
                                 ),
-                                ],
                             ),
-                            TwicImg(
-                                src: "media:football.jpg",
-                                ratio: 2,
-                                mode: TwicMode.cover,
+                            Container(
+                                padding: const EdgeInsets.all(30),
+                                child: Row(
+                                    children: [
+                                        Expanded(
+                                            child: TwicImg(
+                                                src:"football.jpg",
+                                                ratio: 1,
+                                                mode: TwicMode.cover,
+                                                anchor: TwicPosition.left,
+                                            ),
+                                        ),
+                                        Expanded(
+                                            child: TwicImg(
+                                                src:"football.jpg",
+                                                ratio: 2,
+                                                mode: TwicMode.contain,
+                                                position: TwicPosition.right,
+                                            ),
+                                        ),
+                                    ],
+                                ),
                             ),
-                            TwicImg(
-                                src: "media:football.jpg",
-                                ratio: 2,
-                                mode: TwicMode.contain,
+                            Container(
+                                padding: const EdgeInsets.all(30),
+                                child: TwicImg(
+                                    src: 'football.jpg',
+                                    placeholder: TwicPlaceholder.maincolor,
+                                ),
                             ),
-                            TwicImg(
-                                src: "media:components/flip/orange-2.jpg",
-                                ratio: 1.33,
-                                mode: TwicMode.cover,
+                            Container(
+                                padding: const EdgeInsets.all(30),
+                                child: TwicImg(
+                                    src: 'football.jpg',
+                                    placeholder: TwicPlaceholder.meancolor,
+                                ),
                             ),
-                            TwicImg(
-                                src: "media:components/flip/cherry-1.jpg",
-                                ratio: 1.65,
-                                mode: TwicMode.cover,
+                            Container(
+                                padding: const EdgeInsets.all(30),
+                                child: TwicImg(
+                                    src: 'football.jpg',
+                                    placeholder: TwicPlaceholder.none,
+                                ),
                             ),
-                            TwicImg(
-                                src: "media:components/flip/cherry-2.jpg",
-                                ratio: 1.98,
-                                mode: TwicMode.cover,
+                            Container(
+                                padding: const EdgeInsets.all(30),
+                                child: TwicImg(
+                                    src: 'football.jpg',
+                                    preTransform: 'refit=1:1',
+                                ),
                             ),
-                            TwicImg(
-                                src: "media:components/flip/fig-2.jpg",
-                                ratio: 1.99,
-                                mode: TwicMode.cover,
-                            ),TwicImg(
-                                src: "media:components/flip/orange-1.jpg",
-                                ratio: 1.85,
-                                mode: TwicMode.cover,
+                            Container(
+                                padding: const EdgeInsets.all(30),
+                                child: TwicImg(
+                                    src: 'football.jpg',
+                                    preTransform: 'refit=1:1/background=remove+rgb(143,0,255,0.1)',
+                                ),
                             ),
                         ],
                     ),

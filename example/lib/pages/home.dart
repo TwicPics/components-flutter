@@ -1,12 +1,54 @@
 import 'package:flutter/material.dart';
 
-class Home extends StatefulWidget {
+class Home extends StatelessWidget {
     const Home({super.key});
-    @override
-    State<Home> createState() => _HomeState();
-}
+    static List samples = [
+        {
+            "route": '/anchor',
+            "text": 'Anchor',
+        },
+        {
+            "route": '/basic',
+            "text": 'Basic',
+        },
+        {
+            "route": '/card',
+            "text": 'Cards',
+        },
+        {
+            "route": '/focus',
+            "text": 'Focus',
+        },
+        {
+            "route": '/grid',
+            "text": 'GridView',
+        },
+        {
+            "route": '/hero',
+            "text": 'Hero Image',
+        },
+        {
+            "route": '/mode',
+            "text": 'Mode',
+        },
+        {
+            "route": '/position',
+            "text": 'Position',
+        },
+        {
+            "route": '/ratio',
+            "text": 'Ratio',
+        },
+        {
+            "route": '/scroll',
+            "text": 'ScrollView',
+        },
+        {
+            "route": '/transform',
+            "text": 'PreTransform',
+        },
+    ];
 
-class _HomeState extends State<Home> {
     @override
     Widget build(BuildContext context) {
         return Scaffold(
@@ -24,53 +66,12 @@ class _HomeState extends State<Home> {
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
                     crossAxisCount: 3,
-                    children:[
+                    children:Home.samples.map( ( sample ) => 
                         ElevatedButton(
-                            onPressed: () { Navigator.pushNamed( context , '/anchor' ); },
-                            child: const Text('Anchor'),
-                        
+                            onPressed: () { Navigator.pushNamed( context , sample['route'] ); },
+                            child: Text( sample[ 'text' ] ),
                         ),
-                        ElevatedButton(
-                            onPressed: () { Navigator.pushNamed( context , '/basic' ); },
-                            child: const Text('Basic'),
-                        ),
-                        ElevatedButton(
-                            onPressed: () { Navigator.pushNamed( context , '/card' ); },
-                            child: const Text('Card'),
-                        ),
-                        ElevatedButton(
-                            onPressed: () { Navigator.pushNamed( context , '/focus' ); },
-                            child: const Text('Focus'),
-                        ),
-                        ElevatedButton(
-                            onPressed: () { Navigator.pushNamed( context , '/grid' ); },
-                            child: const Text('GridView'),
-                        ),
-                        ElevatedButton(
-                            onPressed: () { Navigator.pushNamed( context , '/hero' ); },
-                            child: const Text('Hero'),
-                        ),
-                        ElevatedButton(
-                            onPressed: () { Navigator.pushNamed( context , '/mode' ); },
-                            child: const Text('Mode'),
-                        ),
-                        ElevatedButton(
-                            onPressed: () { Navigator.pushNamed( context , '/position' ); },
-                            child: const Text('Position'),
-                        ),
-                        ElevatedButton(
-                            onPressed: () { Navigator.pushNamed( context , '/ratio' ); },
-                            child: const Text('Ratio'),
-                        ),
-                        ElevatedButton(
-                            onPressed: () { Navigator.pushNamed( context , '/scroll' ); },
-                            child: const Text('ScrollView'),
-                        ),
-                        ElevatedButton(
-                            onPressed: () { Navigator.pushNamed( context , '/transform' ); },
-                            child: const Text('Transform'),
-                        ),
-                    ]
+                    ).toList(),
                 ), 
             ),
         );

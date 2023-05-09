@@ -55,6 +55,9 @@ enum TwicPlaceholder {
 }
 
 class Config {
+    bool cacheCleanOnStartUp = false;
+    Duration cacheStalePeriod = const Duration( days: 7);
+    int cacheMaxNrOfObjects = 200;
     bool debug = false;
     late String domain;
     String? path;

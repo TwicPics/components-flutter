@@ -257,15 +257,26 @@ void main() {
                 'https://demo.twic.pics/cat.jpg?twic=v1/cover=500x500' 
             );
         } );
-        test( 'should compute url with cover transformation, intrinsic dimensions greater than the size of the view and a ratio !=1', () {
+        test( 'should compute url with cover transformation, intrinsic dimensions greater than the size of the view and a portrait ratio', () {
             expect(
                 computeUrl(
                     fit: BoxFit.cover,
                     src: 'media:cat.jpg',
                     viewSize: Size( width: 500, height: 800 ),
-                    intrinsic: Size(width: 312, height: 500),
+                    intrinsic: Size(width: 500, height: 500),
                 ),
-                'https://demo.twic.pics/cat.jpg?twic=v1/cover=500x500' 
+                'https://demo.twic.pics/cat.jpg?twic=v1/cover=312x500' 
+            );
+        } );
+        test( 'should compute url with cover transformation, intrinsic dimensions greater than the size of the view and a landscape ratio', () {
+            expect(
+                computeUrl(
+                    fit: BoxFit.cover,
+                    src: 'media:cat.jpg',
+                    viewSize: Size( width: 800, height: 500 ),
+                    intrinsic: Size(width: 500, height: 500),
+                ),
+                'https://demo.twic.pics/cat.jpg?twic=v1/cover=500x312' 
             );
         } );
     } );

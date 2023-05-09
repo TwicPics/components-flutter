@@ -5,7 +5,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:twicpics_components/src/compute.dart';
 import 'package:twicpics_components/src/http.dart';
-import 'package:twicpics_components/src/install.dart';
 import 'package:twicpics_components/src/types.dart' as twic_types;
 import 'package:twicpics_components/src/utils.dart';
 

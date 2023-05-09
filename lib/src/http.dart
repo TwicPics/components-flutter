@@ -4,20 +4,23 @@ import 'package:flutter/foundation.dart';
 import 'package:twicpics_components/src/install.dart';
 import 'package:twicpics_components/src/utils.dart';
 
+
 class TwicCacheManager extends CacheManager {
     static TwicCacheManager? _instance;
     factory TwicCacheManager() {
         if ( _instance == null ) {
             _instance = TwicCacheManager._();
-            _instance!.emptyCache();
+            if ( config.cacheCleanOnStartUp ) {
+                _instance!.emptyCache();
+            }
         }
         return _instance!;
     }
     TwicCacheManager._() : super(
         Config( 
             'twicpics_components', 
-            stalePeriod: const Duration( days: 7 ), 
-            maxNrOfCacheObjects: 200
+            stalePeriod: config.cacheStalePeriod,
+            maxNrOfCacheObjects: config.cacheMaxNrOfObjects,
         ) 
     ) {
         CacheManager.logLevel = config.debug ? CacheManagerLogLevel.verbose : CacheManagerLogLevel.none;

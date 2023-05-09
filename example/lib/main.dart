@@ -16,6 +16,9 @@ import 'package:twicpics_components/twicpics_components.dart';
 
 void main() {
     install(
+        cacheCleanOnStartUp: false,
+        cacheMaxNrOfObjects: 200,
+        cacheStalePeriod: const Duration( days: 7 ),
         domain: "https://demo.twic.pics/",
         debug: true,
     );

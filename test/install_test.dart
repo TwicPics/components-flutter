@@ -75,6 +75,28 @@ void main() {
             }
         } );
     } );
+    group('Install Cache options', () {
+        test( 'should init with cacheCleanOnStartUp = false by default', () {
+            install(
+                domain: 'https://demo.twic.pics',
+            );
+            expect( config.cacheCleanOnStartUp, false );
+        } );
+        test( 'should init cacheCleanOnStartUp to true', () {
+            install(
+                domain: 'https://demo.twic.pics',
+                cacheCleanOnStartUp: true
+            );
+            expect( config.cacheCleanOnStartUp, true );
+        } );
+        test( 'should init cacheCleanOnStartUp to false', () {
+            install(
+                domain: 'https://demo.twic.pics',
+                cacheCleanOnStartUp: false
+            );
+            expect( config.cacheCleanOnStartUp, false );
+        } );
+    } );
 
     group('Install debug', () {
         test( 'should init debug with false', () {

@@ -4,6 +4,9 @@ import 'package:twicpics_components/src/validate.dart';
 Config config = Config();
 
 void install( {
+    bool? cacheCleanOnStartUp,
+    Duration? cacheStalePeriod,
+    int? cacheMaxNrOfObjects,
     bool? debug,
     String domain = '',
     double? maxDpr,
@@ -21,6 +24,15 @@ void install( {
     config.domain = rValidDomain.firstMatch( domain )!.group( 1 )!;
     config.path = config.path = path != null ? '${rValidPath.firstMatch( path )!.group( 1 )!}/' : '';
 
+    if ( cacheCleanOnStartUp != null ) {
+        config.cacheCleanOnStartUp = cacheCleanOnStartUp;
+    }
+    if ( cacheStalePeriod != null ) {
+        config.cacheStalePeriod = cacheStalePeriod;
+    }
+    if ( cacheMaxNrOfObjects != null ) {
+        config.cacheMaxNrOfObjects = cacheMaxNrOfObjects;
+    }
     if ( debug != null ) {
         config.debug = debug;
     }

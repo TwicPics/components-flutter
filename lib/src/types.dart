@@ -60,9 +60,9 @@ class Config {
     int cacheMaxNrOfObjects = 200;
     bool debug = false;
     late String domain;
+    double maxDpr = 2;
     String? path;
     int step = 50;
-    double maxDpr = 2;
 }
 
 class PlaceholderData {

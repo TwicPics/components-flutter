@@ -11,11 +11,11 @@
 .flutter-plugins
 .history
 .svn/
-android
-ios
-linux
-macos
-windows
+/android
+/ios
+/linux
+/macos
+/windows
 example/pubspec.lock
 example/logs
 migrate_working_dir/

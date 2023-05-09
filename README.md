@@ -1,39 +1,84 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+![TwicPics Flutter Widget](https://raw.githubusercontent.com/TwicPics/components-flutter/main/resources/flutter-cover.png)
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
+## Overview
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
+### What is TwicPics?
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+[TwicPics](https://www.twicpics.com/?utm_source=github&utm_medium=organic&utm_campaign=components) is a **Responsive Media Service Solution** (SaaS) that enables **on-demand responsive image & video generation**.
+
+With TwicPics, developers only deal with high-resolution versions of their media while end-users receive **optimized, perfectly sized, device-adapted** versions **delivered from a server close to them**.
+
+TwicPics acts as an **proxy**. It retrieves your master file — from your own web server, cloud storage, or DAM — and generates a **device-adapted** version with **best-in-class compression**, delivered directly to the end-user from the **closest delivery point** available.
+
+### What is TwicPics Flutter Components ?
+
+ `TwicImg` is a widget that make it dead easy to unleash the power of [TwicPics](https://www.twicpics.com/) in your `Flutter` projects.
 
 ## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- Fast Loading
+- Images sized to the pixel
+- DPR awareness
+- Lazy-loading
+- Cache management
+- CLS optimization
+- Smart Cropping
+- Many others with [TwicPics Transformations](https://www.twicpics.com/docs/reference/transformations)
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+The only requirement is to have a `TwicPics account`. If you don't already have one, you can easily create your own [TwicPics account for free](https://account.twicpics.com/signup).
+
+However you can still test the widget with our demo domain: see samples in [/example](https://github.com/TwicPics/components-flutter/tree/main/example) folder.
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+1 - Add `twicpics_components` as a dependency in your `pubspec.yaml` file:
+
+```bash
+$ flutter pub add twicpics_components
+```
+
+2 - Configure your Flutter application:
 
 ```dart
-const like = 'sample';
+// main.dart
+
+import 'package:twicpics_components/twicpics_components.dart';
+
+void main() {
+  install(
+    domain: "https://<your-domain>.twic.pics/",
+  );
+  runApp(...);
+}
 ```
+
+3 - Display a network image: 
+
+```dart
+// my_widget.dart
+
+import 'package:twicpics_components/twicpics_components.dart';
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return TwicImg(
+      src: 'path/to/my/image',
+    );
+  }
+}
+```
+
+For more information feel free to consult the project [/example](https://github.com/TwicPics/components-flutter/tree/main/example) folder and / or our [documentation](https://www.twicpics.com/docs/components/flutter).
 
 ## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+[TwicPics](https://www.twicpics.com/?utm_source=github&utm_medium=organic&utm_campaign=components) provides the most versatile solution on the market for delivering responsive media.
+
+TwicPics Components are also available [in the most popular javascript frameworks](https://www.npmjs.com/package/@twicpics/components).
+
+## Questions and feedback
+
+Fell free to submit an [issue](https://github.com/TwicPics/components-flutter/issues) or to ask us anything by dropping an email at [support@twic.pics](mailto:support@twic.pics).

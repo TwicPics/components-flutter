@@ -1,21 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:twicpics_components/twicpics_components.dart';
 
-class HeroSample extends StatefulWidget {
+class HeroSample extends StatelessWidget {
     const HeroSample({super.key});
-    @override
-    State<HeroSample> createState() => _HeroSampleState();
-}
-
-class _HeroSampleState extends State<HeroSample> {
-    final fits = [ TwicMode.contain, TwicMode.cover ];
-    int indice = 0;
-    void changeFit () {
-        setState(() {
-            indice = ( indice + 1 ) % fits.length;
-        });
-    }
-
     @override
     Widget build(BuildContext context) {
         return Scaffold(

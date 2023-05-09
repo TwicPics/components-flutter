@@ -6,9 +6,18 @@
 .DS_Store
 .atom/
 .buildlog/
+.flutter-plugins-dependencies
+.flutter-plugins-dependencies
+.flutter-plugins
 .history
 .svn/
-.vscode
+android
+ios
+linux
+macos
+windows
+example/pubspec.lock
+example/logs
 migrate_working_dir/
 
 # IntelliJ related
@@ -30,7 +39,4 @@ migrate_working_dir/
 .packages
 build/
 
-example/pubspec.lock
-.flutter-plugins-dependencies
-.flutter-plugins-dependencies
-.flutter-plugins
+

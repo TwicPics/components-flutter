@@ -30,7 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  #twicpics_components: '>0.1.0'
+  #twicpics_components: '>=0.1.0'
   twicpics_components:
     path: ../
   

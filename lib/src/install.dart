@@ -1,5 +1,6 @@
 import 'package:twicpics_components/src/types.dart';
 import 'package:twicpics_components/src/validate.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 Config config = Config();
 
@@ -11,7 +12,8 @@ void install( {
     String domain = '',
     double? maxDpr,
     String? path,
-    int? step 
+    int? step,
+    Duration? visibilityUpdateInterval,
 } ) {
     if ( rValidDomain.hasMatch( domain ) ) {
         config.domain = domain;
@@ -42,4 +44,5 @@ void install( {
     if ( step != null ) {
         config.step = step;
     }
+    VisibilityDetectorController.instance.updateInterval = visibilityUpdateInterval ??  const Duration(milliseconds: 50);
 }

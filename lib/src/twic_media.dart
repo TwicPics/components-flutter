@@ -12,7 +12,8 @@ import 'package:visibility_detector/visibility_detector.dart';
 class TwicMedia extends StatefulWidget {
     final twic_types.Size viewSize;
     final twic_types.Attributes props;
-    const TwicMedia( {
+    final uid = UniqueKey();
+    TwicMedia( {
         Key? key,
         required this.viewSize,
         required this.props,
@@ -81,7 +82,7 @@ class _TwicMediaState extends State<TwicMedia> {
     @override
     Widget build(BuildContext context) {
         return VisibilityDetector(
-            key: widget.key!,
+            key: widget.uid!,
             onVisibilityChanged: ( visibilityInfo ) {
                 if ( mounted ) {
                     if ( !twicDone && visibilityInfo.visibleFraction> 0 ) {

@@ -82,7 +82,7 @@ class _TwicMediaState extends State<TwicMedia> {
     @override
     Widget build(BuildContext context) {
         return VisibilityDetector(
-            key: widget.uid!,
+            key: widget.uid,
             onVisibilityChanged: ( visibilityInfo ) {
                 if ( mounted ) {
                     if ( !twicDone && visibilityInfo.visibleFraction> 0 ) {

@@ -15,7 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Fixed
 
 - Improves responsiveness of cached image display.
-- No more unnecessary redrawing when TwicImg is placed in a stateful widget tree.
+- No more unnecessary redrawing when `TwicImg` is placed in a stateful widget tree.
 
 ## [0.1.0] - 2024-05-27
 

@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+- Fixes example project for MacOS platform: 'Operation not permitted issue' when trying to fetch asset.
+
 ## [0.1.1] - 2024-06-16
 
 ### Fixed

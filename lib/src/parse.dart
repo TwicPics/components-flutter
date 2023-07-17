@@ -11,6 +11,22 @@ final trimTransformOrUndefined = trimRegExpFactory('.+?', border: '[\\s\\/]');
 
 Alignment? parseAnchor ( TwicPosition? anchor ) => parsePosition( anchor );
 
+Map<String, bool> mappingBoolean = {
+    'true': true,
+    'false': false,
+    '': true,
+};
+
+bool? parseBoolean(dynamic value) {
+    if (value is bool) {
+        return value;
+    }
+    if (value == null) {
+        return false;
+    }
+    return mappingBoolean[ value.toString().trim()] ;
+}
+
 bool parseEager( bool? eager ) => eager ?? false;
 
 final parseFocus = trimOrUndefined;
@@ -51,7 +67,10 @@ Alignment? parsePosition ( TwicPosition? position ) => position != null ? positi
 
 TwicPlaceholder parsePlaceholder ( TwicPlaceholder? placeholder ) => placeholder ?? TwicPlaceholder.preview;
 
-final parsePreTransform = regExpFinderFactory( trimTransformOrUndefined, ( p ) => p != null ? '$p/' : null );
+final parsePreTransform = regExpFinderFactory< String >(
+    trimTransformOrUndefined,
+    ( p ) => p != null ? RegExp( r'^/*(.*[^/])/*$' ).firstMatch(p)?.group(1) : null
+);
 
 
 String computeSrc(String src) {
@@ -88,6 +107,15 @@ double parseRatio( dynamic ratio ) {
         }
     }
     return isPositiveNumber( number ) ? number : 1;
+}
+
+String? parseRefit(dynamic value) {
+    bool? parsedBoolean = parseBoolean(value);
+    if ( parsedBoolean == null ) {
+        String? trimmed = trimOrUndefined( ( value ?? '' ).toString());
+        return trimmed?.replaceAll( RegExp(r'\s'), '' );
+    }
+    return parsedBoolean ? '' : null;
 }
 
 Duration parseTransitionDuration ( Duration? transitionDuration) => transitionDuration ?? const Duration( milliseconds: 400 );

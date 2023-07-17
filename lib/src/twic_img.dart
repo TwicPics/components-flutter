@@ -21,6 +21,7 @@ class TwicImg extends StatelessWidget {
             String? preTransform,
             dynamic ratio,
             required String src,
+            dynamic? refit,
             int? step,
             Duration? transitionDuration,
         } 
@@ -32,6 +33,7 @@ class TwicImg extends StatelessWidget {
             fit: parseMode( mode ),
             placeholder: parsePlaceholder( placeholder ),
             preTransform: parsePreTransform( preTransform ),
+            refit: parseRefit( refit ),
             src: parseSrc( src ),
             focus: parseFocus( focus ),
             intrinsic: parseIntrinsic( intrinsic ),

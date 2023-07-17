@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:twicpics_components/src/install.dart';
@@ -160,14 +162,21 @@ void main() {
         test( 'should fallback to null', () {
             expect( parsePreTransform( '' ), null );
         } );
-        test( 'should add a trailing slash', () {
-            expect( parsePreTransform( 'flip=x' ), 'flip=x/' );
-            expect( parsePreTransform( 'flip=x/flip=y' ), 'flip=x/flip=y/' );
+        test( 'should remove leading slash ', () {
+            expect( parsePreTransform( '/flip=x' ), 'flip=x' );
+            expect( parsePreTransform( '//flip=x/flip=y' ), 'flip=x/flip=y' );
         } );
-
+        test( 'should remove trailing slash ', () {
+            expect( parsePreTransform( 'flip=x/' ), 'flip=x' );
+            expect( parsePreTransform( 'flip=x/flip=y//' ), 'flip=x/flip=y' );
+        } );
+        test( 'should remove leading and trailing slash ', () {
+            expect( parsePreTransform( '/flip=x/' ), 'flip=x' );
+            expect( parsePreTransform( '//flip=x/flip=y//' ), 'flip=x/flip=y' );
+        } );
         test( 'should trim values', () {
-            expect( parsePreTransform( ' flip=x/flip=y/' ), 'flip=x/flip=y/' );
-            expect( parsePreTransform( ' flip=x/flip=y/ ' ), 'flip=x/flip=y/' );
+            expect( parsePreTransform( ' flip=x/flip=y' ), 'flip=x/flip=y' );
+            expect( parsePreTransform( ' flip=x/flip=y ' ), 'flip=x/flip=y' );
         } );
     } );
 
@@ -189,6 +198,27 @@ void main() {
         } );
     } );
 
+    group( 'Parse refit', () {
+        test( 'should parse refit with null', () {
+            expect( parseRefit( null ), null );
+        });
+
+        test( 'should parse refit false', () {
+            expect( parseRefit( false ), null );
+        });
+
+        test( 'should parse refit true', () {
+            expect( parseRefit( true ), '' );
+        });
+
+        test( 'should parse refit with padding', () {
+            expect( parseRefit( '15p' ), '15p' );
+        });
+
+        test( 'should parse refit with padding and too much spaces', () {
+            expect( parseRefit( ' 15   p    ' ), '15p' );
+        });
+    } );
     group('Parse src', () {
         test( 'should parse src without path', () {
             install(

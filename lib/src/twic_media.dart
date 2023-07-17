@@ -36,6 +36,7 @@ class _TwicMediaState extends State<TwicMedia> {
             intrinsic: widget.props.intrinsic,
             lqip: false,
             preTransform: widget.props.preTransform,
+            refit: widget.props.refit,
             src: widget.props.src,
             step: widget.props.step,
             viewSize: widget.viewSize,

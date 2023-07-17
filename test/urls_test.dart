@@ -148,16 +148,4 @@ void main() {
             );
         } );
     } );
-
-    group('finalTransform', () {
-        test( 'should return final transform', () {
-            expect( finalTransform( fit: BoxFit.cover, refit: null ), '/*'); 
-        } );
-        test( 'should return final transform as using contain mode with refit', () {
-            expect( finalTransform( fit: BoxFit.contain, refit: '15p' ), '/*'); 
-        } );
-        test( 'should not return final transform as there is a refit option with cover mode', () {
-            expect( finalTransform( fit: BoxFit.cover, refit: '15p' ), null); 
-        } );
-    } );
 }

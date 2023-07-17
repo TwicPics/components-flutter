@@ -44,9 +44,6 @@ Size computeActualSize(
             actualHeight = ( actualWidth / actualRatio ).floorToDouble();
         }
     }
-
-    
-
     return Size(
         width: actualWidth.roundToDouble(),
         height: actualHeight.roundToDouble()
@@ -72,6 +69,31 @@ final Map<Alignment, String> mappingAlignment = {
     Alignment.topRight: 'top-right',
 };
 
+String computePreTransform(
+{
+    Alignment? anchor,
+    String? focus,
+    required BoxFit fit,
+    String? preTransform,
+    String? refit,
+} ) {
+    String? actualFocus;
+    final actualRefit = computeRefit( anchor: anchor, fit: fit, refit: refit );
+    if ( fit == BoxFit.cover && refit == null ) {
+        actualFocus = focus ?? ( anchor != null ? mappingAlignment[ anchor ] : null) ;
+    }
+    final finalTransform = ( ( fit == BoxFit.cover ) && ( refit != null ) ) ? null : '/*';
+    return '${
+        preTransform != null ? '/$preTransform' : ''
+    }${
+        actualFocus != null ? '/focus=$actualFocus' : ''
+    }${
+        actualRefit != null ? '/refit=$actualRefit' : ''
+    }${
+        finalTransform ?? ''
+    }';
+}
+
 String? computeRefit(
 {
     Alignment? anchor,
@@ -93,28 +115,6 @@ String? computeRefit(
         ( anchor == null || fit == BoxFit.contain ) ?
         '':
         '@${ mappingAlignment[ anchor ] }'
-    }';
-}
-
-String computePreTransform(
-{
-    Alignment? anchor,
-    String? focus,
-    required BoxFit fit,
-    String? preTransform,
-    String? refit,
-} ) {
-    String? actualFocus;
-    final actualRefit = computeRefit( anchor: anchor, fit: fit, refit: refit );
-    if ( fit == BoxFit.cover && refit == null ) {
-        actualFocus = focus ?? ( anchor != null ? mappingAlignment[ anchor ] : null) ;
-    }
-    return '${
-        preTransform != null ? '/$preTransform' : ''
-    }${
-        actualFocus != null ? '/focus=$actualFocus' : ''
-    }${
-        actualRefit != null ? '/refit=$actualRefit' : ''
     }';
 }
 
@@ -152,20 +152,17 @@ String computeUrl( {
         step: step,
         viewSize: viewSize
     );
-    final actualTransform = '${ computePreTransform(
-        fit: fit, 
-        anchor: anchor, 
-        focus: focus, 
-        preTransform: preTransform,
-        refit: refit,
-    )}${
-        finalTransform( fit: fit, refit: refit ) ?? ''
-    }';
     return createUrl(
         domain: config.domain,
         context: Context( mode: mappingFit[ fit ] ?? 'cover', size: size ),
         src: src,
-        transform: actualTransform,
+        transform: computePreTransform(
+            fit: fit, 
+            anchor: anchor, 
+            focus: focus, 
+            preTransform: preTransform,
+            refit: refit,
+        ),
         output: ( lqip && placeholder != null ) ? mappingPlaceholder[ placeholder ] : '',
     );
 }

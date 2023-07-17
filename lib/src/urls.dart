@@ -85,6 +85,3 @@ String createUrl( {
     }';
 }
 
-String? finalTransform( { required BoxFit fit, String? refit }) {
-    return ( ( fit == BoxFit.cover ) && (refit != null)) ? null : '/*';
-}

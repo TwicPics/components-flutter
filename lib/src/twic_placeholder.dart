@@ -102,6 +102,7 @@ class _TwicPlaceholderState extends State<TwicPlaceholder> {
             lqip: true,
             placeholder: widget.props.placeholder,
             preTransform: widget.props.preTransform,
+            refit: widget.props.refit,
             src: widget.props.src,
             viewSize: widget.viewSize,
         );

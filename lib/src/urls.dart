@@ -1,6 +1,9 @@
 // ignore_for_file: unnecessary_brace_in_string_interps, constant_identifier_names, no_leading_underscores_for_local_identifiers
 import 'dart:math';
 
+import 'package:flutter/rendering.dart';
+import 'package:twicpics_components/src/types.dart';
+
 RegExp _rPath = RegExp(
     r'^(?:(auth|placeholder|rel)|(image|media|video)|[^:]*):(\/*)((v[0-9]+(?=[/?]))?[^?]*(\?.*)?)$');
 const int FULL_PATH = 4;
@@ -13,12 +16,28 @@ const String VERSION = 'v1';
 bool isAbsolute( { String src = '', String domain = '' } ) =>
     ( src.substring( 0, min( src.length, domain.length + 1 ) ) == '$domain/' );
 
+String computeTransform({ required Context context, required String transform }) {
+    if ( transform.isNotEmpty ) {
+        final actualHeight = context.size.height?.round() ?? '-';
+        final actualWidth = context.size.width.round();
+        return transform.replaceAll(
+            RegExp(r'(/\*)'),
+            '/${context.mode}=${actualWidth}x${actualHeight}',
+        ).replaceAll(
+            'WxH',
+            '${actualWidth}x${actualHeight}',
+        );
+    }
+    return transform;
+}
+
 String createUrl( {
+    required Context context,
     required String domain,
     String? output,
     double? quality,
     required String src,
-    String transform = ''
+    String transform = '/*'
 } ) {
     bool _isAbsolute = isAbsolute( src: src, domain: domain );
     String path = _isAbsolute ? 'media:${ src.substring( '$domain/'.length ) }' : src;
@@ -32,7 +51,7 @@ String createUrl( {
         '';
     String actualPath = isMedia ? parsed.group( FULL_PATH ) ?? '' : path;
     String actualQuality = quality != null ? '/quality=$quality' : '';
-    String actualTransform = transform.isNotEmpty ? '/$transform' : '';
+    String actualTransform = computeTransform( context: context, transform: transform );
     return '${
         domain
     }/${
@@ -64,4 +83,8 @@ String createUrl( {
             actualQuality
         }'
     }';
+}
+
+String? finalTransform( { required BoxFit fit, String? refit }) {
+    return ( ( fit == BoxFit.cover ) && (refit != null)) ? null : '/*';
 }

@@ -5,6 +5,7 @@ import 'package:example/pages/mode_sample.dart';
 import 'package:example/pages/focus_sample.dart';
 import 'package:example/pages/position_sample.dart';
 import 'package:example/pages/ratio_sample.dart';
+import 'package:example/pages/refit_sample.dart';
 import 'package:flutter/material.dart';
 import 'package:example/pages/grid_sample.dart';
 import 'package:example/pages/home.dart';
@@ -35,6 +36,7 @@ void main() {
             '/hero': ( context ) => const HeroSample(),
             '/mode': ( context ) => const ModeSample(),
             '/position': ( context ) => const PositionSample(),
+            '/refit': ( context ) => const RefitSample(),
             '/ratio': ( context ) => const RatioSample(),
             '/scroll': ( context ) => const ScrollSample(),
             '/transform': ( context ) => const TransformSample(),

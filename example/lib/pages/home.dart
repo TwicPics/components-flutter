@@ -38,6 +38,9 @@ class Home extends StatelessWidget {
         {
             "route": '/ratio',
             "text": 'Ratio',
+        }, {
+            "route": '/refit',
+            "text": 'Refit',
         },
         {
             "route": '/scroll',

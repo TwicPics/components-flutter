@@ -93,7 +93,7 @@ void main() {
         } );
     } );
 
-    group('comptePreTransform', () {
+    group('computePreTransform', () {
         test( 'should return empty string', () {
             String preTransform = computePreTransform(
                 fit: BoxFit.cover
@@ -103,45 +103,130 @@ void main() {
         test( 'should return simple preTransform', () {
             String preTransform = computePreTransform(
                 fit: BoxFit.cover,
-                preTransform: 'flip=x/'
+                preTransform: 'flip=x'
             );
-            expect( preTransform, 'flip=x/' );
+            expect( preTransform, '/flip=x' );
         } );
         test( 'should return preTransform with defined focus', () {
             String preTransform = computePreTransform(
                 fit: BoxFit.cover,
                 focus: 'auto',
-                preTransform: 'flip=x/'
+                preTransform: 'flip=x'
             );
-            expect( preTransform, 'flip=x/focus=auto/' );
+            expect( preTransform, '/flip=x/focus=auto' );
         } );
         test( 'should return preTransform with focus according to anchor', () {
             String preTransform = computePreTransform(
                 fit: BoxFit.cover,
                 anchor: Alignment.center,
-                preTransform: 'flip=x/'
+                preTransform: 'flip=x'
             );
-            expect( preTransform, 'flip=x/focus=center/' );
+            expect( preTransform, '/flip=x/focus=center' );
         } );
         test( 'focus should take precedence', () {
             String preTransform = computePreTransform(
                 fit: BoxFit.cover,
                 focus: 'auto',
                 anchor: Alignment.center,
-                preTransform: 'flip=x/'
+                preTransform: 'flip=x'
             );
-            expect( preTransform, 'flip=x/focus=auto/' );
+            expect( preTransform, '/flip=x/focus=auto' );
         } );
         test( 'should not take focus or anchor into account', () {
             String preTransform = computePreTransform(
                 fit: BoxFit.contain,
                 focus: 'auto',
                 anchor: Alignment.center,
-                preTransform: 'flip=x/'
+                preTransform: 'flip=x'
             );
-            expect( preTransform, 'flip=x/' );
+            expect( preTransform, '/flip=x' );
+        } );
+        test( 'should return a flip + refit transform', () {
+            String preTransform = computePreTransform(
+                anchor: Alignment.topRight,
+                fit: BoxFit.cover,
+                focus: 'auto',
+                preTransform: 'flip=x',
+                refit: '15p'
+            );
+            expect( preTransform, '/flip=x/refit=WxH(15p)@top-right' );
         } );
     } );
+
+    group('computeRefit', () {
+        test( 'should return null as there is no refit option', () {
+            expect(
+                computeRefit(fit: BoxFit.cover),
+                null
+            );
+        });
+        test( 'should return WxH as fit is cover', () {
+            expect(
+                computeRefit(
+                    fit: BoxFit.cover,
+                    refit: ''
+                ),
+                'WxH'
+            );
+        });
+        test( 'should return auto as fit is contain', () {
+            expect(
+                computeRefit(
+                    fit: BoxFit.contain,
+                    refit: ''
+                ),
+                'auto'
+            );
+        });
+        test( 'should return WxH with padding as fit is cover and padding is defined', () {
+            expect(
+                computeRefit(
+                    fit: BoxFit.cover,
+                    refit: '15p'
+                ),
+                'WxH(15p)'
+            );
+        });
+        test( 'should return auto with padding as fit is contain and padding is defined', () {
+            expect(
+                computeRefit(
+                    fit: BoxFit.contain,
+                    refit: '15p'
+                ),
+                'auto(15p)'
+            );
+        });
+        test( 'should return @left as anchor is set to centerLeft and fit is cover', () {
+            expect(
+                computeRefit(
+                    anchor: Alignment.centerLeft,
+                    fit: BoxFit.cover,
+                    refit: ''
+                ),
+                'WxH@left'
+            );
+        });
+        test( 'should not return @left as fit is contain even if an anchor is requested', () {
+            expect(
+                computeRefit(
+                    anchor: Alignment.centerLeft,
+                    fit: BoxFit.contain,
+                    refit: ''
+                ),
+                'auto'
+            );
+        });
+        test( 'should return padding and anchor as padding is defined, fit is cover and anchor set', () {
+            expect(
+                computeRefit(
+                    anchor: Alignment.centerLeft,
+                    fit: BoxFit.cover,
+                    refit: '15p,10'
+                ),
+                'WxH(15p,10)@left'
+            );
+        } );
+    });
 
     group('computeUrl', () {
         install(
@@ -211,6 +296,28 @@ void main() {
                 'https://demo.twic.pics/cat.jpg?twic=v1/contain=800x624' 
             );
         } );
+        test( 'should compute url with a refit auto as fit is set to contain', () {
+            expect(
+                computeUrl(
+                    fit: BoxFit.cover,
+                    src: 'media:cat.jpg',
+                    refit: '15p',
+                    viewSize: Size( width: 500, height: 500)
+                ),
+                'https://demo.twic.pics/cat.jpg?twic=v1/refit=500x500(15p)' 
+            );
+        } );
+        test( 'should compute url with a refit auto as fit is set to contain', () {
+            expect(
+                computeUrl(
+                    fit: BoxFit.contain,
+                    src: 'media:cat.jpg',
+                    refit: '15p',
+                    viewSize: Size( width: 500, height: 500)
+                ),
+                'https://demo.twic.pics/cat.jpg?twic=v1/refit=auto(15p)/contain=500x500' 
+            );
+        } );
         test( 'should compute url with placeholder = preview', () {
             expect(
                 computeUrl(
@@ -277,6 +384,28 @@ void main() {
                     intrinsic: Size(width: 500, height: 500),
                 ),
                 'https://demo.twic.pics/cat.jpg?twic=v1/cover=500x312' 
+            );
+        } );
+        test( 'should compute url a refit cover transformation', () {
+            expect(
+                computeUrl(
+                    fit: BoxFit.cover,
+                    src: 'media:cat.jpg',
+                    viewSize: Size( width: 800, height: 500 ),
+                    refit:''
+                ),
+                'https://demo.twic.pics/cat.jpg?twic=v1/refit=800x500' 
+            );
+        } );
+        test( 'should compute url a refit auto transformation', () {
+            expect(
+                computeUrl(
+                    fit: BoxFit.contain,
+                    src: 'media:cat.jpg',
+                    viewSize: Size( width: 800, height: 500 ),
+                    refit:''
+                ),
+                'https://demo.twic.pics/cat.jpg?twic=v1/refit=auto/contain=800x500' 
             );
         } );
     } );

@@ -98,14 +98,14 @@ void main() {
             String preTransform = computePreTransform(
                 fit: BoxFit.cover
             );
-            expect( preTransform, '' );
+            expect( preTransform, '/*' );
         } );
         test( 'should return simple preTransform', () {
             String preTransform = computePreTransform(
                 fit: BoxFit.cover,
                 preTransform: 'flip=x'
             );
-            expect( preTransform, '/flip=x' );
+            expect( preTransform, '/flip=x/*' );
         } );
         test( 'should return preTransform with defined focus', () {
             String preTransform = computePreTransform(
@@ -113,7 +113,7 @@ void main() {
                 focus: 'auto',
                 preTransform: 'flip=x'
             );
-            expect( preTransform, '/flip=x/focus=auto' );
+            expect( preTransform, '/flip=x/focus=auto/*' );
         } );
         test( 'should return preTransform with focus according to anchor', () {
             String preTransform = computePreTransform(
@@ -121,7 +121,7 @@ void main() {
                 anchor: Alignment.center,
                 preTransform: 'flip=x'
             );
-            expect( preTransform, '/flip=x/focus=center' );
+            expect( preTransform, '/flip=x/focus=center/*' );
         } );
         test( 'focus should take precedence', () {
             String preTransform = computePreTransform(
@@ -130,7 +130,7 @@ void main() {
                 anchor: Alignment.center,
                 preTransform: 'flip=x'
             );
-            expect( preTransform, '/flip=x/focus=auto' );
+            expect( preTransform, '/flip=x/focus=auto/*' );
         } );
         test( 'should not take focus or anchor into account', () {
             String preTransform = computePreTransform(
@@ -139,7 +139,7 @@ void main() {
                 anchor: Alignment.center,
                 preTransform: 'flip=x'
             );
-            expect( preTransform, '/flip=x' );
+            expect( preTransform, '/flip=x/*' );
         } );
         test( 'should return a flip + refit transform', () {
             String preTransform = computePreTransform(

@@ -1,7 +1,5 @@
 // ignore_for_file: unnecessary_brace_in_string_interps, constant_identifier_names, no_leading_underscores_for_local_identifiers
 import 'dart:math';
-
-import 'package:flutter/rendering.dart';
 import 'package:twicpics_components/src/types.dart';
 
 RegExp _rPath = RegExp(

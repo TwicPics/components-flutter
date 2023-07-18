@@ -21,7 +21,7 @@ class TwicImg extends StatelessWidget {
             String? preTransform,
             dynamic ratio,
             required String src,
-            dynamic? refit,
+            dynamic refit,
             int? step,
             Duration? transitionDuration,
         } 

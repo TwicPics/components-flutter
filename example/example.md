@@ -64,80 +64,26 @@ class MyWidget extends StatelessWidget {
 When embedding `TwicImg` in a lazily loading-compatible tree, it is recommended to disable `TwcImg`'s lazy-loading feature:
 
 ```dart
-// grid_sample.dart
+// my_widget.dart
 
 class GridSample extends StatelessWidget {
   const GridSample({super.key});
   @override
-    Widget build(BuildContext context) {
-      return GridView.count(
-        primary: false,
-        crossAxisCount: 3,
-        children: [
-          TwicImg(
-            src: 'path/to/my/image',
-            eager: true,
-          ),
-          // ...
-        ]
-      );
-    }
+  Widget build(BuildContext context) {
+    return GridView.count(
+      primary: false,
+      crossAxisCount: 3,
+      children: [
+        TwicImg(
+          src: 'path/to/my/image',
+          eager: true,
+        ),
+        // ...
+      ]
+    );
+  }
 }
-``` 
-
-### Display a landscape image
-
-Setting a value to `ratio` property changes the aspect-ratio of the generated and displayed image.
-
-This will display a smart cropped image with an aspect-ratio of 4/3.
-
-```dart
-// grid_sample.dart
-
-class MyWidget extends StatelessWidget {
-  const MyWidget({super.key});
-  @override
-    Widget build(BuildContext context) {
-      return GridView.count(
-        primary: false,
-        crossAxisCount: 3,
-        children: [
-          TwicImg(
-            src: 'path/to/my/image',
-            ratio: '4/3'
-          ),
-          // ...
-        ]
-      );
-    }
-}
-``` 
-
-### Display a portrait image
-
-This will display a smart cropped image with an aspect-ratio of 3/4.
-
-```dart
-// grid_sample.dart
-
-class MyWidget extends StatelessWidget {
-  const MyWidget({super.key});
-  @override
-    Widget build(BuildContext context) {
-      return GridView.count(
-        primary: false,
-        crossAxisCount: 3,
-        children: [
-          TwicImg(
-            src: 'path/to/my/image',
-            ratio: '3/4'
-          ),
-          // ...
-        ]
-      );
-    }
-}
-``` 
+```
 
 ### Choose your focus
 
@@ -146,27 +92,59 @@ You can control the crop function by using the `focus` property.
 Read more about [focus](https://www.twicpics.com/docs/reference/transformations#focus).
 
 ```dart
-// grid_sample.dart
+// my_widget.dart
 
 class MyWidget extends StatelessWidget {
   const MyWidget({super.key});
   @override
-    Widget build(BuildContext context) {
-      return GridView.count(
-        primary: false,
-        crossAxisCount: 3,
-        children: [
-          TwicImg(
-            src: 'path/to/my/image',
-            focus: 'auto',
-            ratio: '3/4'
-          ),
-          // ...
-        ]
-      );
-    }
+  Widget build(BuildContext context) {
+    return TwicImg(
+      src: 'path/to/my/image',
+      focus: 'auto',
+    );
+  }
 }
-``` 
+```
+
+### Display a landscape image
+
+Setting a value to `ratio` property changes the aspect-ratio of the generated and displayed image.
+
+This will display a smart cropped image with an aspect-ratio of 4/3.
+
+```dart
+// my_widget.dart
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return TwicImg(
+      src: 'path/to/my/image',
+      ratio: '4/3',
+    );
+  }
+}
+```
+
+### Display a portrait image
+
+This will display a smart cropped image with an aspect-ratio of 3/4.
+
+```dart
+// my_widget.dart
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return TwicImg(
+      src: 'path/to/my/image',
+      ratio: '3/4',
+    );
+  }
+}
+```
 
 ### Working with ratio="none"
 
@@ -177,7 +155,7 @@ Allows to display an image with a __free height__ while respecting its __natural
 An image that occupies all available space:
 
 ```dart
-// hero_sample.dart
+// my_widget.dart
 
 import 'package:flutter/material.dart';
 import 'package:twicpics_components/twicpics_components.dart';
@@ -202,7 +180,7 @@ class HeroSample extends StatelessWidget {
 You can specify the height of your image while respecting its __natural aspect-ratio__ and optimizing your Cumulative Layout Shift (CLS) metric.
 
 ```dart
-// hero_banner.dart
+// my_widget.dart
 
 import 'package:flutter/material.dart';
 import 'package:twicpics_components/twicpics_components.dart';
@@ -218,6 +196,51 @@ class HeroBanner extends StatelessWidget {
         src: 'path/to/my/image.jpg',
         ratio: 'none',
       ),
+    );
+  }
+}
+```
+
+### Reframe your image
+
+You can **reframe** your image on the **main subject(s)** it contains.
+
+In **cover** `mode`, the resulting image will respect `ratio` while maximizing the area occupied by the main subject(s).
+
+In **contain** `mode`, the image will be cropped as close as possible to the main subject(s).
+
+To activate automatic cropping, simply add the `refit` property to your component.
+
+Read more about [refit](https://www.twicpics.com/docs/reference/transformations#refit).
+
+```dart
+// my_widget.dart
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return TwicImg(
+      anchor: TwicPosition.right, // will align main subject(s) with the right border
+      src: 'path/to/my/image',
+      mode: TwicMode.cover, // will maximize the area occupied by the main subject(s) in a squared area
+      refit: '10p', // will add a 10% padding around the main subject(s)
+    );
+  }
+}
+```
+
+```dart
+// my_widget.dart
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return TwicImg(
+      src: 'path/to/my/image',
+      mode: TwicMode.contain, // will crop the image as close as possible to main subject(s)
+      refit: true, // default refit without any padding
     );
   }
 }
@@ -266,19 +289,12 @@ This will display a variant of your master image for which background has been r
 class MyWidget extends StatelessWidget {
   const MyWidget({super.key});
   @override
-    Widget build(BuildContext context) {
-      return GridView.count(
-        primary: false,
-        crossAxisCount: 3,
-        children: [
-          TwicImg(
-            src: 'path/to/my/image',
-            preTransform: 'background=remove',
-          ),
-          // ...
-        ]
-      );
-    }
+  Widget build(BuildContext context) {
+    return TwicImg(
+      src: 'path/to/my/image',
+      preTransform: 'background=remove',
+    );
+  }
 }
 ``` 
 

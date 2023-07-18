@@ -16,8 +16,9 @@
 /linux
 /macos
 /windows
-example/pubspec.lock
+example/**/*.lock
 example/logs
+example/pubspec.lock
 migrate_working_dir/
 
 # IntelliJ related

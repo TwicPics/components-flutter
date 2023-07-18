@@ -16,7 +16,6 @@
 /linux
 /macos
 /windows
-example/**/*.lock
 example/logs
 example/pubspec.lock
 migrate_working_dir/

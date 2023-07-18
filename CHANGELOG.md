@@ -8,6 +8,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.2.0] - 2024-07-18
+
+### Added
+
+- Adds `refit` property to `TwicImg` that allows to automatically reframe image to main object(s).
+
+### Fixed
+
 - Fixes example project for MacOS platform: 'Operation not permitted issue' when trying to fetch asset.
 
 ## [0.1.1] - 2024-06-16
@@ -24,5 +32,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Add `TwicImg` widget.
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.2.0]: https://github.com/TwicPics/components-flutter/compare/0.1.1...0.2.0
 [0.1.1]: https://github.com/TwicPics/components-flutter/compare/0.1.0...0.1.1
 [0.1.0]: https://github.com/TwicPics/components-flutter/releases/tag/0.1.0

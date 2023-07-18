@@ -254,8 +254,8 @@ When using [Row Widget](https://api.flutter.dev/flutter/widgets/Row-class.html) 
 import 'package:flutter/material.dart';
 import 'package:twicpics_components/twicpics_components.dart';
 
-class RomSample extends StatelessWidget {
-  const RomSample({super.key});
+class RowSample extends StatelessWidget {
+  const RowSample({super.key});
   @override
   Widget build(BuildContext context) {
     return Row(

@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Chores: simplifies LQIP data retrieval by using `inspect` route.
+
 ## [0.2.0] - 2024-07-18
 
 ### Added

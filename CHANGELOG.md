@@ -8,9 +8,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.2.1] - 2024-09-18
+
 ### Changed
 
 - Chores: simplifies LQIP data retrieval by using `inspect` route.
+
+- Updates brand: TwicPics becomes TwicPics by Frontify.
 
 ## [0.2.0] - 2024-07-18
 
@@ -36,6 +40,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Add `TwicImg` widget.
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.2.1]: https://github.com/TwicPics/components-flutter/compare/0.2.0...0.2.1
 [0.2.0]: https://github.com/TwicPics/components-flutter/compare/0.1.1...0.2.0
 [0.1.1]: https://github.com/TwicPics/components-flutter/compare/0.1.0...0.1.1
 [0.1.0]: https://github.com/TwicPics/components-flutter/releases/tag/0.1.0

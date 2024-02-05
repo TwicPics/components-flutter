@@ -1,3 +1,5 @@
+import 'package:example/components/custom_app_bar.dart';
+import 'package:example/components/custom_floating_button.dart';
 import 'package:flutter/material.dart';
 import 'package:twicpics_components/twicpics_components.dart';
 
@@ -20,11 +22,8 @@ class _ModeSampleState extends State<ModeSample> {
     Widget build(BuildContext context) {
         return Scaffold(
             backgroundColor: Colors.grey[ 200 ],
-            appBar: AppBar(
-                backgroundColor: const Color.fromRGBO( 161, 52, 246, 1 ),
-                title: const Text( 'Mode Sample' ),
-                centerTitle: true,
-                elevation: 0,
+            appBar: const CustomAppBar(
+                title: 'Mode Sample'
             ),
             body:  Container(
                 padding: const EdgeInsets.all(30),
@@ -34,12 +33,9 @@ class _ModeSampleState extends State<ModeSample> {
                     ratio: '4/3',
                 ),
             ),
-            floatingActionButton: FloatingActionButton.extended(
-                onPressed: () {
-                    changeFit();
-                },
-                label: const Text( 'Change Mode' ),
-                backgroundColor: const Color.fromRGBO( 161, 52, 246, 1 ),
+            floatingActionButton: CustomFloatingActionButton(
+                onPressed: changeFit,
+                text: 'Change Mode',
             ),
         );
     }

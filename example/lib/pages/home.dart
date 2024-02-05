@@ -1,3 +1,4 @@
+import 'package:example/components/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
@@ -56,11 +57,8 @@ class Home extends StatelessWidget {
     Widget build(BuildContext context) {
         return Scaffold(
             backgroundColor: Colors.grey[200],
-            appBar: AppBar(
-                backgroundColor: const Color.fromRGBO( 161, 52, 246, 1 ),
-                title: const Text( 'TwicPics x Flutter' ),
-                centerTitle: true,
-                elevation: 0,
+            appBar: const CustomAppBar(
+                title: 'TwicPics x Flutter'
             ),
             body: Center(
                 child:GridView.count(
@@ -69,11 +67,18 @@ class Home extends StatelessWidget {
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
                     crossAxisCount: 3,
-                    children:Home.samples.map( ( sample ) => 
-                        ElevatedButton(
+                    children:Home.samples.map( ( sample ) =>
+                        TextButton(
+                            style: TextButton.styleFrom(
+                                backgroundColor: Colors.blue,
+                                foregroundColor: Colors.white,
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(2)),
+                                ),
+                            ),
                             onPressed: () { Navigator.pushNamed( context , sample['route'] ); },
                             child: Text( sample[ 'text' ] ),
-                        ),
+                        )
                     ).toList(),
                 ), 
             ),

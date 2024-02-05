@@ -1,3 +1,4 @@
+import 'package:example/components/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:twicpics_components/twicpics_components.dart';
 
@@ -7,11 +8,8 @@ class HeroSample extends StatelessWidget {
     Widget build(BuildContext context) {
         return Scaffold(
             backgroundColor: Colors.grey[ 200 ],
-            appBar: AppBar(
-                backgroundColor: const Color.fromRGBO( 161, 52, 246, 1 ),
-                title: const Text( 'Hero Sample' ),
-                centerTitle: true,
-                elevation: 0,
+            appBar: const CustomAppBar(
+                title: 'Hero Sample'
             ),
             body: SizedBox(
                 width: double.infinity,

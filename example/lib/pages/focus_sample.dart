@@ -1,3 +1,5 @@
+import 'package:example/components/custom_app_bar.dart';
+import 'package:example/components/custom_floating_button.dart';
 import 'package:flutter/material.dart';
 import 'package:twicpics_components/twicpics_components.dart';
 
@@ -20,11 +22,8 @@ class _FocusSampleState extends State<FocusSample> {
     Widget build(BuildContext context) {
         return Scaffold(
             backgroundColor: Colors.grey[ 200 ],
-            appBar: AppBar(
-                backgroundColor: const Color.fromRGBO( 161, 52, 246, 1 ),
-                title: const Text( 'Focus Sample' ),
-                centerTitle: true,
-                elevation: 0,
+            appBar: const CustomAppBar(
+                title: 'Focus Sample'
             ),
             body:  Container(
                 padding: const EdgeInsets.all(30),
@@ -34,13 +33,10 @@ class _FocusSampleState extends State<FocusSample> {
                     focus: focuses[ indice ],
                 ),
             ),
-            floatingActionButton: FloatingActionButton.extended(
-                onPressed: () {
-                    changeFocus();
-                },
-                label: const Text( 'Change focus' ),
-                backgroundColor: const Color.fromRGBO( 161, 52, 246, 1 ),
-            ),
+            floatingActionButton: CustomFloatingActionButton(
+                onPressed: changeFocus,
+                text: 'Change Focus',
+            ) 
         );
     }
 }

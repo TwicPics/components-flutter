@@ -1,3 +1,5 @@
+import 'package:example/components/custom_app_bar.dart';
+import 'package:example/components/custom_floating_button.dart';
 import 'package:flutter/material.dart';
 import 'package:twicpics_components/twicpics_components.dart';
 
@@ -20,11 +22,8 @@ class _RatioSampleState extends State<RatioSample> {
     Widget build(BuildContext context) {
         return Scaffold(
             backgroundColor: Colors.grey[ 200 ],
-            appBar: AppBar(
-                backgroundColor: const Color.fromRGBO( 161, 52, 246, 1 ),
-                title: const Text( 'Ratio Sample' ),
-                centerTitle: true,
-                elevation: 0,
+            appBar: const CustomAppBar(
+                title: 'Ratio Sample'
             ),
             body:  Container(
                 padding: const EdgeInsets.all(30),
@@ -34,12 +33,9 @@ class _RatioSampleState extends State<RatioSample> {
                     mode: TwicMode.cover,
                 ),
             ),
-            floatingActionButton: FloatingActionButton.extended(
-                onPressed: () {
-                    changeRatio();
-                },
-                label: const Text( 'Change Ratio' ),
-                backgroundColor: const Color.fromRGBO( 161, 52, 246, 1 ),
+            floatingActionButton: CustomFloatingActionButton(
+                onPressed: changeRatio,
+                text: 'Change Ratio',
             ),
         );
     }

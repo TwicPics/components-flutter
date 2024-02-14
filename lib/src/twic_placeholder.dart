@@ -34,7 +34,9 @@ Future<twic_types.PlaceholderData?> getPlaceholderData(
     final height = decoded['output']['height'];
     final width = decoded['output']['width'];
 
-    final deviation = width / intrinsicWidth;
+    final deviation = intrinsicWidth != null ?
+        width / intrinsicWidth :
+        0.0;
     final intrinsicRatio = width / height;
     final viewRatio = viewSize.width / viewSize.height!;
     final actualWidth = max(

@@ -15,6 +15,7 @@ class Attributes {
     String src;
     int? step;
     Duration transitionDuration;
+    VideoOptions? videoOptions;
     Attributes( { 
         required this.alignment,
         this.anchor,
@@ -29,6 +30,7 @@ class Attributes {
         required this.src,
         this.step,
         required this.transitionDuration,
+        this.videoOptions,
     } );
 }
 
@@ -87,4 +89,10 @@ enum TwicPlaceholder {
     maincolor,
     meancolor,
     none,
+}
+
+class VideoOptions {
+    String? videoTransform;
+    String? posterTransform;
+    VideoOptions( { this.videoTransform, this.posterTransform } );
 }

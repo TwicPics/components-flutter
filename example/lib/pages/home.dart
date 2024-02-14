@@ -13,6 +13,10 @@ class Home extends StatelessWidget {
             "text": 'Basic',
         },
         {
+            "route": '/basicVideo',
+            "text": 'Basic Video',
+        },
+        {
             "route": '/card',
             "text": 'Cards',
         },
@@ -50,6 +54,10 @@ class Home extends StatelessWidget {
         {
             "route": '/transform',
             "text": 'PreTransform',
+        },
+        {
+            "route": '/videoSlicing',
+            "text": 'Video Slicing',
         },
     ];
 

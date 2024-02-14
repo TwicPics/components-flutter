@@ -27,9 +27,13 @@ bool? parseBoolean(dynamic value) {
     return mappingBoolean[ value.toString().trim()] ;
 }
 
+const parseDuration = parseNumber;
+
 bool parseEager( bool? eager ) => eager ?? false;
 
 final parseFocus = trimOrUndefined;
+
+const parseFrom = parseNumber;
 
 Size? parseIntrinsic( String? value ) {
     if ( value == null || value.isEmpty ) {
@@ -63,9 +67,19 @@ final Map<TwicPosition, Alignment> positionToAlignment = {
     TwicPosition.topRight: Alignment.topRight,
 };
 
+num? parseNumber( dynamic value ) {
+    if (value is! num) {
+        String? trimmed = trimOrUndefined( value );
+        value = trimmed != null ? num.tryParse( trimmed ) : null;
+    }
+    return isPositiveNumber( value ) ? value : null;
+}
+
 Alignment? parsePosition ( TwicPosition? position ) => position != null ? positionToAlignment[ position ] : null;
 
 TwicPlaceholder parsePlaceholder ( TwicPlaceholder? placeholder ) => placeholder ?? TwicPlaceholder.preview;
+
+const parsePosterFrom = parseNumber;
 
 final parsePreTransform = regExpFinderFactory< String >(
     trimTransformOrUndefined,
@@ -117,5 +131,7 @@ String? parseRefit(dynamic value) {
     }
     return parsedBoolean ? '' : null;
 }
+
+const parseTo = parseNumber;
 
 Duration parseTransitionDuration ( Duration? transitionDuration) => transitionDuration ?? const Duration( milliseconds: 400 );

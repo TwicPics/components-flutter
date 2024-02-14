@@ -59,14 +59,6 @@ Future<twic_types.PlaceholderData?> getPlaceholderData(
     );
 }
 
-
-
-
-
-
-
-
-
 class TwicPlaceholder extends StatefulWidget {
     twic_types.Size viewSize;
     twic_types.Attributes props;

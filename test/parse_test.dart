@@ -38,6 +38,28 @@ void main() {
             expect( parseAnchor( TwicPosition.topRight ), Alignment.topRight );
         } );
     } );
+
+    group('Parse duration', () {
+        test( 'should return null if null', () {
+            expect( parseDuration( null ), null );
+        } );
+        test( 'should return 1 from string "1"', () {
+            expect( parseDuration( '1' ), 1 );
+        } );
+        test( 'should return 1 from num 1', () {
+            expect( parseDuration( 1 ), 1 );
+        } );
+        test( 'should return null from num 0', () {
+            expect( parseDuration( 0 ), null );
+        } );
+        test( 'should return decimal value from num', () {
+            expect( parseDuration( 1.1 ), 1.1 );
+        } );
+        test( 'should return decimal value from string', () {
+            expect( parseDuration( '5.6789' ), 5.6789 );
+        } );
+    } );
+
     group('Parse position', () {
         test( 'should fallback to the null', () {
             expect( parsePosition( null ), null );
@@ -115,6 +137,27 @@ void main() {
         } );
     } );
 
+    group('Parse from', () {
+        test( 'should return null if null', () {
+            expect( parseFrom( null ), null );
+        } );
+        test( 'should return 1 from string "1"', () {
+            expect( parseFrom( '1' ), 1 );
+        } );
+        test( 'should return 1 from num 1', () {
+            expect( parseFrom( 1 ), 1 );
+        } );
+        test( 'should return null from num 0', () {
+            expect( parseFrom( 0 ), null );
+        } );
+        test( 'should return decimal value from num', () {
+            expect( parseFrom( 1.1 ), 1.1 );
+        } );
+        test( 'should return decimal value from string', () {
+            expect( parseFrom( '5.6789' ), 5.6789 );
+        } );
+    } );
+
     group('Parse intrinsic', () {
         test( 'should fallback to null', () {
             expect( parseIntrinsic( null ), null );
@@ -134,6 +177,32 @@ void main() {
         } );
 
     } );
+    group('Parse number', () {
+        test( 'should return null if null', () {
+            expect( parseNumber( null ), null );
+        } );
+        test( 'should return 1 from string "1"', () {
+            expect( parseNumber( '1' ), 1 );
+        } );
+        test( 'should return 1 from num 1', () {
+            expect( parseNumber( 1 ), 1 );
+        } );
+        test( 'should return null from num 0', () {
+            expect( parseNumber( 0 ), null );
+        } );
+        test( 'should return null from negative num', () {
+            expect( parseNumber( -5 ), null );
+        } );
+        test( 'should return null from negative string', () {
+            expect( parseNumber( '-5' ), null );
+        } );
+        test( 'should return decimal value from num', () {
+            expect( parseNumber( 1.1 ), 1.1 );
+        } );
+        test( 'should return decimal value from string', () {
+            expect( parseNumber( '5.6789' ), 5.6789 );
+        } );
+    } );
 
     group('Parse placeholder', () {
         test( 'should fallback to preview', () {
@@ -150,6 +219,33 @@ void main() {
         } );
         test( 'should return none', () {
             expect( parsePlaceholder( TwicPlaceholder.none ), TwicPlaceholder.none );
+        } );
+    } );
+
+    group('Parse posterFrom', () {
+        test( 'should return null if null', () {
+            expect( parsePosterFrom( null ), null );
+        } );
+        test( 'should return 1 from string "1"', () {
+            expect( parsePosterFrom( '1' ), 1 );
+        } );
+        test( 'should return 1 from num 1', () {
+            expect( parsePosterFrom( 1 ), 1 );
+        } );
+        test( 'should return null from num 0', () {
+            expect( parsePosterFrom( 0 ), null );
+        } );
+        test( 'should return null from negative num', () {
+            expect( parsePosterFrom( -5 ), null );
+        } );
+        test( 'should return null from negative string', () {
+            expect( parsePosterFrom( '-5' ), null );
+        } );
+        test( 'should return decimal value from num', () {
+            expect( parsePosterFrom( 1.1 ), 1.1 );
+        } );
+        test( 'should return decimal value from string', () {
+            expect( parsePosterFrom( '5.6789' ), 5.6789 );
         } );
     } );
 
@@ -235,6 +331,27 @@ void main() {
             expect( parseSrc( 'media:cat.jpg' ), 'media:my_path/cat.jpg' );
             expect( parseSrc( ' cat.jpg ' ), 'media:my_path/cat.jpg' );
             expect( parseSrc( 'https://demo.twic.pics/components/cat.jpg' ), 'media:components/cat.jpg' );
+        } );
+    } );
+
+    group('Parse to', () {
+        test( 'should return null if null', () {
+            expect( parseTo( null ), null );
+        } );
+        test( 'should return 1 from string "1"', () {
+            expect( parseTo( '1' ), 1 );
+        } );
+        test( 'should return 1 from num 1', () {
+            expect( parseTo( 1 ), 1 );
+        } );
+        test( 'should return null from num 0', () {
+            expect( parseTo( 0 ), null );
+        } );
+        test( 'should return decimal value from num', () {
+            expect( parseTo( 1.1 ), 1.1 );
+        } );
+        test( 'should return decimal value from string', () {
+            expect( parseTo( '5.6789' ), 5.6789 );
         } );
     } );
 

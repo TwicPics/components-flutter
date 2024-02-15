@@ -37,6 +37,7 @@ class TwicVideo extends StatelessWidget {
             anchor: parseAnchor( anchor ),
             eager: parseEager( eager ),
             fit: parseMode( mode ),
+            mediaType: MediaType.video,
             placeholder: parsePlaceholder( placeholder ),
             preTransform: parsePreTransform( preTransform ),
             src: parseSrc( src ),

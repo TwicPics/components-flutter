@@ -45,7 +45,8 @@ class _VideoSlicingState extends State<VideoSlicing> {
                 child: Column(
                     children: [
                         TwicVideo(
-                            src: 'components/refit/dog-looking-water.jpg',
+                            ratio:"16/9",
+                            src: 'video/skater.mp4',
                             from: config[ indice ].from,
                             to: config[ indice ].to,
                             duration: config[ indice ].duration,

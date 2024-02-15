@@ -408,6 +408,101 @@ void main() {
                 'https://demo.twic.pics/cat.jpg?twic=v1/refit=auto/contain=800x500' 
             );
         } );
+        test( 'should compute url with poster = false', () {
+            expect(
+                computeUrl(
+                    fit: BoxFit.cover,
+                    poster: false,
+                    src: 'media:video/skater.mp4',
+                    viewSize: Size( width: 800, height: 500 ),
+                ),
+                'https://demo.twic.pics/video/skater.mp4?twic=v1/cover=800x500' 
+            );
+        } );
+        test( 'should compute url with poster = true', () {
+            expect(
+                computeUrl(
+                    fit: BoxFit.cover,
+                    poster: true,
+                    src: 'media:video/skater.mp4',
+                    viewSize: Size( width: 800, height: 500 ),
+                ),
+                'https://demo.twic.pics/video/skater.mp4?twic=v1/cover=800x500/output=image' 
+            );
+        } );
+
+        VideoOptions videoOptions = VideoOptions(
+            videoTransform: '/from=2.1/to=4.5',
+            posterTransform: '/from=2.1',
+        );
+        test( 'should compute url with poster = true with video slicing from, to', () {
+            expect(
+                computeUrl(
+                    fit: BoxFit.cover,
+                    poster: true,
+                    src: 'media:video/skater.mp4',
+                    videoOptions: videoOptions,
+                    viewSize: Size( width: 800, height: 500 ),
+                ),
+                'https://demo.twic.pics/video/skater.mp4?twic=v1/cover=800x500/from=2.1/output=image' 
+            );
+        } );
+        test( 'should compute url with video slicing from, to', () {
+            expect(
+                computeUrl(
+                    fit: BoxFit.cover,
+                    src: 'media:video/skater.mp4',
+                    videoOptions: videoOptions,
+                    viewSize: Size( width: 800, height: 500 ),
+                ),
+                'https://demo.twic.pics/video/skater.mp4?twic=v1/cover=800x500/from=2.1/to=4.5' 
+            );
+        } );
+
+        VideoOptions videoOptions2 = VideoOptions(
+            videoTransform: '/to=3/duration=4',
+            posterTransform: '',
+        );
+        test( 'should compute url with video slicing to, duration', () {
+            expect(
+                computeUrl(
+                    fit: BoxFit.cover,
+                    src: 'media:video/skater.mp4',
+                    videoOptions: videoOptions2,
+                    viewSize: Size( width: 800, height: 500 ),
+                ),
+                'https://demo.twic.pics/video/skater.mp4?twic=v1/cover=800x500/to=3/duration=4' 
+            );
+        } );
+        test( 'should compute url with poster and video slicing to, duration', () {
+            expect(
+                computeUrl(
+                    fit: BoxFit.cover,
+                    poster: true,
+                    src: 'media:video/skater.mp4',
+                    videoOptions: videoOptions2,
+                    viewSize: Size( width: 800, height: 500 ),
+                ),
+                'https://demo.twic.pics/video/skater.mp4?twic=v1/cover=800x500/output=image' 
+            );
+        } );
+
+        VideoOptions videoOptions3 = VideoOptions(
+            videoTransform: '/to=3/duration=4',
+            posterTransform: '/from=4',
+        );
+        test( 'should compute url with poster and video slicing to, duration and posterFrom', () {
+            expect(
+                computeUrl(
+                    fit: BoxFit.cover,
+                    poster: true,
+                    src: 'media:video/skater.mp4',
+                    videoOptions: videoOptions3,
+                    viewSize: Size( width: 800, height: 500 ),
+                ),
+                'https://demo.twic.pics/video/skater.mp4?twic=v1/cover=800x500/from=4/output=image' 
+            );
+        } );
     } );
     group('computeViewSize', () {
         test( 'should compute viewSize with ratio="1"', () {

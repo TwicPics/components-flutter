@@ -41,6 +41,7 @@ class _TwicMediaState extends State<TwicMedia> {
             src: widget.props.src,
             step: widget.props.step,
             viewSize: widget.viewSize,
+            videoOptions: widget.props.videoOptions,
         );
         if ( tmp != mediaUrl ){
             twicDone = false;

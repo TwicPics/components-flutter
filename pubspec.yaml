@@ -21,6 +21,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_cache_manager: ^3.3.0
+  video_player: ^2.8.2
   visibility_detector: ^0.4.0+2
 
 dev_dependencies:

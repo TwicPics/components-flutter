@@ -31,6 +31,7 @@ class TwicImg extends StatelessWidget {
             anchor: parseAnchor( anchor ),
             eager: parseEager( eager ),
             fit: parseMode( mode ),
+            mediaType: MediaType.image,
             placeholder: parsePlaceholder( placeholder ),
             preTransform: parsePreTransform( preTransform ),
             refit: parseRefit( refit ),

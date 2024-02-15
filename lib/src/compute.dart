@@ -139,10 +139,12 @@ String computeUrl( {
     Size? intrinsic,
     bool lqip = false,
     TwicPlaceholder? placeholder,
+    bool poster = false,
     String? preTransform,
     String? refit,
     int? step,
     required String src,
+    VideoOptions? videoOptions,
     required Size viewSize,
 } ) {
     Size size = computeActualSize(
@@ -152,18 +154,29 @@ String computeUrl( {
         step: step,
         viewSize: viewSize
     );
-    return createUrl(
-        domain: config.domain,
-        context: Context( mode: mappingFit[ fit ] ?? 'cover', size: size ),
-        src: src,
-        transform: computePreTransform(
+    final actualOutput = ( poster ?
+        'image' : 
+        ( lqip && placeholder != null ) ? mappingPlaceholder[ placeholder ] : ''
+    );
+    final videoTransform = videoOptions?.videoTransform;
+    final posterTransform = videoOptions?.posterTransform;
+    final actualVideoTransform = ( poster ? posterTransform : videoTransform ) ?? '';
+    final actualTransform = '${
+        computePreTransform(
             fit: fit, 
             anchor: anchor, 
             focus: focus, 
             preTransform: preTransform,
             refit: refit,
-        ),
-        output: ( lqip && placeholder != null ) ? mappingPlaceholder[ placeholder ] : '',
+        )
+    }$actualVideoTransform';
+
+    return createUrl(
+        domain: config.domain,
+        context: Context( mode: mappingFit[ fit ] ?? 'cover', size: size ),
+        src: src,
+        transform: actualTransform,
+        output: actualOutput,
     );
 }
 

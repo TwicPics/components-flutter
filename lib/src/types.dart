@@ -8,6 +8,7 @@ class Attributes {
     String? focus;
     Size? intrinsic;
     BoxFit fit;
+    MediaType mediaType;
     TwicPlaceholder placeholder;
     String? preTransform;
     double ratio;
@@ -23,6 +24,7 @@ class Attributes {
         this.focus,
         this.intrinsic,
         required this.fit,
+        required this.mediaType,
         required this.placeholder,
         required this.preTransform,
         required this.ratio,
@@ -49,6 +51,11 @@ class Context {
     String mode = 'cover';
     Size size;
     Context( { required this.mode, required this.size } );
+}
+
+enum MediaType {
+    image,
+    video,
 }
 
 

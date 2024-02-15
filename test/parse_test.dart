@@ -321,6 +321,7 @@ void main() {
             expect( parseSrc( 'media:cat.jpg' ), 'media:cat.jpg' );
             expect( parseSrc( ' cat.jpg ' ), 'media:cat.jpg' );
             expect( parseSrc( 'https://demo.twic.pics/components/cat.jpg' ), 'media:components/cat.jpg' );
+            expect( parseSrc( 'video/skater-standing.mp4' ), 'media:video/skater-standing.mp4' );
         } );
 
         test( 'should parse src with path', () {

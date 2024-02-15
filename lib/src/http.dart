@@ -29,7 +29,7 @@ class TwicCacheManager extends CacheManager {
 
 Future< File? > get( String url ) async {
     try {
-        return await TwicCacheManager().getSingleFile( url );
+        return await TwicCacheManager().getSingleFile( url, key: url );
     }
     on HttpExceptionWithStatus catch ( e ) {
         debugPrint( buildErrorMessage( '$e') );

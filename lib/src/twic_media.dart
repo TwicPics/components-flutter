@@ -25,8 +25,8 @@ class TwicMedia extends StatefulWidget {
 class _TwicMediaState extends State<TwicMedia> {
     Uint8List? mediaBytes;
     String? mediaUrl;
+    GlobalKey placeholderKey = GlobalKey();
     bool twicDone = false;
-
     void _init() {
         final tmp = computeUrl(
             anchor: widget.props.anchor,
@@ -121,7 +121,7 @@ class _TwicMediaState extends State<TwicMedia> {
                         null
                     ),
                 secondChild: TwicPlaceholder(
-                    key: widget.key,
+                    key: placeholderKey,
                     props: widget.props,
                     viewSize: widget.viewSize 
                 ),

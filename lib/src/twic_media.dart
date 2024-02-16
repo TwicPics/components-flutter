@@ -63,6 +63,12 @@ class _TwicMediaState extends State<TwicMedia> {
         super.didUpdateWidget(oldWidget);
     }
 
+    @override
+    void initState() {
+        placeholderKey = GlobalKey();
+        super.initState();
+    }
+
     void fetch() {
         debouncer.debounce(
             ()async {

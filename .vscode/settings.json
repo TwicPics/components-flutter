@@ -1,4 +1,7 @@
 {
   "editor.formatOnSave": false,
-  "editor.defaultFormatter": "Dart-Code.flutter"
+  "editor.defaultFormatter": "Dart-Code.flutter",
+  "cSpell.words": [
+    "debouncer"
+  ]
 }

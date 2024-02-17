@@ -55,7 +55,6 @@ class _AnchorSampleState extends State<AnchorSample> {
                     mode: config[ indice ].fit,
                     preTransform: config[ indice ].preTransform,
                     ratio: config[ indice ].ratio,
-                    placeholder: TwicPlaceholder.maincolor,
                 ),
             ),
             floatingActionButton: CustomFloatingActionButton(

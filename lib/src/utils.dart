@@ -8,7 +8,7 @@ class Debouncer {
 
     Debouncer( { this.ms = 100 } );
 
-    void debounce(Future<void> Function() fn) {
+    void debounce(void Function() fn) {
         if ( timer == null ) {
             pending = false;
             fn();

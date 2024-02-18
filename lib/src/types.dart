@@ -98,6 +98,46 @@ enum TwicPlaceholder {
     none,
 }
 
+class UrlData {
+    Alignment? anchor;
+    double dpr;
+    BoxFit fit;
+    String? focus;
+    Size? intrinsic;
+    bool lqip;
+    TwicPlaceholder? placeholder;
+    bool poster;
+    String? preTransform;
+    String? refit;
+    int? step;
+    String src;
+    VideoOptions? videoOptions;
+    Size viewSize;
+    UrlData( {
+        this.anchor,
+        this.dpr = 1,
+        required this.fit,
+        this.focus,
+        this.intrinsic,
+        this.lqip = false,
+        this.placeholder,
+        this.poster = false,
+        this.preTransform,
+        this.refit,
+        this.step,
+        required this.src,
+        this.videoOptions,
+        required this.viewSize
+    } );
+}
+
+class Urls {
+    String? media;
+    String? placeholder;
+    String? poster;
+    Urls( { this.media, this.placeholder, this.poster });
+}
+
 class VideoOptions {
     String? videoTransform;
     String? posterTransform;

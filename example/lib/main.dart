@@ -4,6 +4,7 @@ import 'package:example/pages/basic_video_sample.dart';
 import 'package:example/pages/hero_sample.dart';
 import 'package:example/pages/mode_sample.dart';
 import 'package:example/pages/focus_sample.dart';
+import 'package:example/pages/mode_video_sample.dart';
 import 'package:example/pages/position_sample.dart';
 import 'package:example/pages/ratio_sample.dart';
 import 'package:example/pages/refit_sample.dart';
@@ -38,6 +39,7 @@ void main() {
             '/home': ( context ) => const Home(),
             '/hero': ( context ) => const HeroSample(),
             '/mode': ( context ) => const ModeSample(),
+            '/modeVideo': ( context ) => const ModeVideoSample(),
             '/position': ( context ) => const PositionSample(),
             '/refit': ( context ) => const RefitSample(),
             '/ratio': ( context ) => const RatioSample(),

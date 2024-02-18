@@ -2,7 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:twicpics_components/src/custom_image.dart';
-import 'package:twicpics_components/src/twic_placeholder.dart';
+import 'package:twicpics_components/src/custom_video.dart';
+import 'package:twicpics_components/src/custom_placeholder.dart';
 import 'package:twicpics_components/src/compute.dart';
 import 'package:twicpics_components/src/types.dart' as twic_types;
 import 'package:twicpics_components/src/utils.dart';
@@ -22,8 +23,8 @@ class TwicMedia extends StatefulWidget {
 }
 
 class _TwicMediaState extends State<TwicMedia> {
-    Debouncer debouncer = Debouncer( ms: 500 );
-    String? mediaUrl;
+    Debouncer debouncer = Debouncer( ms: 100 );
+    twic_types.Urls ? urls; 
     GlobalKey mediaKey = GlobalKey();
     GlobalKey placeholderKey = GlobalKey();
     bool twicDone = false;
@@ -31,31 +32,27 @@ class _TwicMediaState extends State<TwicMedia> {
     void _init() {
         debouncer.debounce(
             (){
-                final tmp = computeUrl(
+                final tmpUrls = computeUrls(
                     anchor: widget.props.anchor,
                     dpr: MediaQuery.of( context ).devicePixelRatio,
                     fit: widget.props.fit,
                     focus: widget.props.focus,
                     intrinsic: widget.props.intrinsic,
-                    lqip: false,
-                    poster: widget.props.mediaType == twic_types.MediaType.video,
+                    mediaType: widget.props.mediaType,
+                    placeholder: widget.props.placeholder,
                     preTransform: widget.props.preTransform,
                     refit: widget.props.refit,
                     src: widget.props.src,
                     step: widget.props.step,
-                    viewSize: widget.viewSize,
                     videoOptions: widget.props.videoOptions,
+                    viewSize: widget.viewSize,
                 );
-
-                if ( tmp != mediaUrl ){
-                    debugPrint('url changed $tmp');
+                if ( tmpUrls.media != urls?.media ) {
                     twicDone = false;
-                    mediaUrl = tmp;
-                    if ( widget.props.eager ) {
-                        setState( () {
-                            visible = true;
-                        } );
-                    }
+                    setState( () {
+                        urls = tmpUrls;
+                        visible = visible || widget.props.eager;
+                    } );
                 }
             }
         );
@@ -79,7 +76,6 @@ class _TwicMediaState extends State<TwicMedia> {
         placeholderKey = GlobalKey();
         super.initState();
     }
-
 
     @override
     void dispose() {
@@ -121,23 +117,40 @@ class _TwicMediaState extends State<TwicMedia> {
                 firstChild: SizedBox(
                     height: widget.viewSize.height!,
                     width: widget.viewSize.width,
-                    child: ( visible && mediaUrl != null ) ?
-                        CustomImage(
-                            key: mediaKey,
-                            alignment: widget.props.alignment!,
-                            fit: widget.props.fit,
-                            url: mediaUrl!,
-                            onLoaded: ( loaded ) => {
-                                setState( () {
-                                    twicDone = true;
-                                } )
-                            } ,
-                        ):
+                    child: ( visible && urls?.media != null ) ?
+                        (
+                            widget.props.mediaType == twic_types.MediaType.image ?
+                                CustomImage(
+                                    key: mediaKey,
+                                    alignment: widget.props.alignment!,
+                                    fit: widget.props.fit,
+                                    url: urls!.media,
+                                    onLoaded: ( loaded ) => {
+                                        setState( () {
+                                            twicDone = true;
+                                        } )
+                                    } ,
+                                ):
+                                CustomVideo(
+                                    key: mediaKey,
+                                    alignment: widget.props.alignment!,
+                                    fit: widget.props.fit,
+                                    urls: urls!,
+                                    onLoaded: ( loaded ) => {
+                                        setState( () {
+                                            twicDone = true;
+                                        } )
+                                    } ,
+                                    viewSize: widget.viewSize 
+                                )
+                        ) :
                         null
                     ),
-                secondChild: TwicPlaceholder(
+                secondChild: CustomPlaceholder(
                     key: placeholderKey,
-                    props: widget.props,
+                    alignment: widget.props.alignment!,
+                    fit: widget.props.fit,
+                    url: urls!.placeholder,
                     viewSize: widget.viewSize 
                 ),
             ),

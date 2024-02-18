@@ -45,8 +45,9 @@ class _VideoSlicingState extends State<VideoSlicing> {
                 child: Column(
                     children: [
                         TwicVideo(
-                            ratio:"16/9",
+                            ratio:"1",
                             src: 'video/skater.mp4',
+                            mode: TwicMode.contain,
                             from: config[ indice ].from,
                             to: config[ indice ].to,
                             duration: config[ indice ].duration,

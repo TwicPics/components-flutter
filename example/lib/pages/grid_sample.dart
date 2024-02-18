@@ -223,7 +223,7 @@ class _GridSampleState extends State<GridSample> {
                             child: TwicImg(
                                 src: image['url'],
                                 focus: image['focus'],
-                                eager: true,
+                                eager: false,
                             ),
                         ) 
                     ).toList(),

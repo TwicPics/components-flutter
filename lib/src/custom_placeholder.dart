@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:twicpics_components/src/compute.dart';
 import 'package:twicpics_components/src/http.dart';
 import 'package:twicpics_components/src/types.dart' as twic_types;
 import 'package:twicpics_components/src/utils.dart';
@@ -59,23 +58,32 @@ Future<twic_types.PlaceholderData?> getPlaceholderData(
     );
 }
 
-class TwicPlaceholder extends StatefulWidget {
+class CustomPlaceholder extends StatefulWidget {
+    Alignment alignment;
+    BoxFit fit;
+    String? url;
     twic_types.Size viewSize;
-    twic_types.Attributes props;
-    TwicPlaceholder( { super.key, required this.props, required this.viewSize } );
+    CustomPlaceholder( { 
+        super.key, 
+        required this.alignment, 
+        required this.fit, 
+        this.url, 
+        required this.viewSize
+    } );
     @override
-    State<TwicPlaceholder> createState() => _TwicPlaceholderState();
+    State<CustomPlaceholder> createState() => _CustomPlaceholderState();
 }
 
-class _TwicPlaceholderState extends State<TwicPlaceholder> {
-    String? lqipUrl;
+class _CustomPlaceholderState extends State<CustomPlaceholder> {
     twic_types.PlaceholderData? placeholderData;
     Debouncer debouncer = Debouncer( ms: 100 );
     void fetch ()async {
-        placeholderData = await getPlaceholderData(
-            url: lqipUrl!,
-            viewSize: widget.viewSize
-        );
+        placeholderData = widget.url == null ?
+            null :
+            await getPlaceholderData(
+                url: widget.url!,
+                viewSize: widget.viewSize
+            );
         if ( mounted ) {
             setState( () {
                 placeholderData = placeholderData;
@@ -83,36 +91,17 @@ class _TwicPlaceholderState extends State<TwicPlaceholder> {
         }
     }
 
-    void _init() {
-        if ( widget.props.placeholder == twic_types.TwicPlaceholder.none ) {
-            return;
-        }
-        final tmp = computeUrl(
-            anchor: widget.props.anchor,
-            fit: widget.props.fit,
-            focus: widget.props.focus,
-            lqip: true,
-            placeholder: widget.props.placeholder,
-            preTransform: widget.props.preTransform,
-            refit: widget.props.refit,
-            src: widget.props.src,
-            viewSize: widget.viewSize,
-        );
-        if ( lqipUrl != tmp ) {
-            lqipUrl = tmp;
-            fetch();
-        }
-    }
-
     @override
     void didChangeDependencies(){
-        _init();
+        fetch();
         super.didChangeDependencies();
     }
 
     @override
-    void didUpdateWidget(TwicPlaceholder oldWidget) {
-        _init();
+    void didUpdateWidget(CustomPlaceholder oldWidget) {
+        if ( oldWidget.url != widget.url ) {
+            fetch();
+        }
         super.didUpdateWidget(oldWidget);
     }
 
@@ -125,8 +114,8 @@ class _TwicPlaceholderState extends State<TwicPlaceholder> {
                 height: widget.viewSize.height!,
                 width: widget.viewSize.width,
                 child: FittedBox(
-                    fit: widget.props.fit,
-                    alignment: widget.props.alignment!,
+                    fit: widget.fit,
+                    alignment: widget.alignment,
                     child: ClipRRect(
                         child: Container(
                             width: placeholderData!.width,
@@ -140,7 +129,7 @@ class _TwicPlaceholderState extends State<TwicPlaceholder> {
                                     ),
                                     child: Image.memory(
                                         placeholderData!.bytes!,
-                                        fit: widget.props.fit,
+                                        fit: BoxFit.fill,
                                     ),
                                 ) :
                                 null,

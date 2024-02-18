@@ -24,20 +24,20 @@ class _BasicVideoSampleState extends State<BasicVideoSample> {
                             Container(
                                 padding: const EdgeInsets.all(30),
                                 child: TwicVideo(
-                                    src: 'football.jpg',
+                                    src: 'video/skater.mp4',
                                 ),
                             ),
                             Container(
                                 padding: const EdgeInsets.all(30),
                                 child: TwicVideo(
-                                    src: 'football.jpg',
+                                    src: 'video/skater.mp4',
                                     ratio: '16/9',
                                 ),
                             ),
                             Container(
                                 padding: const EdgeInsets.all(30),
                                 child: TwicVideo(
-                                    src: 'football.jpg',
+                                    src: 'video/skater.mp4',
                                     ratio: '16/9',
                                     mode: TwicMode.contain,
                                 ),
@@ -47,7 +47,7 @@ class _BasicVideoSampleState extends State<BasicVideoSample> {
                                 child: SizedBox.fromSize(
                                     size: const Size(400, 100.5),
                                     child: TwicVideo(
-                                        src: "football.jpg",
+                                        src: "video/skater.mp4",
                                         ratio: 'none',
                                         mode: TwicMode.cover,
                                     ),
@@ -59,7 +59,7 @@ class _BasicVideoSampleState extends State<BasicVideoSample> {
                                     children: [
                                         Expanded(
                                             child: TwicVideo(
-                                                src:"football.jpg",
+                                                src:"video/skater.mp4",
                                                 ratio: 1,
                                                 mode: TwicMode.cover,
                                                 anchor: TwicPosition.left,
@@ -67,7 +67,7 @@ class _BasicVideoSampleState extends State<BasicVideoSample> {
                                         ),
                                         Expanded(
                                             child: TwicVideo(
-                                                src:"football.jpg",
+                                                src:"video/skater.mp4",
                                                 ratio: 2,
                                                 mode: TwicMode.contain,
                                                 position: TwicPosition.right,
@@ -79,35 +79,35 @@ class _BasicVideoSampleState extends State<BasicVideoSample> {
                             Container(
                                 padding: const EdgeInsets.all(30),
                                 child: TwicVideo(
-                                    src: 'football.jpg',
+                                    src: 'video/skater.mp4',
                                     placeholder: TwicPlaceholder.maincolor,
                                 ),
                             ),
                             Container(
                                 padding: const EdgeInsets.all(30),
                                 child: TwicVideo(
-                                    src: 'football.jpg',
+                                    src: 'video/skater.mp4',
                                     placeholder: TwicPlaceholder.meancolor,
                                 ),
                             ),
                             Container(
                                 padding: const EdgeInsets.all(30),
                                 child: TwicVideo(
-                                    src: 'football.jpg',
+                                    src: 'video/skater.mp4',
                                     placeholder: TwicPlaceholder.none,
                                 ),
                             ),
                             Container(
                                 padding: const EdgeInsets.all(30),
                                 child: TwicVideo(
-                                    src: 'football.jpg',
+                                    src: 'video/skater.mp4',
                                     preTransform: 'refit=1:1',
                                 ),
                             ),
                             Container(
                                 padding: const EdgeInsets.all(30),
                                 child: TwicVideo(
-                                    src: 'football.jpg',
+                                    src: 'video/skater.mp4',
                                     preTransform: 'refit=1:1/background=remove+rgb(143,0,255,0.1)',
                                 ),
                             ),

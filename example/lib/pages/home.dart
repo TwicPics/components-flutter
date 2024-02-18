@@ -37,6 +37,10 @@ class Home extends StatelessWidget {
             "text": 'Mode',
         },
         {
+            "route": '/modeVideo',
+            "text": 'Mode Video',
+        },
+        {
             "route": '/position',
             "text": 'Position',
         },

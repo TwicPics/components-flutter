@@ -7,8 +7,8 @@ class CustomImage extends StatefulWidget {
     Alignment alignment;
     BoxFit fit;
     final ValueChanged<bool> onLoaded;
-    String url;
-    CustomImage( { super.key, required this.alignment, required this.fit, required this.onLoaded, required this.url } );
+    String? url;
+    CustomImage( { super.key, required this.alignment, required this.fit, required this.onLoaded, this.url } );
     @override
     State<CustomImage> createState() => _CustomImageState();
 }
@@ -16,8 +16,7 @@ class CustomImage extends StatefulWidget {
 class _CustomImageState extends State<CustomImage> {
     Uint8List? bytes;
     void fetch() async {
-        debugPrint(" custom image fetch");
-        bytes = await getAsBytes( widget.url );
+        bytes = widget.url == null ? null : await getAsBytes( widget.url! );
         if ( mounted ) {
             widget.onLoaded( true );
         }
@@ -43,7 +42,7 @@ class _CustomImageState extends State<CustomImage> {
             child: bytes != null ?
                 Image.memory(
                     bytes!,
-                    alignment: widget.alignment!,
+                    alignment: widget.alignment,
                     fit: widget.fit,
                 ):
                 null ,

@@ -131,22 +131,22 @@ final Map<TwicPlaceholder, String> mappingPlaceholder = {
     TwicPlaceholder.preview: 'preview',
 };
 
-String computeUrl( {
-    Alignment? anchor,
-    double dpr = 1,
-    required BoxFit fit,
-    String? focus,
-    Size? intrinsic,
-    bool lqip = false,
-    TwicPlaceholder? placeholder,
-    bool poster = false,
-    String? preTransform,
-    String? refit,
-    int? step,
-    required String src,
-    VideoOptions? videoOptions,
-    required Size viewSize,
-} ) {
+String computeUrl( UrlData urlData ) {
+    final anchor = urlData.anchor;
+    final dpr = urlData.dpr;
+    final fit = urlData.fit;
+    final focus = urlData.focus;
+    final intrinsic = urlData.intrinsic;
+    final lqip = urlData.lqip;
+    final placeholder = urlData.placeholder;
+    final poster= urlData.poster;
+    final preTransform = urlData.preTransform;
+    final refit = urlData.refit;
+    final step = urlData.step;
+    final src = urlData.src;
+    final videoOptions = urlData.videoOptions;
+    final Size viewSize = urlData.viewSize;
+
     Size size = computeActualSize(
         dpr: dpr,
         intrinsic: intrinsic,
@@ -160,7 +160,7 @@ String computeUrl( {
     );
     final videoTransform = videoOptions?.videoTransform;
     final posterTransform = videoOptions?.posterTransform;
-    final actualVideoTransform = ( poster ? posterTransform : videoTransform ) ?? '';
+    final actualVideoTransform = ( ( lqip || poster ) ? posterTransform : videoTransform ) ?? '';
     final actualTransform = '${
         computePreTransform(
             fit: fit, 
@@ -177,6 +177,57 @@ String computeUrl( {
         src: src,
         transform: actualTransform,
         output: actualOutput,
+    );
+}
+
+Urls computeUrls ( { 
+    Alignment? anchor,
+    double dpr = 1,
+    required BoxFit fit,
+    String? focus,
+    Size? intrinsic,
+    bool lqip = false,
+    required MediaType mediaType,
+    TwicPlaceholder? placeholder,
+    String? preTransform,
+    String? refit,
+    int? step,
+    required String src,
+    VideoOptions? videoOptions,
+    required Size viewSize,
+} ) 
+{
+    final UrlData urlData = UrlData(
+        anchor: anchor,
+        dpr: dpr,
+        fit: fit,
+        focus: focus,
+        intrinsic: intrinsic,
+        placeholder: placeholder,
+        preTransform: preTransform,
+        refit: refit,
+        src: src,
+        step: step,
+        videoOptions: videoOptions,
+        viewSize: viewSize,
+    );
+    final mediaUrl = computeUrl( urlData );
+    String? placeHolderUrl;
+    String? posterUrl;
+
+    if ( placeholder != TwicPlaceholder.none ) {
+        urlData.lqip = true;
+        placeHolderUrl = computeUrl( urlData );
+    }
+    if ( mediaType == MediaType.video ) {
+        urlData.lqip = false;
+        urlData.poster = true;
+        posterUrl = computeUrl( urlData );
+    }
+    return Urls(
+        media: mediaUrl,
+        placeholder: placeHolderUrl,
+        poster: posterUrl,
     );
 }
 

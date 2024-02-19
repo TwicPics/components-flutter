@@ -23,6 +23,7 @@ class TwicMedia extends StatefulWidget {
 }
 
 class _TwicMediaState extends State<TwicMedia> {
+    Debouncer debouncer = Debouncer( ms: 500 );
     Uint8List? mediaBytes;
     String? mediaUrl;
     GlobalKey placeholderKey = GlobalKey();
@@ -63,7 +64,7 @@ class _TwicMediaState extends State<TwicMedia> {
     }
 
     void fetch() {
-        debounce(
+        debouncer.debounce(
             ()async {
                 mediaBytes = await getAsBytes( mediaUrl! );
                 if ( mounted ) {
@@ -71,13 +72,14 @@ class _TwicMediaState extends State<TwicMedia> {
                         twicDone = true;
                     } );
                 }
-            },
-            DebounceOptions(
-                leading: true,
-                trailing: false,
-                ms: 1000,
-            ) 
-        )();
+            } 
+        );
+    }
+
+    @override
+    void dispose() {
+        debouncer.dispose();
+        super.dispose();
     }
 
     @override
@@ -92,7 +94,7 @@ class _TwicMediaState extends State<TwicMedia> {
                 }
             },
             child: AnimatedCrossFade(
-                crossFadeState: twicDone ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                crossFadeState: mediaBytes != null ? CrossFadeState.showFirst : CrossFadeState.showSecond,
                 duration: const Duration(milliseconds: 1),
                 reverseDuration: widget.props.transitionDuration,
                 firstCurve: Curves.easeIn,

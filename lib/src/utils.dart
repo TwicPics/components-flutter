@@ -1,44 +1,37 @@
 import 'dart:async';
-
 String buildErrorMessage ( String message ) => 'twicpics-components $message';
 
-typedef DebounceFunction = void Function();
-
-class DebounceOptions {
-    bool? leading;
-    int? ms;
-    bool? trailing;
-    DebounceOptions( { this.leading, this.ms, this.trailing } );
-}
-
-DebounceFunction debounce( DebounceFunction fn, DebounceOptions? options ) {
+class Debouncer {
+    int ms;
+    bool pending = false;
     Timer? timer;
-    // ignore: no_leading_underscores_for_local_identifiers
-    DebounceOptions _options = DebounceOptions(
-        leading: true,
-        ms: 0,
-        trailing: true,
-    );
-    if ( options != null ) {
-        _options.leading = options.leading ?? true;
-        _options.ms = options.ms ?? 0;
-        _options.trailing = options.trailing ?? true;
-    }
-    return () {
-        if ( timer == null && _options.leading! ) {
+
+    Debouncer( { this.ms = 100 } );
+
+    void debounce(Future<void> Function() fn) {
+        if ( timer == null ) {
+            pending = false;
             fn();
+        } else {
+            pending = true;
         }
         timer?.cancel();
         timer = Timer(
-            Duration( milliseconds: _options.ms! ),
+            Duration( milliseconds: ms ),
             () {
                 timer = null;
-                if ( _options.trailing! ) {
+                if ( pending ) {
                     fn();
                 }
+                pending = false;
             },
         );
-    };
+    }
+
+    void dispose() {
+        timer?.cancel();
+        timer = null;
+    }
 }
 
 bool isPositiveNumber( dynamic value ) => value is num && value > 0;

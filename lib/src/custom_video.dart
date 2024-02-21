@@ -25,10 +25,14 @@ class CustomVideo extends StatefulWidget {
 class _CustomVideoState extends State<CustomVideo> {
     VideoPlayerController? _controller;
     void _initController(String url) {
-        _controller = VideoPlayerController.networkUrl( Uri.parse( url ) )
+        _controller = VideoPlayerController.networkUrl(
+            Uri.parse( url ), 
+            videoPlayerOptions: VideoPlayerOptions( mixWithOthers: true ) 
+        )
         ..initialize().then( (_) {
             setState( () {
                 widget.onLoaded(true);
+                _controller!.setVolume( 0 );
                 _controller!.setLooping( true );
                 _controller!.play();
             } );
@@ -70,6 +74,14 @@ class _CustomVideoState extends State<CustomVideo> {
     }
 
     @override
+    void dispose() {
+        if ( _controller != null ) {
+            _controller!.dispose();
+        }
+        super.dispose();
+    }
+
+    @override
     Widget build(BuildContext context) {
         return SizedBox(
             height: widget.viewSize.height!,
@@ -90,6 +102,7 @@ class _CustomVideoState extends State<CustomVideo> {
                     url: widget.urls.poster,
                     onLoaded: ( loaded ) => {
                         setState( () {
+                            debugPrint('Poster done');
                             widget.onLoaded( true );
                         } )
                     } ,

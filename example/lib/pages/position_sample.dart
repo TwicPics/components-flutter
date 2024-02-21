@@ -1,5 +1,6 @@
 import 'package:example/components/custom_app_bar.dart';
 import 'package:example/components/custom_floating_button.dart';
+import 'package:example/components/sample_container.dart';
 import 'package:flutter/material.dart';
 import 'package:twicpics_components/twicpics_components.dart';
 
@@ -40,8 +41,8 @@ class _PositionSampleState extends State<PositionSample> {
             appBar: const CustomAppBar(
                 title: 'Position Sample'
             ),
-            body:  Container(
-                padding: const EdgeInsets.all(30),
+            body: SampleContainer(
+                label: 'position = ${ config[ indice ].position }',
                 child: TwicImg(
                     src: config[ indice ].src,
                     mode: TwicMode.contain,

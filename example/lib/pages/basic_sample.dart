@@ -1,4 +1,5 @@
 import 'package:example/components/custom_app_bar.dart';
+import 'package:example/components/sample_container.dart';
 import 'package:flutter/material.dart';
 import 'package:twicpics_components/twicpics_components.dart';
 
@@ -16,34 +17,34 @@ class _BasicSampleState extends State<BasicSample> {
             appBar: const CustomAppBar(
                 title: 'Basic Sample'
             ),
-            body:  Container(
+            body: Container(
                 padding: const EdgeInsets.all(30),
                 child: SingleChildScrollView(
                     child: Column(
                         children: [
-                            Container(
-                                padding: const EdgeInsets.all(30),
+                            SampleContainer(
+                                label: 'Default',
                                 child: TwicImg(
                                     src: 'football.jpg',
                                 ),
                             ),
-                            Container(
-                                padding: const EdgeInsets.all(30),
+                            SampleContainer(
+                                label: 'Ratio 16/9',
                                 child: TwicImg(
                                     src: 'football.jpg',
                                     ratio: '16/9',
                                 ),
                             ),
-                            Container(
-                                padding: const EdgeInsets.all(30),
+                            SampleContainer(
+                                label: 'Ratio 16/9 + contain',
                                 child: TwicImg(
                                     src: 'football.jpg',
                                     ratio: '16/9',
                                     mode: TwicMode.contain,
                                 ),
                             ),
-                            Container(
-                                padding: const EdgeInsets.all(30),
+                            SampleContainer(
+                                label: 'Ratio none',
                                 child: SizedBox.fromSize(
                                     size: const Size(400, 100.5),
                                     child: TwicImg(
@@ -53,8 +54,8 @@ class _BasicSampleState extends State<BasicSample> {
                                     ),
                                 ),
                             ),
-                            Container(
-                                padding: const EdgeInsets.all(30),
+                            SampleContainer(
+                                label: 'In a row',
                                 child: Row(
                                     children: [
                                         Expanded(
@@ -76,39 +77,40 @@ class _BasicSampleState extends State<BasicSample> {
                                     ],
                                 ),
                             ),
-                            Container(
-                                padding: const EdgeInsets.all(30),
+                            SampleContainer(
+                                label: 'Placeholder maincolor',
                                 child: TwicImg(
                                     src: 'football.jpg',
                                     placeholder: TwicPlaceholder.maincolor,
                                 ),
                             ),
-                            Container(
-                                padding: const EdgeInsets.all(30),
+                            SampleContainer(
+                                label: 'Placeholder meancolor',
                                 child: TwicImg(
                                     src: 'football.jpg',
                                     placeholder: TwicPlaceholder.meancolor,
                                 ),
                             ),
-                            Container(
-                                padding: const EdgeInsets.all(30),
+                            SampleContainer(
+                                label: 'Placeholder none',
                                 child: TwicImg(
                                     src: 'football.jpg',
                                     placeholder: TwicPlaceholder.none,
                                 ),
                             ),
-                            Container(
-                                padding: const EdgeInsets.all(30),
+                            SampleContainer(
+                                label: 'Refit true',
                                 child: TwicImg(
                                     src: 'football.jpg',
-                                    preTransform: 'refit=1:1',
+                                    refit: true
                                 ),
                             ),
-                            Container(
-                                padding: const EdgeInsets.all(30),
+                            SampleContainer(
+                                label: 'Refit true + background remove',
                                 child: TwicImg(
                                     src: 'football.jpg',
-                                    preTransform: 'refit=1:1/background=remove+rgb(143,0,255,0.1)',
+                                    refit: true,
+                                    preTransform: 'background=remove+rgb(143,0,255,0.1)',
                                 ),
                             ),
                         ],

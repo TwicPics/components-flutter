@@ -1,5 +1,6 @@
 import 'package:example/components/custom_app_bar.dart';
 import 'package:example/components/custom_floating_button.dart';
+import 'package:example/components/sample_container.dart';
 import 'package:flutter/material.dart';
 import 'package:twicpics_components/twicpics_components.dart';
 
@@ -19,8 +20,8 @@ class Config {
 
 class _VideoSlicingState extends State<VideoSlicing> {
     static List< Config > config = [
-        Config( ),
         Config( posterFrom: 5 ),
+        Config( ),
         Config( from: 5.1 ),
         Config( from: 15.4, to: 16.6 ),
         Config( from: 15.4, duration: 1.2 ),
@@ -40,7 +41,7 @@ class _VideoSlicingState extends State<VideoSlicing> {
             appBar: const CustomAppBar(
                 title: 'Video Slicing Sample'
             ),
-            body:  Container(
+            body: Container(
                 padding: const EdgeInsets.all(30),
                 child: Column(
                     children: [

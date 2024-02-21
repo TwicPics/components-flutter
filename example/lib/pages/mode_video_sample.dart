@@ -1,5 +1,6 @@
 import 'package:example/components/custom_app_bar.dart';
 import 'package:example/components/custom_floating_button.dart';
+import 'package:example/components/sample_container.dart';
 import 'package:flutter/material.dart';
 import 'package:twicpics_components/twicpics_components.dart';
 
@@ -25,14 +26,17 @@ class _ModeVideoSampleState extends State<ModeVideoSample> {
             appBar: const CustomAppBar(
                 title: 'Mode Video Sample'
             ),
-            body:  Container(
+            body: Container(
                 padding: const EdgeInsets.all(30),
-                child: TwicVideo(
-                    anchor: TwicPosition.top,
-                    src: 'video/skater.mp4',
-                    mode: fits[ indice ],
-                    ratio: '3/4',
-                ),
+                child: SampleContainer(
+                    label: 'mode = ${ fits[ indice ] }',
+                    child: TwicVideo(
+                        anchor: TwicPosition.center,
+                        src: 'video/skater.mp4',
+                        mode: fits[ indice ],
+                        ratio: '3/4',
+                    ),
+                )
             ),
             floatingActionButton: CustomFloatingActionButton(
                 onPressed: changeFit,

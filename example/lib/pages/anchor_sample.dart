@@ -1,5 +1,6 @@
 import 'package:example/components/custom_app_bar.dart';
 import 'package:example/components/custom_floating_button.dart';
+import 'package:example/components/sample_container.dart';
 import 'package:flutter/material.dart';
 import 'package:twicpics_components/twicpics_components.dart';
 
@@ -47,8 +48,7 @@ class _AnchorSampleState extends State<AnchorSample> {
             appBar: const CustomAppBar(
                 title: 'Anchor Sample'
             ),
-            body:  Container(
-                padding: const EdgeInsets.all(30),
+            body:  SampleContainer(
                 child: TwicImg(
                     src: 'components/anchor/anchor.jpg',
                     anchor: config[ indice ].anchor,

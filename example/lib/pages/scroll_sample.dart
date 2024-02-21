@@ -1,4 +1,5 @@
 import 'package:example/components/custom_app_bar.dart';
+import 'package:example/components/sample_container.dart';
 import 'package:flutter/material.dart';
 import 'package:twicpics_components/twicpics_components.dart';
 
@@ -215,8 +216,7 @@ class _ScrollSampleState extends State<ScrollSample> {
             body: SingleChildScrollView(
                 child: Column(
                         children: ScrollSample.images.map( ( image ) => 
-                            Container(
-                                padding: const EdgeInsets.all(30),
+                            SampleContainer(
                                 child: TwicImg(
                                     src: image['url'],
                                     focus: image['focus'],

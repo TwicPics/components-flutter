@@ -2,6 +2,7 @@ import 'package:example/pages/anchor_sample.dart';
 import 'package:example/pages/basic_sample.dart';
 import 'package:example/pages/basic_video_sample.dart';
 import 'package:example/pages/hero_sample.dart';
+import 'package:example/pages/hero_video_sample.dart';
 import 'package:example/pages/mode_sample.dart';
 import 'package:example/pages/focus_sample.dart';
 import 'package:example/pages/mode_video_sample.dart';
@@ -38,6 +39,7 @@ void main() {
             '/grid': ( context ) => const GridSample(),
             '/home': ( context ) => const Home(),
             '/hero': ( context ) => const HeroSample(),
+            '/heroVideo': ( context ) => const HeroVideoSample(),
             '/mode': ( context ) => const ModeSample(),
             '/modeVideo': ( context ) => const ModeVideoSample(),
             '/position': ( context ) => const PositionSample(),

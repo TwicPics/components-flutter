@@ -33,6 +33,10 @@ class Home extends StatelessWidget {
             "text": 'Hero Image',
         },
         {
+            "route": '/heroVideo',
+            "text": 'Hero Video',
+        },
+        {
             "route": '/mode',
             "text": 'Mode',
         },

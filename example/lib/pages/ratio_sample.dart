@@ -1,5 +1,6 @@
 import 'package:example/components/custom_app_bar.dart';
 import 'package:example/components/custom_floating_button.dart';
+import 'package:example/components/sample_container.dart';
 import 'package:flutter/material.dart';
 import 'package:twicpics_components/twicpics_components.dart';
 
@@ -25,8 +26,8 @@ class _RatioSampleState extends State<RatioSample> {
             appBar: const CustomAppBar(
                 title: 'Ratio Sample'
             ),
-            body:  Container(
-                padding: const EdgeInsets.all(30),
+            body: SampleContainer(
+                label: 'ratio = ${ ratios[ indice ] }',
                 child: TwicImg(
                     src: 'football.jpg',
                     ratio: ratios[ indice ],

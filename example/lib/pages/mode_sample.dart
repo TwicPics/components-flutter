@@ -1,5 +1,6 @@
 import 'package:example/components/custom_app_bar.dart';
 import 'package:example/components/custom_floating_button.dart';
+import 'package:example/components/sample_container.dart';
 import 'package:flutter/material.dart';
 import 'package:twicpics_components/twicpics_components.dart';
 
@@ -25,8 +26,8 @@ class _ModeSampleState extends State<ModeSample> {
             appBar: const CustomAppBar(
                 title: 'Mode Sample'
             ),
-            body:  Container(
-                padding: const EdgeInsets.all(30),
+            body: SampleContainer(
+                label: 'mode = ${ fits[ indice ] }',
                 child: TwicImg(
                     src: 'cat_1x1.jpg',
                     mode: fits[ indice ],

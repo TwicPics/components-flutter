@@ -1,27 +1,27 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:twicpics_components/src/custom_media.dart';
-import 'package:twicpics_components/src/custom_placeholder.dart';
 import 'package:twicpics_components/src/compute.dart';
 import 'package:twicpics_components/src/types.dart' as twic_types;
 import 'package:twicpics_components/src/utils.dart';
+import 'package:twicpics_components/widgets/media.dart';
+import 'package:twicpics_components/widgets/placeholder.dart'
+    as twic_placeholder;
 import 'package:visibility_detector/visibility_detector.dart';
 
-class TwicMedia extends StatefulWidget {
+class Wrapper extends StatefulWidget {
   final twic_types.Size viewSize;
   final twic_types.Attributes props;
   final uid = UniqueKey();
-  TwicMedia({
+  Wrapper({
     Key? key,
     required this.viewSize,
     required this.props,
   }) : super(key: key);
   @override
-  State<TwicMedia> createState() => _TwicMediaState();
+  State<Wrapper> createState() => _WrapperState();
 }
 
-class _TwicMediaState extends State<TwicMedia> {
+class _WrapperState extends State<Wrapper> {
   Debouncer debouncer = Debouncer(ms: 100);
   twic_types.Urls? urls;
   GlobalKey mediaKey = GlobalKey();
@@ -62,7 +62,7 @@ class _TwicMediaState extends State<TwicMedia> {
   }
 
   @override
-  void didUpdateWidget(TwicMedia oldWidget) {
+  void didUpdateWidget(Wrapper oldWidget) {
     _init();
     super.didUpdateWidget(oldWidget);
   }
@@ -104,7 +104,7 @@ class _TwicMediaState extends State<TwicMedia> {
             height: widget.viewSize.height!,
             width: widget.viewSize.width,
             child: (visible && urls?.media != null)
-                ? CustomMedia(
+                ? Media(
                     key: mediaKey,
                     alignment: widget.props.alignment!,
                     fit: widget.props.fit,
@@ -118,7 +118,7 @@ class _TwicMediaState extends State<TwicMedia> {
                     viewSize: widget.viewSize,
                   )
                 : null),
-        secondChild: CustomPlaceholder(
+        secondChild: twic_placeholder.Placeholder(
             key: placeholderKey,
             alignment: widget.props.alignment!,
             fit: widget.props.fit,

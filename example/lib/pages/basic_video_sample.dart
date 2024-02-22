@@ -1,5 +1,5 @@
-import 'package:example/components/custom_app_bar.dart';
-import 'package:example/components/sample_container.dart';
+import 'package:example/widgets/custom_app_bar.dart';
+import 'package:example/widgets/sample_container.dart';
 import 'package:flutter/material.dart';
 import 'package:twicpics_components/twicpics_components.dart';
 

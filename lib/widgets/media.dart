@@ -1,17 +1,17 @@
 // ignore_for_file: must_be_immutable, constant_identifier_names
-import 'package:flutter/material.dart';
-import 'package:twicpics_components/src/custom_image.dart';
-import 'package:twicpics_components/src/custom_video.dart';
+import 'package:flutter/material.dart' hide Image;
 import 'package:twicpics_components/src/types.dart';
+import 'package:twicpics_components/widgets/image.dart';
+import 'package:twicpics_components/widgets/video.dart';
 
-class CustomMedia extends StatefulWidget {
+class Media extends StatefulWidget {
   Alignment alignment;
   BoxFit fit;
   MediaType mediaType;
   final ValueChanged<bool> onLoaded;
   Urls urls;
   Size viewSize;
-  CustomMedia(
+  Media(
       {super.key,
       required this.alignment,
       required this.fit,
@@ -21,14 +21,14 @@ class CustomMedia extends StatefulWidget {
       required this.viewSize});
 
   @override
-  State<CustomMedia> createState() => _CustomMediaState();
+  State<Media> createState() => _MediaState();
 }
 
-class _CustomMediaState extends State<CustomMedia> {
+class _MediaState extends State<Media> {
   @override
   Widget build(BuildContext context) {
     return widget.mediaType == MediaType.image
-        ? CustomImage(
+        ? Image(
             alignment: widget.alignment,
             fit: widget.fit,
             url: widget.urls.media,

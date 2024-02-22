@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable, constant_identifier_names
-import 'package:flutter/material.dart';
-import 'package:twicpics_components/src/custom_image.dart';
+import 'package:flutter/material.dart' hide Image;
 import 'package:twicpics_components/src/types.dart' as twic_types;
+import 'package:twicpics_components/widgets/image.dart';
 import 'package:video_player/video_player.dart';
 
 class CustomVideo extends StatefulWidget {
@@ -99,7 +99,7 @@ class _CustomVideoState extends State<CustomVideo> {
       secondChild: SizedBox(
         height: widget.viewSize.height!,
         width: widget.viewSize.width,
-        child: CustomImage(
+        child: Image(
           alignment: widget.alignment,
           fit: widget.fit,
           url: widget.urls.poster,

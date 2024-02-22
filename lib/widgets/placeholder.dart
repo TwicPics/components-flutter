@@ -54,22 +54,22 @@ Future<twic_types.PlaceholderData?> getPlaceholderData({
   );
 }
 
-class CustomPlaceholder extends StatefulWidget {
+class Placeholder extends StatefulWidget {
   Alignment alignment;
   BoxFit fit;
   String? url;
   twic_types.Size viewSize;
-  CustomPlaceholder(
+  Placeholder(
       {super.key,
       required this.alignment,
       required this.fit,
       this.url,
       required this.viewSize});
   @override
-  State<CustomPlaceholder> createState() => _CustomPlaceholderState();
+  State<Placeholder> createState() => _PlaceholderState();
 }
 
-class _CustomPlaceholderState extends State<CustomPlaceholder> {
+class _PlaceholderState extends State<Placeholder> {
   twic_types.PlaceholderData? placeholderData;
   Debouncer debouncer = Debouncer(ms: 100);
   void fetch() async {
@@ -90,7 +90,7 @@ class _CustomPlaceholderState extends State<CustomPlaceholder> {
   }
 
   @override
-  void didUpdateWidget(CustomPlaceholder oldWidget) {
+  void didUpdateWidget(Placeholder oldWidget) {
     if (oldWidget.url != widget.url) {
       fetch();
     }

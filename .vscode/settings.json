@@ -3,6 +3,7 @@
   "editor.defaultFormatter": "Dart-Code.flutter",
   "editor.tabSize": 2,
   "cSpell.words": [
+    "automagically",
     "debouncer"
   ],
   "editor.detectIndentation": false,

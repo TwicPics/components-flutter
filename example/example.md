@@ -29,17 +29,17 @@ If you don't already have a TwicPics domain, you can easily create your own [Twi
 
 ## How to use
 
-`TwicImg` comes as a `Flutter Widget` and is used as [such](https://docs.flutter.dev/ui/widgets-intro).
+`TwicImg` and `TwicVideo` come as `Flutter Widgets` and are used as [such](https://docs.flutter.dev/ui/widgets-intro).
 
 ### Basic usage
 
-Remember, the widget does not expose height nor width properties.
+Remember, the widgets do not expose height nor width properties.
 
-The image __occupies the whole width of its container__.
+The image or video __occupies the whole width of its container__.
 
 Its height is determined according to the desired `ratio`.
 
-The __default ratio is 1__ (which generates a square variant of your master image).
+The __default ratio is 1__ (which generates a square variant of your master asset).
 
 This will display a smart cropped image with an aspect-ratio of 1:
 
@@ -59,9 +59,27 @@ class MyWidget extends StatelessWidget {
 }
 ```
 
+This will display a smart cropped video with an aspect-ratio of 1:
+
+```dart
+// my_widget.dart
+
+import 'package:twicpics_components/twicpics_components.dart';
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return TwicVideo(
+      src: 'path/to/my/video',
+    );
+  }
+}
+```
+
 ### Bulk loading
 
-When embedding `TwicImg` in a lazily loading-compatible tree, it is recommended to disable `TwcImg`'s lazy-loading feature:
+When embedding `TwicImg` or `TwicVideo` in a lazily loading-compatible tree, it is recommended to disable lazy-loading feature:
 
 ```dart
 // my_widget.dart
@@ -78,6 +96,10 @@ class GridSample extends StatelessWidget {
           src: 'path/to/my/image',
           eager: true,
         ),
+        TwicVideo(
+          src: 'path/to/my/video',
+          eager: true,
+        ),
         // ...
       ]
     );
@@ -91,6 +113,8 @@ You can control the crop function by using the `focus` property.
 
 Read more about [focus](https://www.twicpics.com/docs/reference/transformations#focus).
 
+#### Set the focus point to coordinates
+
 ```dart
 // my_widget.dart
 
@@ -100,17 +124,30 @@ class MyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TwicImg(
       src: 'path/to/my/image',
-      focus: 'auto',
+      focus: '30px40p', // this will set the focus point coordinates using relative lengths
     );
   }
 }
 ```
 
-### Display a landscape image
+```dart
+// my_widget.dart
 
-Setting a value to `ratio` property changes the aspect-ratio of the generated and displayed image.
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return TwicImg(
+      src: 'path/to/my/image',
+      focus: '345x678', // this will set the focus point coordinates using absolute lengths
+    );
+  }
+}
+```
 
-This will display a smart cropped image with an aspect-ratio of 4/3.
+#### Set the focus automagically
+
+_This is only available for `TwicImg`._
 
 ```dart
 // my_widget.dart
@@ -121,15 +158,53 @@ class MyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TwicImg(
       src: 'path/to/my/image',
+      focus: 'auto', // the focus point will be chosen automagically for you
+    );
+  }
+}
+```
+
+### Display a landscape asset
+
+Setting a value to `ratio` property changes the aspect-ratio of the generated and displayed asset.
+
+This will display a __smart cropped variant__ of your master image with an __aspect-ratio of 4/3__.
+
+```dart
+// my_widget.dart
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return TwicImg(
+      src: 'path/to/my/image', // your master image file
       ratio: '4/3',
     );
   }
 }
 ```
 
-### Display a portrait image
+This will display a __smart cropped variant__ of your master video with an __aspect-ratio of 4/3__.
 
-This will display a smart cropped image with an aspect-ratio of 3/4.
+```dart
+// my_widget.dart
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return TwicVideo(
+      src: 'path/to/my/video', // your master video file
+      ratio: '4/3',
+    );
+  }
+}
+```
+
+### Display a portrait asset
+
+This will display a __smart cropped variant__ of your master image with an __aspect-ratio of 3/4__.
 
 ```dart
 // my_widget.dart
@@ -139,7 +214,24 @@ class MyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TwicImg(
-      src: 'path/to/my/image',
+      src: 'path/to/my/image', // your master image file
+      ratio: '3/4',
+    );
+  }
+}
+```
+
+This will display a __smart cropped variant__ of your master video with an __aspect-ratio of 3/4__.
+
+```dart
+// my_widget.dart
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return TwicVideo(
+      src: 'path/to/my/video', // your master video file
       ratio: '3/4',
     );
   }
@@ -148,7 +240,7 @@ class MyWidget extends StatelessWidget {
 
 ### Working with ratio="none"
 
-Allows to display an image with a __free height__ while respecting its __natural aspect-ratio__.
+Allows to display an asset with a __free height__ while respecting its __natural aspect-ratio__.
 
 #### Hero image
 
@@ -175,9 +267,34 @@ class HeroSample extends StatelessWidget {
 }
 ```
 
+#### Hero video
+
+An video that occupies all available space:
+
+```dart
+// my_widget.dart
+
+import 'package:flutter/material.dart';
+import 'package:twicpics_components/twicpics_components.dart';
+
+class HeroSample extends StatelessWidget {
+  const HeroSample({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: TwicVideo(
+        src: 'path/to/my/video.jpg',
+          ratio: 'none',
+        ),
+    );
+  }
+}
+```
+
 #### Hero banner
 
-You can specify the height of your image while respecting its __natural aspect-ratio__ and optimizing your Cumulative Layout Shift (CLS) metric.
+You can specify the height of your image (or video) while respecting its __natural aspect-ratio__ and optimizing your Cumulative Layout Shift (CLS) metric.
 
 ```dart
 // my_widget.dart
@@ -203,13 +320,13 @@ class HeroBanner extends StatelessWidget {
 
 ### Reframe your image
 
-You can **reframe** your image on the **main subject(s)** it contains.
+The `TwicImg` widget allows to reframe your image on the main subject(s) it contains.
 
 In **cover** `mode`, the resulting image will respect `ratio` while maximizing the area occupied by the main subject(s).
 
 In **contain** `mode`, the image will be cropped as close as possible to the main subject(s).
 
-To activate automatic cropping, simply add the `refit` property to your component.
+To activate automatic cropping, simply add the `refit` property to your widget call.
 
 Read more about [refit](https://www.twicpics.com/docs/reference/transformations#refit).
 
@@ -246,9 +363,11 @@ class MyWidget extends StatelessWidget {
 }
 ```
 
+_`refit` is available only for `TwicImg` widget._
+
 ### Working with Row Widget
 
-When using [Row Widget](https://api.flutter.dev/flutter/widgets/Row-class.html) you have to __constrain available width__ for `TwicImg` as in:
+When using [Row Widget](https://api.flutter.dev/flutter/widgets/Row-class.html) you have to __constrain available width__ for `TwicImg` or `TwicVideo` as in:
 
 ```dart
 import 'package:flutter/material.dart';
@@ -263,12 +382,12 @@ class RowSample extends StatelessWidget {
         SizedBox(
           width: 100, //fixed width
           child: TwicImg(
-            src:'path/to/my/image.jpg',
+            src:'path/to/my/image',
           ),
         ),
         Expanded( // makes child fills the available space
-          child: TwicImg(
-            src:'path/to/my/image.jpg',
+          child: TwicVideo(
+            src:'path/to/my/video',
           ),
         ),
       ],
@@ -296,7 +415,37 @@ class MyWidget extends StatelessWidget {
     );
   }
 }
-``` 
+```
+
+### Displaying Optimal Segment from your Videos
+
+The `TwicVideo` widget allows you to select the displayed part of your master video file.
+
+The [properties](https://www.twicpics.com/docs/components/flutter#twicvideo) of the `TwicVideo` that allow such selection are :
+
+- `from`: moves the starting point of the video
+- `to`: moves the end point of the video
+- `duration`: limits the duration of the video
+
+Expected values for these props are __expressed in seconds__ and must be __positive__.
+
+```dart
+// grid_sample.dart
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return TwicVideo(
+      src: 'path/to/my/video',
+      from: '3' /* start playing the video at the 3rd second */
+      to:'10.5' /* end at 10.5 seconds */
+    );
+  }
+}
+```
+
+Read more about [video slicing](https://www.twicpics.com/docs/topics/video-optimization#video-slicing).
 
 ## Questions and feedback
 

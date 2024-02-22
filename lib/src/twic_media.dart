@@ -1,8 +1,7 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:twicpics_components/src/custom_image.dart';
-import 'package:twicpics_components/src/custom_video.dart';
+import 'package:twicpics_components/src/custom_media.dart';
 import 'package:twicpics_components/src/custom_placeholder.dart';
 import 'package:twicpics_components/src/compute.dart';
 import 'package:twicpics_components/src/types.dart' as twic_types;
@@ -71,13 +70,6 @@ class _TwicMediaState extends State<TwicMedia> {
     }
 
     @override
-
-    void initState() {
-        placeholderKey = GlobalKey();
-        super.initState();
-    }
-
-    @override
     void dispose() {
         debouncer.dispose();
         super.dispose();
@@ -118,32 +110,19 @@ class _TwicMediaState extends State<TwicMedia> {
                     height: widget.viewSize.height!,
                     width: widget.viewSize.width,
                     child: ( visible && urls?.media != null ) ?
-                        (
-                            widget.props.mediaType == twic_types.MediaType.image ?
-                                CustomImage(
-                                    key: mediaKey,
-                                    alignment: widget.props.alignment!,
-                                    fit: widget.props.fit,
-                                    url: urls!.media,
-                                    onLoaded: ( loaded ) => {
-                                        setState( () {
-                                            twicDone = true;
-                                        } )
-                                    } ,
-                                ):
-                                CustomVideo(
-                                    key: mediaKey,
-                                    alignment: widget.props.alignment!,
-                                    fit: widget.props.fit,
-                                    urls: urls!,
-                                    onLoaded: ( loaded ) => {
-                                        setState( () {
-                                            twicDone = true;
-                                        } )
-                                    } ,
-                                    viewSize: widget.viewSize 
-                                )
-                        ) :
+                        CustomMedia(
+                            key: mediaKey,
+                            alignment: widget.props.alignment!,
+                            fit: widget.props.fit,
+                            mediaType: widget.props.mediaType,
+                            onLoaded: ( loaded ) {
+                                setState( () {
+                                    twicDone = true;
+                                } );
+                            } ,
+                            urls: urls!,
+                            viewSize: widget.viewSize,
+                        ):
                         null
                     ),
                 secondChild: CustomPlaceholder(

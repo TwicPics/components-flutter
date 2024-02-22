@@ -24,51 +24,39 @@ class CustomVideo extends StatefulWidget {
 
 class _CustomVideoState extends State<CustomVideo> {
     VideoPlayerController? _controller;
-    void _initController(String url) {
-        _controller = VideoPlayerController.networkUrl(
-            Uri.parse( url ), 
-            videoPlayerOptions: VideoPlayerOptions( mixWithOthers: true ) 
-        )
-        ..initialize().then( (_) {
-            setState( () {
-                widget.onLoaded(true);
-                _controller!.setVolume( 0 );
-                _controller!.setLooping( true );
-                _controller!.play();
-            } );
-        } );
-    }
 
-    Future<void> startVideoPlayer(String link) async {
-        if ( _controller == null ) {
-            _initController(link);
-        } else {
-            final oldController = _controller;
-            WidgetsBinding.instance.addPostFrameCallback((_) async {
-                await oldController!.dispose();
-                _initController(link);
-            });
-            setState(() {
-                _controller = null;
-            });
+    Future<void> startVideoPlayer() async {
+        if ( _controller != null ) {
+            await _controller!.dispose();
+        }
+        if ( widget.urls.media != null ) {
+            _controller = VideoPlayerController.networkUrl(
+                Uri.parse( widget.urls.media! ), 
+                videoPlayerOptions: VideoPlayerOptions( mixWithOthers: true ) 
+            )
+            ..initialize().then( (_) {
+                setState( () {
+                    widget.onLoaded(true);
+                    _controller!.setVolume( 0 );
+                    _controller!.setLooping( true );
+                    _controller!.play();
+                } );
+            } );
         }
     }
 
     @override
     void didChangeDependencies(){
         if ( widget.urls.media != null ) {
-            startVideoPlayer( widget.urls.media! );
+            startVideoPlayer();
         }
         super.didChangeDependencies();
     }
 
     @override
     void didUpdateWidget(CustomVideo oldWidget) {
-        if (
-            widget.urls.media != null &&
-            ( oldWidget.urls.media != widget.urls.media )
-        ) {
-            startVideoPlayer( widget.urls.media! );
+        if ( oldWidget.urls.media != widget.urls.media ) {
+            startVideoPlayer();
         }
         super.didUpdateWidget(oldWidget);
     }
@@ -83,11 +71,30 @@ class _CustomVideoState extends State<CustomVideo> {
 
     @override
     Widget build(BuildContext context) {
-        return SizedBox(
-            height: widget.viewSize.height!,
-            width: widget.viewSize.width,
-            child: ( _controller != null && _controller!.value.isInitialized ) ?
-                FittedBox(
+        return AnimatedCrossFade(
+            crossFadeState: ( _controller != null && _controller!.value.isInitialized ) ?
+                CrossFadeState.showFirst :
+                CrossFadeState.showSecond,
+            duration: const Duration(milliseconds: 1),
+            reverseDuration: const Duration(milliseconds: 250),
+            firstCurve: Curves.easeIn,
+            secondCurve: Curves.easeOut,
+            layoutBuilder: ( topChild, topChildKey, bottomChild, bottomChildKey ) => Stack(
+                children: [
+                    Positioned(
+                        key:bottomChildKey,
+                        child: bottomChild
+                    ),
+                    Positioned(
+                        key:topChildKey,
+                        child: topChild
+                    )
+                ],    
+            ),
+            firstChild: SizedBox(
+                height: widget.viewSize.height!,
+                width: widget.viewSize.width,
+                child: FittedBox(
                     fit: widget.fit,
                     alignment: widget.alignment,
                     child: SizedBox(
@@ -95,18 +102,22 @@ class _CustomVideoState extends State<CustomVideo> {
                         height: _controller!.value.size.height,
                         child: VideoPlayer(_controller!)
                     ),
-                ): 
-                CustomImage(
+                )
+            ),
+            secondChild: SizedBox(
+                height: widget.viewSize.height!,
+                width: widget.viewSize.width,
+                child: CustomImage(
                     alignment: widget.alignment,
                     fit: widget.fit,
                     url: widget.urls.poster,
                     onLoaded: ( loaded ) => {
                         setState( () {
-                            debugPrint('Poster done');
                             widget.onLoaded( true );
                         } )
                     } ,
-                )
-        ); 
+                ),
+            ),
+        );
     }
 }

@@ -38,14 +38,12 @@ class _CustomImageState extends State<CustomImage> {
 
     @override
     Widget build(BuildContext context) {
-        return Container(
-            child: bytes != null ?
-                Image.memory(
-                    bytes!,
-                    alignment: widget.alignment,
-                    fit: widget.fit,
-                ):
-                null ,
-        );
+        return  bytes != null ?
+            Image.memory(
+                bytes!,
+                alignment: widget.alignment,
+                fit: widget.fit,
+            ):
+            Container();
     }
 }

@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Adds `TwicVideo` for a seamless playback of [videos optimized with TwicPics](https://www.twicpics.com/docs/topics/video-optimization). 
+
 ### Fixed
 
 - Ensures that the `API` is not queried too frequently when resizing viewport.

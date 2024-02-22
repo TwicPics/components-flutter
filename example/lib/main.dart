@@ -18,37 +18,35 @@ import 'package:example/pages/scroll_sample.dart';
 import 'package:example/pages/transform_sample.dart';
 import 'package:twicpics_components/twicpics_components.dart';
 
-
 void main() {
-    install(
-        cacheCleanOnStartUp: true,
-        cacheMaxNrOfObjects: 200,
-        cacheStalePeriod: const Duration( days: 7 ),
-        domain: "https://demo.twic.pics/",
-        debug: true,
-    );
-    runApp( MaterialApp(
-        initialRoute: '/home',
-        routes: {
-            '/': ( context ) => const Home(),
-            '/anchor': ( context ) => const AnchorSample(),
-            '/basic': ( context ) => const BasicSample(),
-            '/basicVideo': ( context ) => const BasicVideoSample(),
-            '/card': ( context ) => const CardSample(),
-            '/focus': ( context ) => const FocusSample(),
-            '/grid': ( context ) => const GridSample(),
-            '/home': ( context ) => const Home(),
-            '/hero': ( context ) => const HeroSample(),
-            '/heroVideo': ( context ) => const HeroVideoSample(),
-            '/mode': ( context ) => const ModeSample(),
-            '/modeVideo': ( context ) => const ModeVideoSample(),
-            '/position': ( context ) => const PositionSample(),
-            '/refit': ( context ) => const RefitSample(),
-            '/ratio': ( context ) => const RatioSample(),
-            '/scroll': ( context ) => const ScrollSample(),
-            '/transform': ( context ) => const TransformSample(),
-            '/videoSlicing': ( context ) => const VideoSlicing(),
-        },
-    ) );
+  install(
+    cacheCleanOnStartUp: true,
+    cacheMaxNrOfObjects: 200,
+    cacheStalePeriod: const Duration(days: 7),
+    domain: "https://demo.twic.pics/",
+    debug: true,
+  );
+  runApp(MaterialApp(
+    initialRoute: '/home',
+    routes: {
+      '/': (context) => const Home(),
+      '/anchor': (context) => const AnchorSample(),
+      '/basic': (context) => const BasicSample(),
+      '/basicVideo': (context) => const BasicVideoSample(),
+      '/card': (context) => const CardSample(),
+      '/focus': (context) => const FocusSample(),
+      '/grid': (context) => const GridSample(),
+      '/home': (context) => const Home(),
+      '/hero': (context) => const HeroSample(),
+      '/heroVideo': (context) => const HeroVideoSample(),
+      '/mode': (context) => const ModeSample(),
+      '/modeVideo': (context) => const ModeVideoSample(),
+      '/position': (context) => const PositionSample(),
+      '/refit': (context) => const RefitSample(),
+      '/ratio': (context) => const RatioSample(),
+      '/scroll': (context) => const ScrollSample(),
+      '/transform': (context) => const TransformSample(),
+      '/videoSlicing': (context) => const VideoSlicing(),
+    },
+  ));
 }
-

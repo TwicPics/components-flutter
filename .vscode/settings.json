@@ -1,7 +1,10 @@
 {
-  "editor.formatOnSave": false,
+  "editor.formatOnSave": true,
   "editor.defaultFormatter": "Dart-Code.flutter",
+  "editor.tabSize": 2,
   "cSpell.words": [
     "debouncer"
-  ]
+  ],
+  "editor.detectIndentation": false,
+  "editor.formatOnPaste": true
 }

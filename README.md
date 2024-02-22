@@ -12,13 +12,15 @@ TwicPics acts as an **proxy**. It retrieves your master file — from your own w
 
 ### What is TwicPics Flutter Components ?
 
- `TwicImg` is a widget that make it dead easy to unleash the power of [TwicPics](https://www.twicpics.com/) in your `Flutter` projects.
+ `TwicImg` and `TwicVideo` are widgets that make it dead easy to unleash the power of [TwicPics](https://www.twicpics.com/) in your `Flutter` projects.
 
 ## Features
+
 - Fast Loading
-- Images sized to the pixel
+- Images and videos sized to the pixel
 - DPR awareness
 - Lazy-loading
+- Low Quality Image Placeholder
 - Cache management
 - CLS optimization
 - Smart Cropping
@@ -53,7 +55,7 @@ void main() {
 }
 ```
 
-3 - Display a network image: 
+3 - Display a network image:
 
 ```dart
 // my_widget.dart
@@ -66,6 +68,24 @@ class MyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TwicImg(
       src: 'path/to/my/image',
+    );
+  }
+}
+```
+
+4 - Display a network video:
+
+```dart
+// my_widget.dart
+
+import 'package:twicpics_components/twicpics_components.dart';
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return TwicVideo(
+      src: 'path/to/my/video',
     );
   }
 }

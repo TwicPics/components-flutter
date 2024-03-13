@@ -10,7 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- Adds `TwicVideo` for a seamless playback of [videos optimized with TwicPics](https://www.twicpics.com/docs/topics/video-optimization). 
+- Adds `TwicVideo` for a seamless playback of [videos optimized with TwicPics](https://www.twicpics.com/docs/guides/video-optimization). 
 
 ### Fixed
 

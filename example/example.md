@@ -240,7 +240,7 @@ class MyWidget extends StatelessWidget {
 
 ### Working with ratio="none"
 
-Allows to display an asset with a __free height__ while respecting its __natural aspect-ratio__.
+Allows to display both image or video with a __free height__ while respecting its __natural aspect-ratio__.
 
 #### Hero image
 

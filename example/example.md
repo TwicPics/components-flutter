@@ -445,7 +445,7 @@ class MyWidget extends StatelessWidget {
 }
 ```
 
-Read more about [video slicing](https://www.twicpics.com/docs/topics/video-optimization#video-slicing).
+Read more about [video slicing](https://www.twicpics.com/docs/guides/video-optimization#video-slicing).
 
 ## Questions and feedback
 

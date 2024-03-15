@@ -109,6 +109,7 @@ class UrlData {
   String? focus;
   Size? intrinsic;
   bool lqip;
+  MediaType mediaType;
   TwicPlaceholder? placeholder;
   bool poster;
   String? preTransform;
@@ -124,6 +125,7 @@ class UrlData {
       this.focus,
       this.intrinsic,
       this.lqip = false,
+      this.mediaType = MediaType.image,
       this.placeholder,
       this.poster = false,
       this.preTransform,

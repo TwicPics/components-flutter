@@ -111,6 +111,7 @@ String computeUrl(UrlData urlData) {
   final focus = urlData.focus;
   final intrinsic = urlData.intrinsic;
   final lqip = urlData.lqip;
+  final mediaType = urlData.mediaType;
   final placeholder = urlData.placeholder;
   final poster = urlData.poster;
   final preTransform = urlData.preTransform;
@@ -126,16 +127,19 @@ String computeUrl(UrlData urlData) {
       lqip: lqip,
       step: step,
       viewSize: viewSize);
-  final actualOutput = (poster
+
+  final actualOutput = poster
       ? 'image'
       : (lqip && placeholder != null)
           ? mappingPlaceholder[placeholder]
-          : '');
-  final videoTransform = videoOptions?.videoTransform;
-  final posterTransform = videoOptions?.posterTransform;
-  final actualVideoTransform =
-      ((lqip || poster) ? posterTransform : videoTransform) ?? '';
-  final actualTransform = '${computePreTransform(
+          : '';
+
+  final actualVideoTransform = (lqip || poster)
+      ? videoOptions?.posterTransform ?? ''
+      : videoOptions?.videoTransform ?? '';
+
+  String actualTransform =
+      '${((mediaType == MediaType.image || poster) && !lqip) ? '/output=webp' : ''}${computePreTransform(
     fit: fit,
     anchor: anchor,
     focus: focus,
@@ -174,6 +178,7 @@ Urls computeUrls({
     fit: fit,
     focus: focus,
     intrinsic: intrinsic,
+    mediaType: mediaType,
     placeholder: placeholder,
     preTransform: preTransform,
     refit: refit,

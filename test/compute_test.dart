@@ -198,7 +198,7 @@ void main() {
             src: 'media:cat.jpg',
             viewSize: Size(width: 400, height: 300),
           )),
-          'https://demo.twic.pics/cat.jpg?twic=v1/cover=400x300');
+          'https://demo.twic.pics/cat.jpg?twic=v1/output=webp/cover=400x300');
     });
     test('should compute url with cover transformation and manage default step',
         () {
@@ -208,7 +208,7 @@ void main() {
             src: 'media:cat.jpg',
             viewSize: Size(width: 451, height: 451),
           )),
-          'https://demo.twic.pics/cat.jpg?twic=v1/cover=450x450');
+          'https://demo.twic.pics/cat.jpg?twic=v1/output=webp/cover=450x450');
     });
     test('should compute url with contain transformation', () {
       expect(
@@ -217,7 +217,7 @@ void main() {
             src: 'media:cat.jpg',
             viewSize: Size(width: 400, height: 300),
           )),
-          'https://demo.twic.pics/cat.jpg?twic=v1/contain=400x300');
+          'https://demo.twic.pics/cat.jpg?twic=v1/output=webp/contain=400x300');
     });
     test('should compute url with dpr 2', () {
       expect(
@@ -227,7 +227,7 @@ void main() {
             dpr: 2,
             viewSize: Size(width: 400, height: 300),
           )),
-          'https://demo.twic.pics/cat.jpg?twic=v1/contain=800x600');
+          'https://demo.twic.pics/cat.jpg?twic=v1/output=webp/contain=800x600');
     });
     test('should compute url with step = 100', () {
       expect(
@@ -237,7 +237,7 @@ void main() {
             step: 100,
             viewSize: Size(width: 455, height: 355),
           )),
-          'https://demo.twic.pics/cat.jpg?twic=v1/contain=400x312');
+          'https://demo.twic.pics/cat.jpg?twic=v1/output=webp/contain=400x312');
     });
     test('should compute url with step = 100 and dpr2', () {
       expect(
@@ -248,7 +248,7 @@ void main() {
             dpr: 2,
             viewSize: Size(width: 455, height: 355),
           )),
-          'https://demo.twic.pics/cat.jpg?twic=v1/contain=800x624');
+          'https://demo.twic.pics/cat.jpg?twic=v1/output=webp/contain=800x624');
     });
     test('should compute url with a refit auto as fit is set to contain', () {
       expect(
@@ -258,7 +258,7 @@ void main() {
             refit: '15p',
             viewSize: Size(width: 500, height: 500),
           )),
-          'https://demo.twic.pics/cat.jpg?twic=v1/refit=500x500(15p)');
+          'https://demo.twic.pics/cat.jpg?twic=v1/output=webp/refit=500x500(15p)');
     });
     test('should compute url with a refit auto as fit is set to contain', () {
       expect(
@@ -268,7 +268,7 @@ void main() {
             refit: '15p',
             viewSize: Size(width: 500, height: 500),
           )),
-          'https://demo.twic.pics/cat.jpg?twic=v1/refit=auto(15p)/contain=500x500');
+          'https://demo.twic.pics/cat.jpg?twic=v1/output=webp/refit=auto(15p)/contain=500x500');
     });
     test('should compute url with placeholder = preview', () {
       expect(
@@ -302,7 +302,7 @@ void main() {
             viewSize: Size(width: 400, height: 300),
             intrinsic: Size(width: 500, height: 500),
           )),
-          'https://demo.twic.pics/cat.jpg?twic=v1/cover=400x300');
+          'https://demo.twic.pics/cat.jpg?twic=v1/output=webp/cover=400x300');
     });
     test(
         'should compute url with cover transformation and intrinsic dimensions lower than the size of the view',
@@ -314,7 +314,7 @@ void main() {
             viewSize: Size(width: 800, height: 800),
             intrinsic: Size(width: 500, height: 500),
           )),
-          'https://demo.twic.pics/cat.jpg?twic=v1/cover=500x500');
+          'https://demo.twic.pics/cat.jpg?twic=v1/output=webp/cover=500x500');
     });
     test(
         'should compute url with cover transformation, intrinsic dimensions greater than the size of the view and a portrait ratio',
@@ -326,7 +326,7 @@ void main() {
             viewSize: Size(width: 500, height: 800),
             intrinsic: Size(width: 500, height: 500),
           )),
-          'https://demo.twic.pics/cat.jpg?twic=v1/cover=312x500');
+          'https://demo.twic.pics/cat.jpg?twic=v1/output=webp/cover=312x500');
     });
     test(
         'should compute url with cover transformation, intrinsic dimensions greater than the size of the view and a landscape ratio',
@@ -338,7 +338,7 @@ void main() {
             viewSize: Size(width: 800, height: 500),
             intrinsic: Size(width: 500, height: 500),
           )),
-          'https://demo.twic.pics/cat.jpg?twic=v1/cover=500x312');
+          'https://demo.twic.pics/cat.jpg?twic=v1/output=webp/cover=500x312');
     });
     test('should compute url a refit cover transformation', () {
       expect(
@@ -348,7 +348,7 @@ void main() {
             viewSize: Size(width: 800, height: 500),
             refit: '',
           )),
-          'https://demo.twic.pics/cat.jpg?twic=v1/refit=800x500');
+          'https://demo.twic.pics/cat.jpg?twic=v1/output=webp/refit=800x500');
     });
     test('should compute url a refit auto transformation', () {
       expect(
@@ -358,12 +358,13 @@ void main() {
             viewSize: Size(width: 800, height: 500),
             refit: '',
           )),
-          'https://demo.twic.pics/cat.jpg?twic=v1/refit=auto/contain=800x500');
+          'https://demo.twic.pics/cat.jpg?twic=v1/output=webp/refit=auto/contain=800x500');
     });
     test('should compute url with poster = false', () {
       expect(
           computeUrl(UrlData(
             fit: BoxFit.cover,
+            mediaType: MediaType.video,
             poster: false,
             src: 'media:video/skater.mp4',
             viewSize: Size(width: 800, height: 500),
@@ -375,12 +376,13 @@ void main() {
           computeUrl(
             UrlData(
               fit: BoxFit.cover,
+              mediaType: MediaType.video,
               poster: true,
               src: 'media:video/skater.mp4',
               viewSize: Size(width: 800, height: 500),
             ),
           ),
-          'https://demo.twic.pics/video/skater.mp4?twic=v1/cover=800x500/output=image');
+          'https://demo.twic.pics/video/skater.mp4?twic=v1/output=webp/cover=800x500/output=image');
     });
 
     VideoOptions videoOptions = VideoOptions(
@@ -399,13 +401,14 @@ void main() {
               viewSize: Size(width: 800, height: 500),
             ),
           ),
-          'https://demo.twic.pics/video/skater.mp4?twic=v1/cover=800x500/from=2.1/output=image');
+          'https://demo.twic.pics/video/skater.mp4?twic=v1/output=webp/cover=800x500/from=2.1/output=image');
     });
     test('should compute url with video slicing from, to', () {
       expect(
           computeUrl(
             UrlData(
               fit: BoxFit.cover,
+              mediaType: MediaType.video,
               src: 'media:video/skater.mp4',
               videoOptions: videoOptions,
               viewSize: Size(width: 800, height: 500),
@@ -423,6 +426,7 @@ void main() {
           computeUrl(
             UrlData(
               fit: BoxFit.cover,
+              mediaType: MediaType.video,
               src: 'media:video/skater.mp4',
               videoOptions: videoOptions2,
               viewSize: Size(width: 800, height: 500),
@@ -435,13 +439,14 @@ void main() {
           computeUrl(
             UrlData(
               fit: BoxFit.cover,
+              mediaType: MediaType.video,
               poster: true,
               src: 'media:video/skater.mp4',
               videoOptions: videoOptions2,
               viewSize: Size(width: 800, height: 500),
             ),
           ),
-          'https://demo.twic.pics/video/skater.mp4?twic=v1/cover=800x500/output=image');
+          'https://demo.twic.pics/video/skater.mp4?twic=v1/output=webp/cover=800x500/output=image');
     });
 
     VideoOptions videoOptions3 = VideoOptions(
@@ -455,13 +460,14 @@ void main() {
           computeUrl(
             UrlData(
               fit: BoxFit.cover,
+              mediaType: MediaType.video,
               poster: true,
               src: 'media:video/skater.mp4',
               videoOptions: videoOptions3,
               viewSize: Size(width: 800, height: 500),
             ),
           ),
-          'https://demo.twic.pics/video/skater.mp4?twic=v1/cover=800x500/from=4/output=image');
+          'https://demo.twic.pics/video/skater.mp4?twic=v1/output=webp/cover=800x500/from=4/output=image');
     });
     test(
         'should compute preview url with poster and video slicing to, duration and posterFrom',
@@ -494,7 +500,7 @@ void main() {
       );
       expect(
         urls.media,
-        'https://demo.twic.pics/cat.jpg?twic=v1/cover=400x300',
+        'https://demo.twic.pics/cat.jpg?twic=v1/output=webp/cover=400x300',
       );
       expect(
         urls.placeholder,
@@ -515,7 +521,7 @@ void main() {
       );
       expect(
         urls.media,
-        'https://demo.twic.pics/cat.jpg?twic=v1/cover=400x300',
+        'https://demo.twic.pics/cat.jpg?twic=v1/output=webp/cover=400x300',
       );
       expect(
         urls.placeholder,
@@ -548,7 +554,7 @@ void main() {
       );
       expect(
         urls.poster,
-        'https://demo.twic.pics/video/skater.mp4?twic=v1/cover=400x300/from=4/output=image',
+        'https://demo.twic.pics/video/skater.mp4?twic=v1/output=webp/cover=400x300/from=4/output=image',
       );
     });
     test('should compute urls with poster but no preview', () {
@@ -573,7 +579,7 @@ void main() {
       );
       expect(
         urls.poster,
-        'https://demo.twic.pics/video/skater.mp4?twic=v1/cover=400x300/from=4/output=image',
+        'https://demo.twic.pics/video/skater.mp4?twic=v1/output=webp/cover=400x300/from=4/output=image',
       );
     });
   });

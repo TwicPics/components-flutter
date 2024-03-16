@@ -95,6 +95,37 @@ void main() {
     });
   });
 
+  group('computePadding', () {
+    final inspectData = InspectData(
+        height: 1000,
+        intrinsicWidth: 24,
+        padding: PaddingData(
+            bottom: 278,
+            color: Color.fromRGBO(125, 125, 125, 0.5),
+            left: 0,
+            right: 0,
+            top: 278),
+        width: 667);
+    final viewSize = Size(width: 400, height: 400);
+    final actualPadding =
+        computePadding(inspectData: inspectData, viewSize: viewSize);
+    test('should return correct bottom padding', () {
+      expect(actualPadding.bottom, 111.2);
+    });
+    test('should return correct left padding', () {
+      expect(actualPadding.left, 0);
+    });
+    test('should return correct right padding', () {
+      expect(actualPadding.right, 0);
+    });
+    test('should return correct top padding', () {
+      expect(actualPadding.top, 111.2);
+    });
+    test('should return correct color', () {
+      expect(actualPadding.color, Color.fromRGBO(125, 125, 125, 0.5));
+    });
+  });
+
   group('computePreTransform', () {
     test('should return empty string', () {
       String preTransform = computePreTransform(fit: BoxFit.cover);

@@ -68,6 +68,24 @@ final Map<Alignment, String> mappingAlignment = {
   Alignment.topRight: 'top-right',
 };
 
+PaddingData computePadding({
+  required InspectData inspectData,
+  required Size viewSize,
+}) {
+  final padding = inspectData.padding;
+  if (!padding.hasPadding()) {
+    return padding;
+  }
+  final heightFactor = viewSize.height! / inspectData.height;
+  final widthFactor = viewSize.width / inspectData.width;
+  return PaddingData(
+      bottom: padding.bottom * heightFactor,
+      left: padding.left * widthFactor,
+      right: padding.right * widthFactor,
+      top: padding.top * heightFactor,
+      color: padding.color);
+}
+
 String computePreTransform({
   Alignment? anchor,
   String? focus,

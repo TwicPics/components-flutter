@@ -53,23 +53,59 @@ class Context {
   Context({required this.mode, required this.size});
 }
 
+class InspectData {
+  Uint8List? image;
+  Color? color;
+  late double height;
+  late double intrinsicWidth;
+  late double width;
+  PaddingData padding;
+  InspectData( {
+    this.color,
+    required this.height,
+    this.image,
+    required this.intrinsicWidth,
+    required this.padding,
+    required this.width,
+   } );
+}
+
 enum MediaType {
   image,
   video,
 }
 
+class PaddingData {
+  double bottom;
+  double left;
+  double right;
+  double top;
+  Color? color;
+  PaddingData(
+      {this.bottom = 0,
+      this.left = 0,
+      this.right = 0,
+      this.top = 0,
+      this.color});
+  bool hasPadding() {
+    return bottom != 0 || left != 0 || right != 0 || top != 0;
+  }
+}
+
 class PlaceholderData {
-  Uint8List? bytes;
+  Uint8List? image;
   Color? color;
   double? deviation;
   late double height;
   late double width;
+  PaddingData padding;
   PlaceholderData(
-      {this.bytes,
+      {this.image,
       this.color,
       this.deviation,
       required this.height,
-      required this.width});
+      required this.width,
+      required this.padding});
 }
 
 class Size {

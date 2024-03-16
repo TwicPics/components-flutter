@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/widgets.dart' hide Placeholder;
 import 'package:twicpics_components/src/install.dart';
 import 'package:twicpics_components/src/types.dart';
@@ -28,28 +30,25 @@ bool? parseBoolean(dynamic value) {
 }
 
 final RegExp rColor = RegExp(
-    r'(?:rgba\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*([0-9]*\.[0-9]+|[0-9]+)\s*\))|(?:(?:#?([a-fA-F\d]{2})([a-fA-F\d]{2})([a-fA-F\d]{2})))');
+    r'(?:rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*([0-9]*\.[0-9]+|[0-9]+)\s*\))?)|(?:(?:#?([a-fA-F\d]{2})([a-fA-F\d]{2})([a-fA-F\d]{2})))');
 Color? parseColor(String? value) {
-  if (value == null) {
-    return null;
-  }
-  RegExpMatch? parsed = rColor.firstMatch(value);
-  if (parsed == null) {
-    return null;
-  }
+  if (value == null) return null;
 
-  int red = parsed.group(1) != null
-      ? int.parse(parsed.group(1)!)
-      : int.parse(parsed.group(5)!, radix: 16);
-  int green = parsed.group(2) != null
-      ? int.parse(parsed.group(2)!)
-      : int.parse(parsed.group(6)!, radix: 16);
-  int blue = parsed.group(3) != null
-      ? int.parse(parsed.group(3)!)
-      : int.parse(parsed.group(7)!, radix: 16);
-  double alpha = parsed.group(4) != null ? double.parse(parsed.group(4)!) : 1.0;
+  final RegExpMatch? parsed = rColor.firstMatch(value);
+  if (parsed == null) return null;
 
-  return Color.fromRGBO(red, green, blue, alpha);
+  return Color.fromRGBO(
+    parsed.group(1) != null
+        ? int.parse(parsed.group(1)!)
+        : int.parse(parsed.group(5)!, radix: 16),
+    parsed.group(2) != null
+        ? int.parse(parsed.group(2)!)
+        : int.parse(parsed.group(6)!, radix: 16),
+    parsed.group(3) != null
+        ? int.parse(parsed.group(3)!)
+        : int.parse(parsed.group(7)!, radix: 16),
+    parsed.group(4) != null ? double.parse(parsed.group(4)!) : 1.0,
+  );
 }
 
 const parseDuration = parseNumber;
@@ -59,6 +58,30 @@ bool parseEager(bool? eager) => eager ?? false;
 final parseFocus = trimOrUndefined;
 
 const parseFrom = parseNumber;
+
+final RegExp rPreviewImage = RegExp(r'data:image\/png;base64,([^"]*)');
+
+InspectData? parseInspect(String? value) {
+  Map? map = value != null ? jsonDecode(value) as Map : null;
+  if (map == null ||
+      map['output'] == null ||
+      map['output']['intrinsicWidth'] == 0 ||
+      map['output']['height'] == 0 ||
+      map['output']['width'] == 0) {
+    return null;
+  }
+  final previewImage = map['output']['image'] != null
+      ? rPreviewImage.firstMatch(map['output']['image'])
+      : null;
+
+  return InspectData(
+      color: parseColor(map['output']['color']),
+      height: parseDouble(map['output']['height']),
+      image: previewImage != null ? base64Decode(previewImage[1]!) : null,
+      intrinsicWidth: parseDouble(map['output']['intrinsicWidth']),
+      width: parseDouble(map['output']['width']),
+      padding: parsePadding(map['output']['padding']));
+}
 
 Size? parseIntrinsic(String? value) {
   if (value == null || value.isEmpty) {
@@ -99,6 +122,24 @@ num? parseNumber(dynamic value) {
     value = trimmed != null ? num.tryParse(trimmed) : null;
   }
   return isPositiveNumber(value) ? value : null;
+}
+
+double parseDouble(dynamic value) {
+  return parseNumber(value)?.toDouble() ?? 0;
+}
+
+PaddingData parsePadding(Map<String, dynamic>? value) {
+  if (value == null) {
+    return PaddingData();
+  }
+
+  return PaddingData(
+    bottom: parseDouble(value['bottom']),
+    left: parseDouble(value['left']),
+    right: parseDouble(value['right']),
+    top: parseDouble(value['top']),
+    color: parseColor(value['color']),
+  );
 }
 
 Alignment? parsePosition(TwicPosition? position) =>

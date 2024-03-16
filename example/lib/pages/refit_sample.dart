@@ -46,7 +46,8 @@ class _RefitSampleState extends State<RefitSample> {
       backgroundColor: Colors.grey[200],
       appBar: const CustomAppBar(title: 'Refit Sample'),
       body: SampleContainer(
-        label: 'refit = ${config[indice].refit}, mode = ${config[indice].mode}',
+        label:
+            'refit = ${config[indice].refit}, mode = ${config[indice].mode}, anchor = ${config[indice].anchor}',
         child: TwicImg(
           anchor: config[indice].anchor,
           src: 'components/refit/dog-looking-water.jpg',

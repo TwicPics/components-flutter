@@ -4,6 +4,7 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:twicpics_components/src/http.dart';
+import 'package:twicpics_components/src/parse.dart';
 import 'package:twicpics_components/src/types.dart' as twic_types;
 import 'package:twicpics_components/src/utils.dart';
 
@@ -22,16 +23,10 @@ Future<twic_types.PlaceholderData?> getPlaceholderData({
     return null;
   }
 
-  final color = decoded['output']['color'] != null
-      ? int.tryParse(
-          '0xFF${decoded['output']['color'].toString().replaceAll("#", "")}')
-      : null;
-
   final intrinsicWidth = decoded['output']['intrinsicWidth'];
   final height = decoded['output']['height'];
   final width = decoded['output']['width'];
 
-  final deviation = intrinsicWidth != null ? width / intrinsicWidth : 0.0;
   final intrinsicRatio = width / height;
   final viewRatio = viewSize.width / viewSize.height!;
   final actualWidth = max(
@@ -47,8 +42,8 @@ Future<twic_types.PlaceholderData?> getPlaceholderData({
       : null;
   return twic_types.PlaceholderData(
     bytes: parsedBytes != null ? base64Decode(parsedBytes[1]!) : null,
-    color: color,
-    deviation: deviation,
+    color: parseColor(decoded['output']['color']),
+    deviation: intrinsicWidth != null ? width / intrinsicWidth : 0.0,
     height: actualHeight,
     width: actualWidth,
   );
@@ -112,9 +107,7 @@ class _PlaceholderState extends State<Placeholder> {
             child: Container(
               width: placeholderData!.width,
               height: placeholderData!.height,
-              color: placeholderData!.color != null
-                  ? Color(placeholderData!.color!)
-                  : null,
+              color: placeholderData!.color,
               child: placeholderData!.bytes != null
                   ? ImageFiltered(
                       imageFilter: ImageFilter.blur(

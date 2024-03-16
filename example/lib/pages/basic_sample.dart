@@ -108,6 +108,15 @@ class _BasicSampleState extends State<BasicSample> {
                   preTransform: 'background=remove+rgb(143,0,255,0.1)',
                 ),
               ),
+              SampleContainer(
+                label: 'Colorize alpha red, long transition',
+                child: TwicImg(
+                  src: 'football.jpg',
+                  placeholder: TwicPlaceholder.meancolor,
+                  preTransform: 'colorize=red.5',
+                  transitionDuration: const Duration(seconds: 10),
+                ),
+              ),
             ],
           ),
         ),

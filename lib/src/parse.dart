@@ -27,6 +27,31 @@ bool? parseBoolean(dynamic value) {
   return mappingBoolean[value.toString().trim()];
 }
 
+final RegExp rColor = RegExp(
+    r'(?:rgba\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*([0-9]*\.[0-9]+|[0-9]+)\s*\))|(?:(?:#?([a-fA-F\d]{2})([a-fA-F\d]{2})([a-fA-F\d]{2})))');
+Color? parseColor(String? value) {
+  if (value == null) {
+    return null;
+  }
+  RegExpMatch? parsed = rColor.firstMatch(value);
+  if (parsed == null) {
+    return null;
+  }
+
+  int red = parsed.group(1) != null
+      ? int.parse(parsed.group(1)!)
+      : int.parse(parsed.group(5)!, radix: 16);
+  int green = parsed.group(2) != null
+      ? int.parse(parsed.group(2)!)
+      : int.parse(parsed.group(6)!, radix: 16);
+  int blue = parsed.group(3) != null
+      ? int.parse(parsed.group(3)!)
+      : int.parse(parsed.group(7)!, radix: 16);
+  double alpha = parsed.group(4) != null ? double.parse(parsed.group(4)!) : 1.0;
+
+  return Color.fromRGBO(red, green, blue, alpha);
+}
+
 const parseDuration = parseNumber;
 
 bool parseEager(bool? eager) => eager ?? false;

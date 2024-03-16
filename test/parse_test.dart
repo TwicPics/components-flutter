@@ -38,6 +38,24 @@ void main() {
     });
   });
 
+  group('Parse color', () {
+    test('should return null if null', () {
+      expect(parseColor(null), null);
+    });
+    test('should return null if bad color', () {
+      expect(parseColor("badColor"), null);
+    });
+    test('should return Color from CSS HEX Colors', () {
+      expect(parseColor("#FF0202"), const Color(0xFFFF0202));
+    });
+    test('should return Color from rgba', () {
+      expect(parseColor("rgba(255,2,2,1)"), const Color(0xFFFF0202));
+    });
+    test('should return Color from rgba with alpha', () {
+      expect(parseColor("rgba(255,2,2,0.5)"), const Color(0x7FFF0202));
+    });
+  });
+
   group('Parse duration', () {
     test('should return null if null', () {
       expect(parseDuration(null), null);

@@ -11,7 +11,15 @@ class TransformSample extends StatefulWidget {
 }
 
 class _TransformSampleState extends State<TransformSample> {
-  final transforms = ['', 'flip=x', 'flip=y', 'focus=60px50p/crop=25px25p'];
+  final transforms = [
+    '',
+    'flip=x',
+    'flip=y',
+    'focus=60px50p/crop=25px25p',
+    'colorize=red',
+    'colorize=red.5',
+    'colorize=red.5:black',
+  ];
   int indice = 0;
   void changeTransform() {
     setState(() {
@@ -29,6 +37,7 @@ class _TransformSampleState extends State<TransformSample> {
         child: TwicImg(
           src: 'cat_1x1.jpg',
           mode: TwicMode.contain,
+          placeholder: TwicPlaceholder.maincolor,
           preTransform: transforms[indice],
         ),
       ),

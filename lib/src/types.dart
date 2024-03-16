@@ -60,7 +60,7 @@ enum MediaType {
 
 class PlaceholderData {
   Uint8List? bytes;
-  int? color;
+  Color? color;
   double? deviation;
   late double height;
   late double width;

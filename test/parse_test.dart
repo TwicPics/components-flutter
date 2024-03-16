@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:twicpics_components/src/install.dart';
@@ -38,6 +40,24 @@ void main() {
     });
   });
 
+  group('Parse double', () {
+    test('should fallback to 0 when null provided', () {
+      expect(parseDouble(null), 0);
+    });
+    test('should fallback to 0 when NAN provided', () {
+      expect(parseDouble('NAN'), 0);
+    });
+    test('should return double when string double provided', () {
+      expect(parseDouble('123.45'), 123.45);
+    });
+    test('should return double when double provided', () {
+      expect(parseDouble(123.45), 123.45);
+    });
+    test('should return double when int provided', () {
+      expect(parseDouble(123), 123.0);
+    });
+  });
+
   group('Parse color', () {
     test('should return null if null', () {
       expect(parseColor(null), null);
@@ -48,11 +68,17 @@ void main() {
     test('should return Color from CSS HEX Colors', () {
       expect(parseColor("#FF0202"), const Color(0xFFFF0202));
     });
+    test('should return Color from rgb', () {
+      expect(parseColor("rgb(255,2,2)"), const Color(0xFFFF0202));
+    });
     test('should return Color from rgba', () {
       expect(parseColor("rgba(255,2,2,1)"), const Color(0xFFFF0202));
     });
     test('should return Color from rgba with alpha', () {
       expect(parseColor("rgba(255,2,2,0.5)"), const Color(0x7FFF0202));
+    });
+    test('should return Color from rgba with RGB and alpha', () {
+      expect(parseColor("rgba(255,128,64,0.5)"), const Color(0x7FFF8040));
     });
   });
 
@@ -176,6 +202,65 @@ void main() {
     });
   });
 
+  group('Parse inspect', () {
+    test('should fallback to null', () {
+      expect(parseInspect(null), null);
+    });
+    test('should fallback to null when no output in inspect', () {
+      expect(parseInspect('{}'), null);
+    });
+    final inspectData = parseInspect(jsonEncode({
+      "input": {
+        "alpha": false,
+        "format": "jpeg",
+        "height": 1386,
+        "width": 2080
+      },
+      "output": {
+        "format": "svg",
+        "height": 1000,
+        "intrinsiceHeight": 36,
+        "intrinsicWidth": 24,
+        "padding": {
+          "bottom": 278,
+          "left": 0,
+          "right": 0,
+          "top": 278,
+          "color": "rgb(255,0,0)"
+        },
+        "width": 667,
+        "color": "#EDEDEC"
+      }
+    }));
+    test('should return height', () {
+      expect(inspectData!.height, 1000);
+    });
+    test('should return width', () {
+      expect(inspectData!.width, 667);
+    });
+    test('should return intrinsicWidth', () {
+      expect(inspectData!.intrinsicWidth, 24);
+    });
+    test('should return color', () {
+      expect(inspectData!.color, Color.fromRGBO(237, 237, 236, 1));
+    });
+    test('should return padding bottom', () {
+      expect(inspectData!.padding.bottom, 278);
+    });
+    test('should return padding top', () {
+      expect(inspectData!.padding.top, 278);
+    });
+    test('should return padding left', () {
+      expect(inspectData!.padding.left, 0);
+    });
+    test('should return padding right', () {
+      expect(inspectData!.padding.right, 0);
+    });
+    test('should return padding color', () {
+      expect(inspectData!.padding.color, Color.fromRGBO(255, 0, 0, 1));
+    });
+  });
+
   group('Parse intrinsic', () {
     test('should fallback to null', () {
       expect(parseIntrinsic(null), null);
@@ -219,6 +304,86 @@ void main() {
     });
     test('should return decimal value from string', () {
       expect(parseNumber('5.6789'), 5.6789);
+    });
+  });
+
+  group('Parse padding', () {
+    test(
+        'Should return padding with default values when no values are provided',
+        () {
+      final result = parsePadding(null);
+      expect(result.bottom, equals(0));
+      expect(result.left, equals(0));
+      expect(result.right, equals(0));
+      expect(result.top, equals(0));
+      expect(result.color, equals(null));
+      expect(result.hasPadding(), equals(false));
+    });
+    test(
+        'Should return padding with default values when no values are provided',
+        () {
+      final result = parsePadding({});
+      expect(result.bottom, equals(0));
+      expect(result.left, equals(0));
+      expect(result.right, equals(0));
+      expect(result.top, equals(0));
+      expect(result.color, equals(null));
+      expect(result.hasPadding(), equals(false));
+    });
+    test('Should parse padding values correctly without color', () {
+      final result =
+          parsePadding({'bottom': 10, 'left': 20, 'right': 30, 'top': 40});
+      expect(result.bottom, equals(10));
+      expect(result.left, equals(20));
+      expect(result.right, equals(30));
+      expect(result.top, equals(40));
+      expect(result.color, equals(null));
+      expect(result.hasPadding(), equals(true));
+    });
+    test('Should parse padding values correctly and hex color', () {
+      final result = parsePadding({
+        'bottom': 10,
+        'left': 20,
+        'right': 30,
+        'top': 40,
+        'color': '#FF0000' // Example color value
+      });
+      expect(result.bottom, equals(10));
+      expect(result.left, equals(20));
+      expect(result.right, equals(30));
+      expect(result.top, equals(40));
+      expect(result.color, equals(const Color(0xFFFF0000)));
+      expect(result.hasPadding(), equals(true));
+    });
+    test('Should parse padding values correctly and rgb color', () {
+      final result = parsePadding({
+        'bottom': 10,
+        'left': 20,
+        'right': 30,
+        'top': 40,
+        'color': '#rgb(0,0,255)' // Example color value
+      });
+      expect(result.bottom, equals(10));
+      expect(result.left, equals(20));
+      expect(result.right, equals(30));
+      expect(result.top, equals(40));
+      expect(result.color, equals(const Color(0xFF0000FF)));
+      expect(result.hasPadding(), equals(true));
+    });
+    test('Should parse padding values correctly and rgba color', () {
+      final result = parsePadding({
+        'bottom': 10,
+        'left': 20,
+        'right': 30,
+        'top': 40,
+        'color': 'rgba(0,0,255,0.5)' // Example color value
+      });
+      expect(result.bottom, equals(10));
+      expect(result.left, equals(20));
+      expect(result.right, equals(30));
+      expect(result.top, equals(40));
+      expect(result.color, equals(const Color(0x7F0000FF)));
+      expect(result.hasPadding(), equals(true));
     });
   });
 

@@ -3,48 +3,43 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:twicpics_components/src/compute.dart';
 import 'package:twicpics_components/src/http.dart';
 import 'package:twicpics_components/src/parse.dart';
 import 'package:twicpics_components/src/types.dart' as twic_types;
 import 'package:twicpics_components/src/utils.dart';
 
-final RegExp rBYTES = RegExp(r'data:image\/png;base64,([^"]*)');
-
 Future<twic_types.PlaceholderData?> getPlaceholderData({
   required String url,
   required twic_types.Size viewSize,
 }) async {
-  final response = await getAsString("$url/inspect");
-  Map? decoded = response != null ? jsonDecode(response) as Map : null;
-  if (decoded == null ||
-      decoded['output']['intrinsicWidth'] == 0 ||
-      decoded['output']['height'] == 0 ||
-      decoded['output']['width'] == 0) {
+  final inspectData = parseInspect(await getAsString("$url/inspect"));
+  if (inspectData == null) {
     return null;
   }
 
-  final intrinsicWidth = decoded['output']['intrinsicWidth'];
-  final height = decoded['output']['height'];
-  final width = decoded['output']['width'];
-
-  final intrinsicRatio = width / height;
+  final intrinsicRatio = inspectData.width / inspectData.height;
   final viewRatio = viewSize.width / viewSize.height!;
-  final actualWidth = max(
-          1,
-          intrinsicRatio > viewRatio
-              ? viewSize.width
-              : viewSize.height! * intrinsicRatio)
-      .roundToDouble();
-  final actualHeight = (actualWidth / intrinsicRatio).roundToDouble();
 
-  final parsedBytes = decoded['output']['image'] != null
-      ? rBYTES.firstMatch(decoded['output']['image'])
-      : null;
+  // determines the appropriate width for displaying the LQIP
+  double actualWidth;
+  if (intrinsicRatio > viewRatio) {
+    // if the intrinsic ratio is greater than the view ratio, use the view's width
+    actualWidth = viewSize.width;
+  } else {
+    // otherwise, calculate the width based on the view's height and intrinsic ratio
+    actualWidth = viewSize.height! * intrinsicRatio;
+  }
+
+  // ensure the width is at least 1 pixel wide and round it to a double
+  actualWidth = max(1, actualWidth).roundToDouble();
+
   return twic_types.PlaceholderData(
-    bytes: parsedBytes != null ? base64Decode(parsedBytes[1]!) : null,
-    color: parseColor(decoded['output']['color']),
-    deviation: intrinsicWidth != null ? width / intrinsicWidth : 0.0,
-    height: actualHeight,
+    image: inspectData.image,
+    color: inspectData.color,
+    deviation: inspectData.width / inspectData.intrinsicWidth,
+    height: (actualWidth / intrinsicRatio).roundToDouble(),
+    padding: computePadding(inspectData: inspectData, viewSize: viewSize),
     width: actualWidth,
   );
 }
@@ -98,28 +93,44 @@ class _PlaceholderState extends State<Placeholder> {
       return Container();
     } else {
       return SizedBox(
+        // reserved LQIP emplacement
         height: widget.viewSize.height!,
         width: widget.viewSize.width,
         child: FittedBox(
+          // widget responsible for correct positioning of placeholder in its display area
           fit: widget.fit,
           alignment: widget.alignment,
-          child: ClipRRect(
+          child: Container(
+            // widget responsible for padding and padding color
+            // it also determines the size of the actual LQIP
+            color: placeholderData!.padding.color,
+            width: placeholderData!.width,
+            height: placeholderData!.height,
+            padding: EdgeInsets.fromLTRB(
+                // padding
+                placeholderData!.padding.left,
+                placeholderData!.padding.top,
+                placeholderData!.padding.right,
+                placeholderData!.padding.bottom),
             child: Container(
-              width: placeholderData!.width,
-              height: placeholderData!.height,
-              color: placeholderData!.color,
-              child: placeholderData!.bytes != null
-                  ? ImageFiltered(
-                      imageFilter: ImageFilter.blur(
-                        sigmaX: placeholderData!.deviation!,
-                        sigmaY: placeholderData!.deviation!,
-                      ),
-                      child: Image.memory(
-                        placeholderData!.bytes!,
-                        fit: BoxFit.fill,
+              // widget responsible of displaying blur image or placeholder color
+              color: placeholderData!.color ??
+                  Colors.black.withOpacity(0), // main or mean color
+              child: placeholderData!.image != null
+                  ? ClipRect(
+                      // this widget prevents blur escaping outside its container
+                      child: ImageFiltered(
+                        imageFilter: ImageFilter.blur(
+                          sigmaX: placeholderData!.deviation!,
+                          sigmaY: placeholderData!.deviation!,
+                        ),
+                        child: Image.memory(
+                          placeholderData!.image!,
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     )
-                  : null,
+                  : Container(),
             ),
           ),
         ),

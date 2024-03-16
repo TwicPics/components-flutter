@@ -126,6 +126,51 @@ class _BasicSampleState extends State<BasicSample> {
                   transitionDuration: const Duration(seconds: 10),
                 ),
               ),
+              SampleContainer(
+                label: 'inside=200x400/border=green meancolor, long transition',
+                child: TwicImg(
+                  src: 'cat_1x1.jpg',
+                  mode: TwicMode.contain,
+                  placeholder: TwicPlaceholder.meancolor,
+                  preTransform: 'inside=200x400/border=green',
+                  transitionDuration: const Duration(seconds: 10),
+                ),
+              ),
+              SampleContainer(
+                label: 'inside=200x400/border=green preview, long transition',
+                child: TwicImg(
+                  src: 'cat_1x1.jpg',
+                  mode: TwicMode.contain,
+                  preTransform: 'inside=200x400/border=green',
+                  transitionDuration: const Duration(seconds: 10),
+                ),
+              ),
+              SampleContainer(
+                label: 'inside=200x400/border=green.5',
+                child: TwicImg(
+                  src: 'cat_1x1.jpg',
+                  mode: TwicMode.contain,
+                  placeholder: TwicPlaceholder.meancolor,
+                  preTransform: 'inside=200x400/border=green.5',
+                ),
+              ),
+              SampleContainer(
+                label: 'inside=500x200/inside=500x500/border=red',
+                child: TwicImg(
+                  src: 'cat_1x1.jpg',
+                  ratio: 1,
+                  preTransform: 'inside=500x200/inside=500x500/border=red',
+                ),
+              ),
+              SampleContainer(
+                label: 'inside=500x200/inside=500x500/border=red + meancolor',
+                child: TwicImg(
+                  src: 'football.jpg',
+                  ratio: 1,
+                  preTransform: 'inside=500x200/inside=500x500/border=red',
+                  placeholder: TwicPlaceholder.meancolor,
+                ),
+              ),
             ],
           ),
         ),

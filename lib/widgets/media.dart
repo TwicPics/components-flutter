@@ -36,7 +36,7 @@ class _MediaState extends State<Media> {
               widget.onLoaded(loaded);
             },
           )
-        : CustomVideo(
+        : Video(
             alignment: widget.alignment,
             fit: widget.fit,
             urls: widget.urls,

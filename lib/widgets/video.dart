@@ -4,13 +4,13 @@ import 'package:twicpics_components/src/types.dart' as twic_types;
 import 'package:twicpics_components/widgets/image.dart';
 import 'package:video_player/video_player.dart';
 
-class CustomVideo extends StatefulWidget {
+class Video extends StatefulWidget {
   Alignment alignment;
   BoxFit fit;
   final ValueChanged<bool> onLoaded;
   twic_types.Urls urls;
   twic_types.Size viewSize;
-  CustomVideo({
+  Video({
     super.key,
     required this.alignment,
     required this.fit,
@@ -19,10 +19,10 @@ class CustomVideo extends StatefulWidget {
     required this.viewSize,
   });
   @override
-  State<CustomVideo> createState() => _CustomVideoState();
+  State<Video> createState() => _VideoState();
 }
 
-class _CustomVideoState extends State<CustomVideo> {
+class _VideoState extends State<Video> {
   VideoPlayerController? _controller;
 
   Future<void> startVideoPlayer() async {
@@ -53,7 +53,7 @@ class _CustomVideoState extends State<CustomVideo> {
   }
 
   @override
-  void didUpdateWidget(CustomVideo oldWidget) {
+  void didUpdateWidget(Video oldWidget) {
     if (oldWidget.urls.media != widget.urls.media) {
       startVideoPlayer();
     }

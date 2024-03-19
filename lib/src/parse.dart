@@ -30,7 +30,9 @@ bool? parseBoolean(dynamic value) {
 }
 
 final RegExp rColor = RegExp(
-    r'(?:rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*([0-9]*\.[0-9]+|[0-9]+)\s*\))?)|(?:(?:#?([a-fA-F\d]{2})([a-fA-F\d]{2})([a-fA-F\d]{2})))');
+  r'(?:rgba?\((\d*\.?\d+)\s*,\s*(\d*\.?\d+)\s*,\s*(\d*\.?\d+)\s*(?:,\s*(\d*\.?\d+)\s*\))?)|(?:(?:#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})))',
+  caseSensitive: false,
+);
 Color? parseColor(String? value) {
   if (value == null) return null;
 
@@ -39,13 +41,13 @@ Color? parseColor(String? value) {
 
   return Color.fromRGBO(
     parsed.group(1) != null
-        ? int.parse(parsed.group(1)!)
+        ? double.parse(parsed.group(1)!).round()
         : int.parse(parsed.group(5)!, radix: 16),
     parsed.group(2) != null
-        ? int.parse(parsed.group(2)!)
+        ? double.parse(parsed.group(2)!).round()
         : int.parse(parsed.group(6)!, radix: 16),
     parsed.group(3) != null
-        ? int.parse(parsed.group(3)!)
+        ? double.parse(parsed.group(3)!).round()
         : int.parse(parsed.group(7)!, radix: 16),
     parsed.group(4) != null ? double.parse(parsed.group(4)!) : 1.0,
   );
@@ -63,23 +65,35 @@ final RegExp rPreviewImage = RegExp(r'data:image\/png;base64,([^"]*)');
 
 InspectData? parseInspect(String? value) {
   Map? map = value != null ? jsonDecode(value) as Map : null;
-  if (map == null ||
-      map['output'] == null ||
-      map['output']['intrinsicWidth'] == 0 ||
-      map['output']['height'] == 0 ||
-      map['output']['width'] == 0) {
+  if (map == null || map['output'] == null) {
     return null;
   }
-  final previewImage = map['output']['image'] != null
+
+  final height = parseDouble(map['output']['height']);
+  final intrinsicHeight = map['output']['intrinsicHeight'] != null
+      ? parseDouble(map['output']['intrinsicHeight'])
+      : parseDouble(map['output']['intrinsiceHeight']);
+  final intrinsicWidth = parseDouble(map['output']['intrinsicWidth']);
+  final width = parseDouble(map['output']['width']);
+
+  if (height == 0 ||
+      intrinsicHeight == 0 ||
+      intrinsicWidth == 0 ||
+      width == 0) {
+    return null;
+  }
+
+  final image = map['output']['image'] != null
       ? rPreviewImage.firstMatch(map['output']['image'])
       : null;
 
   return InspectData(
       color: parseColor(map['output']['color']),
-      height: parseDouble(map['output']['height']),
-      image: previewImage != null ? base64Decode(previewImage[1]!) : null,
-      intrinsicWidth: parseDouble(map['output']['intrinsicWidth']),
-      width: parseDouble(map['output']['width']),
+      height: height,
+      image: image != null ? base64Decode(image[1]!) : null,
+      intrinsicHeight: intrinsicHeight,
+      intrinsicWidth: intrinsicWidth,
+      width: width,
       padding: parsePadding(map['output']['padding']));
 }
 

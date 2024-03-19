@@ -171,6 +171,23 @@ class _BasicSampleState extends State<BasicSample> {
                   placeholder: TwicPlaceholder.meancolor,
                 ),
               ),
+              SampleContainer(
+                label: 'inside=500x200/inside=500x500 + preview',
+                child: TwicImg(
+                  src: 'football.jpg',
+                  ratio: 1,
+                  preTransform: 'inside=500x200/inside=500x500',
+                ),
+              ),
+              SampleContainer(
+                label: 'inside=500x200/inside=500x500 + meancolor',
+                child: TwicImg(
+                  src: 'football.jpg',
+                  ratio: 1,
+                  preTransform: 'inside=500x200/inside=500x500',
+                  placeholder: TwicPlaceholder.meancolor,
+                ),
+              ),
             ],
           ),
         ),

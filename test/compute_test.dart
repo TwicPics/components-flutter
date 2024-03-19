@@ -98,10 +98,11 @@ void main() {
   group('computePadding', () {
     final inspectData = InspectData(
         height: 1000,
+        intrinsicHeight: 36,
         intrinsicWidth: 24,
         padding: PaddingData(
             bottom: 278,
-            color: Color.fromRGBO(125, 125, 125, 0.5),
+            color: const Color.fromRGBO(125, 125, 125, 0.5),
             left: 0,
             right: 0,
             top: 278),
@@ -122,7 +123,7 @@ void main() {
       expect(actualPadding.top, 111.2);
     });
     test('should return correct color', () {
-      expect(actualPadding.color, Color.fromRGBO(125, 125, 125, 0.5));
+      expect(actualPadding.color, const Color.fromRGBO(125, 125, 125, 0.5));
     });
   });
 

@@ -71,6 +71,9 @@ void main() {
     test('should return Color from rgb', () {
       expect(parseColor("rgb(255,2,2)"), const Color(0xFFFF0202));
     });
+    test('should return Color from rgb with double values', () {
+      expect(parseColor("rgb(29.07,29.07,29.07)"), const Color(0xFF1D1D1D));
+    });
     test('should return Color from rgba', () {
       expect(parseColor("rgba(255,2,2,1)"), const Color(0xFFFF0202));
     });
@@ -219,7 +222,7 @@ void main() {
       "output": {
         "format": "svg",
         "height": 1000,
-        "intrinsiceHeight": 36,
+        "intrinsicHeight": 36,
         "intrinsicWidth": 24,
         "padding": {
           "bottom": 278,
@@ -238,11 +241,14 @@ void main() {
     test('should return width', () {
       expect(inspectData!.width, 667);
     });
+    test('should return intrinsicHeight', () {
+      expect(inspectData!.intrinsicHeight, 36);
+    });
     test('should return intrinsicWidth', () {
       expect(inspectData!.intrinsicWidth, 24);
     });
     test('should return color', () {
-      expect(inspectData!.color, Color.fromRGBO(237, 237, 236, 1));
+      expect(inspectData!.color, const Color.fromRGBO(237, 237, 236, 1));
     });
     test('should return padding bottom', () {
       expect(inspectData!.padding.bottom, 278);
@@ -257,7 +263,7 @@ void main() {
       expect(inspectData!.padding.right, 0);
     });
     test('should return padding color', () {
-      expect(inspectData!.padding.color, Color.fromRGBO(255, 0, 0, 1));
+      expect(inspectData!.padding.color, const Color.fromRGBO(255, 0, 0, 1));
     });
   });
 

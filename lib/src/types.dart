@@ -57,17 +57,19 @@ class InspectData {
   Uint8List? image;
   Color? color;
   late double height;
+  late double intrinsicHeight;
   late double intrinsicWidth;
   late double width;
   PaddingData padding;
-  InspectData( {
+  InspectData({
     this.color,
     required this.height,
     this.image,
+    required this.intrinsicHeight,
     required this.intrinsicWidth,
     required this.padding,
     required this.width,
-   } );
+  });
 }
 
 enum MediaType {

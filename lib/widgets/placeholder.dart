@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable, constant_identifier_names
-import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
@@ -37,7 +36,14 @@ Future<twic_types.PlaceholderData?> getPlaceholderData({
   return twic_types.PlaceholderData(
     image: inspectData.image,
     color: inspectData.color,
-    deviation: inspectData.width / inspectData.intrinsicWidth,
+    deviation: sqrt((inspectData.height -
+                inspectData.padding.top -
+                inspectData.padding.bottom) *
+            (inspectData.width -
+                inspectData.padding.left -
+                inspectData.padding.right) /
+            (inspectData.intrinsicHeight * inspectData.intrinsicWidth)) *
+        0.5,
     height: (actualWidth / intrinsicRatio).roundToDouble(),
     padding: computePadding(inspectData: inspectData, viewSize: viewSize),
     width: actualWidth,

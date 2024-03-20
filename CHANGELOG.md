@@ -8,9 +8,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.3.0] - 2024-03-20
+
 ### Added
 
-- Adds `TwicVideo` for a seamless playback of [videos optimized with TwicPics](https://www.twicpics.com/docs/guides/video-optimization). 
+- Adds `TwicVideo` for a seamless playback of [videos optimized with TwicPics](https://www.twicpics.com/docs/guides/video-optimization).
+
+- Adds support for translucency in `TwicImg`.
 
 ### Fixed
 
@@ -18,7 +22,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   
 - Fixes multiple calls to `inspect` route when resizing viewport.
 
-## [0.2.1] - 2024-09-18
+## [0.2.1] - 2023-09-18
 
 ### Changed
 
@@ -26,7 +30,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Updates brand: TwicPics becomes TwicPics by Frontify.
 
-## [0.2.0] - 2024-07-18
+## [0.2.0] - 2023-07-18
 
 ### Added
 
@@ -36,20 +40,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Fixes example project for MacOS platform: 'Operation not permitted issue' when trying to fetch asset.
 
-## [0.1.1] - 2024-06-16
+## [0.1.1] - 2023-06-16
 
 ### Fixed
 
 - Improves responsiveness of cached image display.
 - No more unnecessary redrawing when `TwicImg` is placed in a stateful widget tree.
 
-## [0.1.0] - 2024-05-27
+## [0.1.0] - 2023-05-27
 
 ### Added
 
 - Add `TwicImg` widget.
 
 [Unreleased]: https://github.com/TwicPics/components/compare/main...dev
+[0.3.0]: https://github.com/TwicPics/components-flutter/compare/0.2.1...0.3.0
 [0.2.1]: https://github.com/TwicPics/components-flutter/compare/0.2.0...0.2.1
 [0.2.0]: https://github.com/TwicPics/components-flutter/compare/0.1.1...0.2.0
 [0.1.1]: https://github.com/TwicPics/components-flutter/compare/0.1.0...0.1.1

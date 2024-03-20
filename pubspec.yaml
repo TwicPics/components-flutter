@@ -1,5 +1,5 @@
 name: twicpics_components
-version: 0.2.1
+version: 0.3.0
 description: A library that brings the power of TwicPics to your flutter applications.
 homepage: https://www.twicpics.com/
 repository: https://github.com/TwicPics/components-flutter
@@ -20,9 +20,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_cache_manager: 3.3.1
-  video_player: 2.8.3
-  visibility_detector: 0.4.0+2
+  flutter_cache_manager: ^3.3.1
+  video_player: ^2.8.3
+  visibility_detector: ^0.4.0+2
 
 dev_dependencies:
   flutter_test:

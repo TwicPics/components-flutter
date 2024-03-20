@@ -9,8 +9,12 @@ import 'package:twicpics_components/widgets/placeholder.dart'
 import 'package:visibility_detector/visibility_detector.dart';
 
 class Wrapper extends StatefulWidget {
+  /// defines media display dimensions
   final twic_types.Size viewSize;
+
+  /// sets
   final twic_types.Attributes props;
+  // defines the unique key for this Wrapper instance (helps maintain widget state)
   final uid = UniqueKey();
   Wrapper({
     Key? key,

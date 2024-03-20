@@ -156,11 +156,13 @@ class _BasicVideoSampleState extends State<BasicVideoSample> {
                     preTransform: 'inside=400x200/inside=200x400/border=blue'),
               ),
               SampleContainer(
-                label: 'inside=400x200/inside=200x400/border=blue/colorize=black',
+                label:
+                    'inside=400x200/inside=200x400/border=blue/colorize=black',
                 child: TwicVideo(
                     src: 'video/purple-shirt.mp4',
                     mode: TwicMode.cover,
-                    preTransform: 'inside=400x200/inside=200x400/border=blue/colorize=black'),
+                    preTransform:
+                        'inside=400x200/inside=200x400/border=blue/colorize=black'),
               ),
             ],
           ),

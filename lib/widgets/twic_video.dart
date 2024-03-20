@@ -7,6 +7,12 @@ import 'package:twicpics_components/src/pre_compute.dart';
 import 'package:twicpics_components/src/types.dart';
 import 'package:twicpics_components/widgets/wrapper.dart';
 
+/// A widget that displays videos optimized with TwicPics offering pixel-perfect rendering
+/// with optimized Cumulative Layout Shift (CLS), Low-Quality Image Placeholder (LQIP), and lazy loading.
+///
+/// For more information on [TwicVideo] widget API, please visit: https://www.twicpics.com/docs/components/flutter#twicvideo
+///
+/// For more information on videos optimized with TwicPics, please visit: https://www.twicpics.com/docs/guides/video-optimization
 class TwicVideo extends StatelessWidget {
   late Attributes props;
   TwicVideo({

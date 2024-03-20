@@ -5,11 +5,22 @@ import 'package:twicpics_components/widgets/image.dart';
 import 'package:twicpics_components/widgets/video.dart';
 
 class Media extends StatefulWidget {
+  /// defines how to align the media (image or video) within its bounds.
   Alignment alignment;
+
+  /// defines how to inscribe the media (image or video) into the space allocated during layout.
   BoxFit fit;
+
+  /// defines the type of media to be displayed (image ot video)
   MediaType mediaType;
+
+  /// notifies when media is ready to be displayed
   final ValueChanged<bool> onLoaded;
+
+  /// defines the URLs for the media and its associated poster (if video)
   Urls urls;
+
+  /// defines media display area dimensions
   Size viewSize;
   Media(
       {super.key,

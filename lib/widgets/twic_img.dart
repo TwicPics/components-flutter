@@ -6,6 +6,10 @@ import 'package:twicpics_components/src/parse.dart';
 import 'package:twicpics_components/src/types.dart';
 import 'package:twicpics_components/widgets/wrapper.dart';
 
+/// A widget that displays images using the TwicPics API under the hood, offering pixel-perfect rendering
+/// with optimized Cumulative Layout Shift (CLS), Low-Quality Image Placeholder (LQIP), and lazy loading.
+///
+/// For more information on [TwicImg] widget API, please visit: https://www.twicpics.com/docs/components/flutter#twicimg
 class TwicImg extends StatelessWidget {
   late Attributes props;
   TwicImg({

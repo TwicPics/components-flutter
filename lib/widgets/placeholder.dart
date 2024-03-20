@@ -51,9 +51,16 @@ Future<twic_types.PlaceholderData?> getPlaceholderData({
 }
 
 class Placeholder extends StatefulWidget {
+  /// defines how to align the LQIP within its bounds.
   Alignment alignment;
+
+  /// defines how to inscribe the LQIP into the space allocated during layout.
   BoxFit fit;
+
+  /// specifies the LQIP URL be fetched
   String? url;
+
+  /// defines LQIP display area dimensions
   twic_types.Size viewSize;
   Placeholder(
       {super.key,

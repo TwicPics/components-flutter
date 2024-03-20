@@ -5,10 +5,15 @@ import 'package:twicpics_components/widgets/image.dart';
 import 'package:video_player/video_player.dart';
 
 class Video extends StatefulWidget {
+  // defines how to align the video within its bounds.
   Alignment alignment;
+  // defines how to inscribe the video into the space allocated during layout.
   BoxFit fit;
+  // notifies when video is ready to be displayed
   final ValueChanged<bool> onLoaded;
+  // defines the URL for the video and its associated poster
   twic_types.Urls urls;
+  // defines video display area dimensions
   twic_types.Size viewSize;
   Video({
     super.key,

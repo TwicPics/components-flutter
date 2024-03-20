@@ -5,9 +5,16 @@ import 'package:flutter/material.dart' as legacy show Image;
 import 'package:twicpics_components/src/http.dart';
 
 class Image extends StatefulWidget {
+  /// defines how to align the image within its bounds.
   Alignment alignment;
+
+  /// defines how to inscribe the image into the space allocated during layout.
   BoxFit fit;
+
+  /// notifies when image is ready to be displayed
   final ValueChanged<bool> onLoaded;
+
+  /// specifies the image URL to be fetched
   String? url;
   Image(
       {super.key,
